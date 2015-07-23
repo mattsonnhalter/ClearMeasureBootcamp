@@ -18,9 +18,13 @@ of iterations, writing tests and leveraging CI. Roll up the sleeves!
 ## Roadmap
 
 The MVC Framework 6 is part of ASP.NET 5 and continues to evolve. The RTM (go-live) 
-release is [scheduled for Q1 of 2016](https://github.com/aspnet/Home/wiki/Roadmap). We are building out this sample and giving 
-guidance to developers throughout this evolution and stabilization, and will be updating
-this solution from time-to-time along the way.
+release is [scheduled for Q1 of 2016](https://github.com/aspnet/Home/wiki/Roadmap). 
+We are building out this sample and giving guidance to developers throughout this 
+evolution and stabilization, and will be updating this solution from time-to-time 
+along the way.
+
+> We are currently in the process of migrating from MVC 5 to MVC 6. You can follow
+> our progress at our blog and through the issues here on GitHub.
 
 ## Pre-requisites
 
