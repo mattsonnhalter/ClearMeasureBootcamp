@@ -1,7 +1,7 @@
-# Clear Measure Bootcamp for MVC6
+# Clear Measure MVP Master Bootcamp 
 
-**This project is the starting point for folks taking part in the Clear Measure Bootcamp 
-for MVC6.** 
+**This project is the starting point for folks taking part in the Clear Measure 
+Bootcamp for MVC.** 
 
 This course is a feature-driven walkthrough that guides participants through
 a series of improvements to an existing code base, demonstrating best pracitices and 
@@ -11,7 +11,9 @@ and working through scenarios targetting 300- and 400-level developers.
 
 The starting point is an expense report application with a very limited feature set, and
 room to improve. You will work through defining and prioritizing new features, then work 
-in pairs to build these out.
+in pairs to build these out. Your product owner will present you with new requirements
+while you map out how things will be built, pair programming and working through a series
+of iterations, writing tests and leveraging CI. Roll up the sleeves!
 
 ## Roadmap
 
@@ -32,6 +34,9 @@ If you do not have SQL Server Express 2014 or have named your instance otherwise
 a user-level environment variable called "dbServer" with the correct connection string
 information.
 
- 
+## Getting Started
 
- 
+- Clone the repo
+- Configure your db
+- Run the click to build script
+- Run the application from VS
