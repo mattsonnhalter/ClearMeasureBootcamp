@@ -6,15 +6,25 @@ namespace ClearMeasure.Bootcamp.Core.Model
 {
     public class ExpenseReport
     {
-        public IList<AuditEntry> _auditEntries = new List<AuditEntry>(); 
-        public virtual Guid Id { get; set; }
-        public virtual string Title { get; set; }
-        public virtual string Description { get; set; }
-        public virtual ExpenseReportStatus Status { get; set; }
-        public virtual Employee Submitter { get; set; }
-        public virtual Employee Approver { get; set; }
-        public virtual string Number { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        public IList<AuditEntry> _auditEntries = new List<AuditEntry>();
+        public IList<Expense> _expenses = new List<Expense>();
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public ExpenseReportStatus Status { get; set; }
+        public Employee Submitter { get; set; }
+        public Employee Approver { get; set; }
+        public string Number { get; set; }
+        // New Properties
+        public int MilesDriven { get; set; }
+        public DateTime? Created { get; set; }
+        public DateTime? FirstSubmitted { get; set; }
+        public DateTime? LastSubmitted { get; set; }
+        public DateTime? LastWithdrawn { get; set; }
+        public DateTime? LastCancelled { get; set; }
+        public DateTime? LastApproved { get; set; }
+        public DateTime? LastDeclined { get; set; }
+        public decimal Total { get; set; }
 
         public ExpenseReport()
         {
@@ -23,12 +33,12 @@ namespace ClearMeasure.Bootcamp.Core.Model
             Title = "";
         }
 
-        public virtual string FriendlyStatus
+        public string FriendlyStatus
         {
             get { return GetTextForStatus(); }
         }
 
-        protected virtual string GetTextForStatus()
+        protected string GetTextForStatus()
         {
             return Status.ToString();
         }
@@ -38,16 +48,16 @@ namespace ClearMeasure.Bootcamp.Core.Model
             return "ExpenseReport " + Number;
         }
 
-        public virtual void ChangeStatus(ExpenseReportStatus status)
+        public void ChangeStatus(ExpenseReportStatus status)
         {
             Status = status;
         }
 
-        public virtual void ChangeStatus(Employee employee, DateTime date, ExpenseReportStatus status)
+        public void ChangeStatus(Employee employee, DateTime date, ExpenseReportStatus beginStatus, ExpenseReportStatus endStatus)
         {
-            var auditItem = new AuditEntry(employee, date, Status, status);
+            var auditItem = new AuditEntry(employee, date, beginStatus, endStatus);
             _auditEntries.Add(auditItem);
-            Status = status;
+            Status = endStatus;
         }
 
         public AuditEntry[] GetAuditEntries()
@@ -58,6 +68,17 @@ namespace ClearMeasure.Bootcamp.Core.Model
         public void AddAuditEntry(AuditEntry auditEntry)
         {
             _auditEntries.Add(auditEntry);
+        }
+
+        public void AddExpense(string description, decimal total)
+        {
+            var expense = new Expense(total, description);
+            _expenses.Add(expense);
+        }
+
+        public Expense[] GetExpenses()
+        {
+            return _expenses.ToArray();
         }
     }
 }

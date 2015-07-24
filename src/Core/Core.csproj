@@ -57,8 +57,8 @@
     <SlowCheetahTargets Condition=" '$(SlowCheetah_EnableImportFromNuGet)'=='true' and Exists('$(SlowCheetah_NuGetImportPath)') ">$(SlowCheetah_NuGetImportPath)</SlowCheetahTargets>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\packages\Iesi.Collections.3.2.0.1001\lib\Net35\Iesi.Collections.dll</HintPath>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -73,42 +73,53 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Bus.cs" />
+    <Compile Include="Features\MutlipleExpenses\AddExpenseCommand.cs" />
+    <Compile Include="Features\MutlipleExpenses\AddExpenseResult.cs" />
+    <Compile Include="Features\SearchExpenseReports\ExpenseReportSpecificationQuery.cs" />
+    <Compile Include="Model\Expense.cs" />
+    <Compile Include="Plugins\DataAccess\ExpenseReportByNumberQuery.cs" />
+    <Compile Include="Plugins\DataAccess\ExpenseReportSaveCommand.cs" />
+    <Compile Include="Plugins\DataAccess\MultipleResult.cs" />
+    <Compile Include="Features\Workflow\ExecuteTransitionCommand.cs" />
+    <Compile Include="Features\Workflow\ExecuteTransitionCommandHandler.cs" />
+    <Compile Include="Features\Workflow\ExecuteTransitionResult.cs" />
+    <Compile Include="Model\ExpenseReportAnalytics\AddExpenseReportFactResult.cs" />
+    <Compile Include="Model\ExpenseReportAnalytics\ExpenseReportFact.cs" />
+    <Compile Include="Model\ExpenseReportAnalytics\AddExpenseReportFactCommand.cs" />
+    <Compile Include="Model\Manager.cs" />
+    <Compile Include="Model\ExpenseReportWorkflow\NextStep.cs" />
+    <Compile Include="IRequest.cs" />
+    <Compile Include="IRequestHandler.cs" />
     <Compile Include="Model\AuditEntry.cs" />
     <Compile Include="Model\Employee.cs" />
+    <Compile Include="Model\ExpenseReportWorkflow\SubmittedToApprovedCommand.cs" />
+    <Compile Include="Model\ExpenseReportWorkflow\SubmittedToDraftCommand.cs" />
+    <Compile Include="Model\ExpenseReportWorkflow\DraftToCancelledCommand.cs" />
+    <Compile Include="Model\ExpenseReportWorkflow\ApprovedToCancelledCommand.cs" />
     <Compile Include="Model\ListItem.cs" />
     <Compile Include="Model\Role.cs" />
-    <Compile Include="Model\ExpenseReportWorkflow\SubmittedToApprovedCommand.cs" />
+    <Compile Include="Model\ExpenseReportWorkflow\ApprovedToSubmittedCommand.cs" />
     <Compile Include="Model\ExpenseReportWorkflow\DraftToSubmittedCommand.cs" />
     <Compile Include="Model\ExpenseReportWorkflow\DraftingCommand.cs" />
     <Compile Include="Model\ExpenseReportWorkflow\StateCommandBase.cs" />
     <Compile Include="Model\ExpenseReport.cs" />
     <Compile Include="Model\ExpenseReportStatus.cs" />
-    <Compile Include="Services\EmployeeSpecification.cs" />
-    <Compile Include="Services\FlashMessage.cs" />
+    <Compile Include="Plugins\DataAccess\EmployeeByUserNameQuery.cs" />
+    <Compile Include="Plugins\DataAccess\SingleResult.cs" />
+    <Compile Include="Plugins\DataAccess\EmployeeSpecificationQuery.cs" />
     <Compile Include="Services\IApplicationInformation.cs" />
     <Compile Include="Services\ICalendar.cs" />
-    <Compile Include="Services\IConfiguration.cs" />
-    <Compile Include="Services\IEmailService.cs" />
-    <Compile Include="Services\IEmployeeRepository.cs" />
     <Compile Include="Services\Impl\ApplicationInformation.cs" />
     <Compile Include="Services\Impl\Calendar.cs" />
-    <Compile Include="Services\Impl\EmailService.cs" />
-    <Compile Include="Services\Impl\SmtpNotifier.cs" />
     <Compile Include="Services\Impl\WorkflowFacilitator.cs" />
     <Compile Include="Services\Impl\ExpenseReportBuilder.cs" />
     <Compile Include="Services\Impl\NumberGenerator.cs" />
-    <Compile Include="Services\INotifier.cs" />
-    <Compile Include="Services\IStateCommand.cs" />
-    <Compile Include="Services\IStateCommandVisitor.cs" />
+    <Compile Include="Model\ExpenseReportWorkflow\IStateCommand.cs" />
     <Compile Include="Services\IUserSession.cs" />
     <Compile Include="Services\IWorkflowFacilitator.cs" />
     <Compile Include="Services\IExpenseReportBuilder.cs" />
     <Compile Include="Services\INumberGenerator.cs" />
-    <Compile Include="Services\IExpenseReportRepository.cs" />
-    <Compile Include="Services\LoggingNotifier.cs" />
-    <Compile Include="Services\SearchSpecification.cs" />
-    <Compile Include="Settings\ConfigurationWrapper.cs" />
-    <Compile Include="Settings\IConfigurationWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

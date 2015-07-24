@@ -1,4 +1,4 @@
-﻿using ClearMeasure.Bootcamp.DataAccess;
+﻿using ClearMeasure.Bootcamp.DataAccess.Mappings;
 
 namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess
 {

@@ -1,17 +1,14 @@
 using System;
-using System.Collections.Generic;
-using Iesi.Collections.Generic;
 
 namespace ClearMeasure.Bootcamp.Core.Model
 {
     public class Employee : IComparable<Employee>
     {
-        public Iesi.Collections.Generic.ISet<Role> _roles = new HashedSet<Role>();
-        public virtual Guid Id { get; set; }
-        public virtual string UserName { get; set; }
-        public virtual string FirstName { get; set; }
-        public virtual string LastName { get; set; }
-        public virtual string EmailAddress { get; set; }
+        public Guid Id { get; set; }
+        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; } 
+        public string EmailAddress { get; set; }
 
         public Employee()
         {
@@ -25,12 +22,12 @@ namespace ClearMeasure.Bootcamp.Core.Model
             EmailAddress = emailAddress;
         }
 
-        private Iesi.Collections.Generic.ISet<Role> Roles
+        public virtual bool CanActOnBehalf(Employee currentUser)
         {
-            get { return _roles; }
+            return this == currentUser;
         }
 
-        public virtual int CompareTo(Employee other)
+        public int CompareTo(Employee other)
         {
             int compareResult = LastName.CompareTo(other.LastName);
             if (compareResult == 0)
@@ -41,7 +38,7 @@ namespace ClearMeasure.Bootcamp.Core.Model
             return compareResult;
         }
 
-        public virtual string GetFullName()
+        public string GetFullName()
         {
             return string.Format("{0} {1}", FirstName, LastName);
         }
@@ -51,17 +48,7 @@ namespace ClearMeasure.Bootcamp.Core.Model
             return GetFullName();
         }
 
-        public virtual void AddRole(Role role)
-        {
-            Roles.Add(role);
-        }
-
-        public virtual Role[] GetRoles()
-        {
-            return new List<Role>(Roles).ToArray();
-        }
-
-        public virtual string GetNotificationEmail(DayOfWeek day)
+        public string GetNotificationEmail(DayOfWeek day)
         {
             return EmailAddress;
         }
@@ -74,7 +61,7 @@ namespace ClearMeasure.Bootcamp.Core.Model
             return Equals((Employee) obj);
         }
 
-        public virtual bool Equals(Employee other)
+        public bool Equals(Employee other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;

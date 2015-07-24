@@ -1,6 +1,7 @@
 ﻿
 @using System.Activities.Expressions
 @using ClearMeasure.Bootcamp.Core.Model
+@using ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow
 @using ClearMeasure.Bootcamp.Core.Services
 @using ClearMeasure.Bootcamp.UI.Helpers
 @using ClearMeasure.Bootcamp.UI.Models.SelectListProviders
@@ -52,31 +53,37 @@
             }
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(x => x.Description, new { @class = "col-lg-2 control-label" })
-        <div class="col-lg-10">
-            @if (!Model.IsReadOnly)
-            {
-                @Html.TextAreaFor(x => x.Description, new { rows="3", @class = "form-control", placeholder = "Description" })
-            }
-            else
-            {
-                @Html.TextAreaFor(x => x.Description, new { rows = "3", @class = "form-control", disabled = "disabled" })
-            }
+        <div class="form-group">
+            @Html.LabelFor(x => x.Description, new {@class = "col-lg-2 control-label"})
+            <div class="col-lg-10">
+                @if (!Model.IsReadOnly)
+                {
+                    @Html.TextAreaFor(x => x.Description, new {rows = "3", @class = "form-control", placeholder = "Description"})
+                }
+                else
+                {
+                    @Html.TextAreaFor(x => x.Description, new {rows = "3", @class = "form-control", disabled = "disabled"})
+                }
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-lg-2">Submitted Date</div>
-        <div class="col-lg-10">@Model.SubmittedDate</div>
-    </div>
-    <div class="form-group">
-        <div class="col-lg-2">Approved Date</div>
-        <div class="col-lg-10">@Model.ApprovedDate</div>
-    </div>
-    <div class="form-group">
-        <div class="col-lg-2">Created Date</div>
-        <div class="col-lg-10">@Model.CreatedDate</div>
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.Total, new { @class = "col-lg-2 control-label" })
+            <div class="col-lg-10">
+                @if (!Model.IsReadOnly)
+                {
+                    @Html.TextBoxFor(x => x.Total, new { @class = "form-control", placeholder = "Total" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(x => x.Total, new { @class = "form-control", disabled = "disabled" })
+                }
+            </div>
+        </div>
+@*    <div class="form-group">*@
+@*        <div class="col-lg-2">Created Date</div>*@
+@*        <div class="col-lg-10">@Model.SubmittedDate</div>*@
+@*    </div>*@
+
             
             
 
@@ -109,7 +116,6 @@
                 <tr>
                     <th>Employee Name</th>
                     <th>Date</th>
-                    <th>Begin Status</th>
                     <th>End Status</th>
                 </tr>
             </thead>
@@ -118,9 +124,8 @@
                     foreach (var auditEntry in Model.ExpenseReport.GetAuditEntries())
                     {
                     <tr>
-                        <td>@auditEntry.ArchivedEmployeeName</td>
+                        <td>@auditEntry.Employee.GetFullName()</td>
                         <td>@auditEntry.Date</td>
-                        <td>@auditEntry.BeginStatus</td>
                         <td>@auditEntry.EndStatus</td>
                     </tr>
                     }

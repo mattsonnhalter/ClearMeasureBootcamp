@@ -1,5 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using ClearMeasure.Bootcamp.Core.Features.Workflow;
 using ClearMeasure.Bootcamp.Core.Model;
+using ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow;
 using ClearMeasure.Bootcamp.Core.Services;
 using ClearMeasure.Bootcamp.Core.Services.Impl;
 using ClearMeasure.Bootcamp.UI.Services;
@@ -11,7 +14,7 @@ namespace ClearMeasure.Bootcamp.UI.Helpers
          public static IStateCommand[] GetValidCommands(this HtmlHelper helper, ExpenseReport expenseReport, Employee employee)
          {
              var facilitator = DependencyResolver.Current.GetService<IWorkflowFacilitator>();
-             IStateCommand[] validStateCommands = facilitator.GetValidStateCommands(expenseReport, employee);
+             IStateCommand[] validStateCommands = facilitator.GetValidStateCommands(new ExecuteTransitionCommand(expenseReport, null, employee, new DateTime()));
              return validStateCommands;
          }
 

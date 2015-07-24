@@ -1,8 +1,11 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using ClearMeasure.Bootcamp.Core;
+using ClearMeasure.Bootcamp.Core.Features.Workflow;
 using ClearMeasure.Bootcamp.Core.Model;
+using ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow;
+using ClearMeasure.Bootcamp.Core.Plugins.DataAccess;
 using ClearMeasure.Bootcamp.Core.Services;
-using ClearMeasure.Bootcamp.UI.Helpers;
 using ClearMeasure.Bootcamp.UI.Helpers.ActionFilters;
 using ClearMeasure.Bootcamp.UI.Models;
 using UI.Models;
@@ -13,21 +16,20 @@ namespace ClearMeasure.Bootcamp.UI.Controllers
     [Authorize]
     public class ExpenseReportController : Controller
     {
-        private readonly IEmployeeRepository _employeeRepository;
         private readonly IExpenseReportBuilder _expenseReportBuilder;
-        private readonly IExpenseReportRepository _expenseReportRepository;
         private readonly IUserSession _session;
         private readonly IWorkflowFacilitator _workflowFacilitator;
+        private readonly Bus _bus;
+        private readonly ICalendar _calendar;
 
-        public ExpenseReportController(IEmployeeRepository employeeRepository,
-            IExpenseReportRepository expenseReportRepository, IExpenseReportBuilder expenseReportBuilder, IUserSession session,
-            IWorkflowFacilitator workflowFacilitator, IStateCommandVisitor stateCommandVisitor)
+        public ExpenseReportController(IExpenseReportBuilder expenseReportBuilder, IUserSession session,
+            IWorkflowFacilitator workflowFacilitator, Bus bus, ICalendar calendar)
         {
-            _employeeRepository = employeeRepository;
-            _expenseReportRepository = expenseReportRepository;
             _expenseReportBuilder = expenseReportBuilder;
             _session = session;
             _workflowFacilitator = workflowFacilitator;
+            _bus = bus;
+            _calendar = calendar;
         }
 
         public ActionResult Manage(string id, EditMode mode)
@@ -44,11 +46,11 @@ namespace ClearMeasure.Bootcamp.UI.Controllers
             }
             else
             {
-                expenseReport = _expenseReportRepository.GetSingle(id);
+                expenseReport = _bus.Send(new ExpenseReportByNumberQuery {ExpenseReportNumber = id}).Result;
             }
 
             ExpenseReportManageModel model = CreateViewModel(mode, expenseReport);
-            model.IsReadOnly = !_workflowFacilitator.GetValidStateCommands(expenseReport, currentUser).Any();
+            model.IsReadOnly = !_workflowFacilitator.GetValidStateCommands(new ExecuteTransitionCommand(expenseReport, null, currentUser, _calendar.GetCurrentTime())).Any();
             ViewBag.ExpenseReport = expenseReport;
             ViewBag.CurrentUser = currentUser;
 
@@ -65,7 +67,7 @@ namespace ClearMeasure.Bootcamp.UI.Controllers
             if (model.Mode == EditMode.New)
                 expenseReport = _expenseReportBuilder.Build(currentUser);
             else
-                expenseReport = _expenseReportRepository.GetSingle(model.ExpenseReportNumber);
+                expenseReport = _bus.Send(new ExpenseReportByNumberQuery { ExpenseReportNumber = model.ExpenseReportNumber }).Result;
 
             if (!ModelState.IsValid)
             {
@@ -74,16 +76,25 @@ namespace ClearMeasure.Bootcamp.UI.Controllers
                 return View("Manage", model);
             }
 
-            Employee practiceOwner = _employeeRepository.GetByUserName(model.ApproverUserName);
-            Employee accountManager = _employeeRepository.GetByUserName(model.SubmitterUserName);
+            Employee approver = _bus.Send(new EmployeeByUserNameQuery(model.ApproverUserName)).Result;
+            Employee submitter = _bus.Send(new EmployeeByUserNameQuery(model.SubmitterUserName)).Result;
 
             expenseReport.Number = model.ExpenseReportNumber;
-            expenseReport.Submitter = accountManager;
-            expenseReport.Approver = practiceOwner;
+            expenseReport.Submitter = submitter;
+            expenseReport.Approver = approver;
             expenseReport.Title = model.Title;
             expenseReport.Description = model.Description;
+            expenseReport.Total = model.Total;
 
-            return new ExecuteCommandResult(expenseReport, command);
+            var transitionCommand = new ExecuteTransitionCommand(expenseReport, command, currentUser, 
+                _calendar.GetCurrentTime());
+
+            ExecuteTransitionResult transitionResult = _bus.Send(transitionCommand);
+
+            if (transitionResult.NextStep == NextStep.Dashboard)
+                return Redirect("~/Home");
+            
+            return RedirectToAction("Manage", new {id = expenseReport.Number, mode = "edit"});
         }
 
         private ExpenseReportManageModel CreateViewModel(EditMode mode, ExpenseReport expenseReport)
@@ -100,7 +111,7 @@ namespace ClearMeasure.Bootcamp.UI.Controllers
                 Title = expenseReport.Title,
                 Description = expenseReport.Description,
                 CanReassign = UserCanChangeAssignee(expenseReport),
-                CreatedDate = expenseReport.CreatedDate.ToString()
+                Total = expenseReport.Total,
             };
             return model;
         }
@@ -115,4 +126,6 @@ namespace ClearMeasure.Bootcamp.UI.Controllers
             return true;
         }
     }
+
+
 }

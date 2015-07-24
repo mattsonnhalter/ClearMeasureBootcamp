@@ -1,17 +1,13 @@
 using System;
+using ClearMeasure.Bootcamp.Core.Features.Workflow;
 using ClearMeasure.Bootcamp.Core.Services;
 
 namespace ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow
 {
     public abstract class StateCommandBase : IStateCommand
     {
-        protected Employee _currentUser;
-        protected ExpenseReport _expenseReport;
-
-        protected StateCommandBase(ExpenseReport expenseReport, Employee currentUser)
+        protected StateCommandBase()
         {
-            _expenseReport = expenseReport;
-            _currentUser = currentUser;
         }
 
         public abstract string TransitionVerbPastTense { get; }
@@ -19,32 +15,27 @@ namespace ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow
         public abstract ExpenseReportStatus GetBeginStatus();
         public abstract string TransitionVerbPresentTense { get; }
 
-        public bool IsValid()
+        public bool IsValid(ExecuteTransitionCommand transitionCommand)
         {
-            bool beginStatusMatches = _expenseReport.Status == GetBeginStatus();
-            bool currentUserIsCorrectRole = userCanExecute(_currentUser);
+            bool beginStatusMatches = transitionCommand.Report.Status.Equals(GetBeginStatus());
+            bool currentUserIsCorrectRole = userCanExecute(transitionCommand.CurrentUser, transitionCommand.Report);
             return beginStatusMatches && currentUserIsCorrectRole;
         }
 
-        public void Execute(IStateCommandVisitor commandVisitor)
+        public ExecuteTransitionResult Execute(ExecuteTransitionCommand transitionCommand)
         {
-//            Log.Info(this, "Executing");
-            preExecute(commandVisitor);
-            string currentUserFullName = _currentUser.GetFullName();
-            _expenseReport.ChangeStatus(_currentUser, DateTime.Now, GetEndStatus());
-
-            commandVisitor.Save(_expenseReport);
+            preExecute(transitionCommand);
+            string currentUserFullName = transitionCommand.CurrentUser.GetFullName();
+            transitionCommand.Report.ChangeStatus(transitionCommand.CurrentUser, transitionCommand.CurrentDate, GetBeginStatus(), GetEndStatus());
 
             string loweredTransitionVerb = TransitionVerbPastTense.ToLower();
-            string reportNumber = _expenseReport.Number;
+            string reportNumber = transitionCommand.Report.Number;
             string message = string.Format("You have {0} work order {1}", loweredTransitionVerb, reportNumber);
-            commandVisitor.SendMessage(message);
             string debugMessage = string.Format("{0} has {1} work order {2}", currentUserFullName, loweredTransitionVerb,
                 reportNumber);
-//            Log.Debug(this, debugMessage);
-            postExecute(commandVisitor);
 
-//            Log.Info(this, "Executed");
+            return new ExecuteTransitionResult {NewStatus = GetEndStatus().FriendlyName
+                , NextStep = NextStep.Edit, Action = debugMessage, Message = message };
         }
 
         public bool Matches(string commandName)
@@ -53,28 +44,10 @@ namespace ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow
         }
 
         protected abstract ExpenseReportStatus GetEndStatus();
-        protected abstract bool userCanExecute(Employee currentUser);
+        protected abstract bool userCanExecute(Employee currentUser, ExpenseReport report);
 
-        protected virtual void preExecute(IStateCommandVisitor commandVisitor)
+        protected virtual void preExecute(ExecuteTransitionCommand transitionCommand)
         {
-        }
-
-        protected abstract void postExecute(IStateCommandVisitor commandVisitor);
-
-
-        protected virtual void sendChangeStateNotification(INotifier notifier)
-        {
-            notifier.SendChangeStateNotification(string.Format("Work order {0} changed from {1} to {2}",
-                _expenseReport.Number, GetBeginStatus(), GetEndStatus()));
-        }
-
-        protected virtual void sendAssignedNotification(INotifier notifier)
-        {
-        }
-
-        public bool ShouldSendAssignmentNotification()
-        {
-            return _expenseReport.Status == ExpenseReportStatus.Submitted;
         }
     }
 }

@@ -34,13 +34,11 @@ namespace ClearMeasure.Bootcamp.UI.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        public bool CanReassign { get; set; }
+        [Required]
+        [DataType(DataType.Currency)]
+        public decimal Total { get; set; }
+
         public bool IsReadOnly { get; set; }
-
-        public string SubmittedDate { get; set; }
-
-        public string ApprovedDate { get; set; }
-
-        public string CreatedDate { get; set; }
+        public bool CanReassign { get; set; }
     }
 }

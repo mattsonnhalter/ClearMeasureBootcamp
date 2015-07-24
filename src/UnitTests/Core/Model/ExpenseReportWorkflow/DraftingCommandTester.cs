@@ -1,3 +1,5 @@
+using System;
+using ClearMeasure.Bootcamp.Core.Features.Workflow;
 using ClearMeasure.Bootcamp.Core.Model;
 using ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow;
 using ClearMeasure.Bootcamp.Core.Services;
@@ -11,7 +13,7 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model.ExpenseReportWorkflow
     {
         protected override StateCommandBase GetStateCommand(ExpenseReport order, Employee employee)
         {
-            return new DraftingCommand(order, employee);
+            return new DraftingCommand();
         }
 
         [Test]
@@ -22,8 +24,8 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model.ExpenseReportWorkflow
             var employee = new Employee();
             order.Submitter = employee;
 
-            var command = new DraftingCommand(order, employee);
-            Assert.That(command.IsValid(), Is.True);
+            var command = new DraftingCommand();
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.True);
         }
 
         [Test]
@@ -34,8 +36,8 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model.ExpenseReportWorkflow
             var employee = new Employee();
             order.Submitter = employee;
 
-            var command = new DraftingCommand(order, employee);
-            Assert.That(command.IsValid(), Is.False);
+            var command = new DraftingCommand();
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.False);
         }
 
         [Test]
@@ -46,8 +48,8 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model.ExpenseReportWorkflow
             var employee = new Employee();
             order.Submitter = employee;
 
-            var command = new DraftingCommand(order, new Employee());
-            Assert.That(command.IsValid(), Is.False);
+            var command = new DraftingCommand();
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, new Employee(), new DateTime())), Is.False);
         }
 
         [Test]
@@ -59,17 +61,11 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model.ExpenseReportWorkflow
             var employee = new Employee();
             order.Submitter = employee;
 
-            var mocks = new MockRepository();
-            var commandVisitor = mocks.DynamicMock<IStateCommandVisitor>();
-            commandVisitor.Save(order);
-            commandVisitor.GoToEdit(order);
-            mocks.ReplayAll();
+            var command = new DraftingCommand();
+            command.Execute(new ExecuteTransitionCommand(order, null, employee, new DateTime()));
 
-            var command = new DraftingCommand(order, employee);
-            command.Execute(commandVisitor);
-
-            mocks.VerifyAll();
             Assert.That(order.Status, Is.EqualTo(ExpenseReportStatus.Draft));
         }
+
     }
 }

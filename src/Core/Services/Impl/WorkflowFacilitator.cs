@@ -1,35 +1,30 @@
 using System.Collections.Generic;
-using ClearMeasure.Bootcamp.Core.Model;
+using ClearMeasure.Bootcamp.Core.Features.Workflow;
 using ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow;
 
 namespace ClearMeasure.Bootcamp.Core.Services.Impl
 {
     public class WorkflowFacilitator : IWorkflowFacilitator
     {
-        private readonly ICalendar _calendar;
-
-        public WorkflowFacilitator(ICalendar calendar)
-        {
-            _calendar = calendar;
-        }
-
-        public IStateCommand[] GetValidStateCommands(ExpenseReport expenseReport, Employee currentUser)
+        public IStateCommand[] GetValidStateCommands(ExecuteTransitionCommand transitionCommand)
         {
             var commands = new List<IStateCommand>(
-                GetAllStateCommands(expenseReport, currentUser));
-            commands.RemoveAll(delegate(IStateCommand obj) { return !obj.IsValid(); });
+                GetAllStateCommands());
+            commands.RemoveAll(delegate(IStateCommand obj) { return !obj.IsValid(transitionCommand); });
 
             return commands.ToArray();
         }
 
-        public virtual IStateCommand[] GetAllStateCommands(ExpenseReport expenseReport, Employee currentUser)
+        public virtual IStateCommand[] GetAllStateCommands()
         {
             var commands = new List<IStateCommand>();
-            commands.Add(new DraftingCommand(expenseReport, currentUser));
-            commands.Add(new DraftToSubmittedCommand(expenseReport, currentUser));
-            commands.Add(new SubmittedToApprovedCommand(expenseReport, currentUser));
-
-
+            commands.Add(new DraftingCommand());
+            commands.Add(new DraftToSubmittedCommand());
+            commands.Add(new ApprovedToSubmittedCommand());
+            commands.Add(new DraftToCancelledCommand());
+            commands.Add(new ApprovedToCancelledCommand());
+            commands.Add(new SubmittedToDraftCommand());
+            commands.Add(new SubmittedToApprovedCommand());
             return commands.ToArray();
         }
     }
