@@ -7,6 +7,14 @@ This course is a feature-driven walkthrough that guides participants through
 a series of improvements to an existing code base, demonstrating best pracitices and 
 and working through scenarios targetting 300- and 400-level developers.
 
+## Getting Started
+
+- Clone the repo
+- Configure your db (see pre-requisites below)
+- Run the click to build script
+- **Build** the application in Visual Studio 2015
+- **Run** the application from VS
+
 ## Application Overview
 
 The starting point is an expense report application with a very limited feature set, and
@@ -38,9 +46,4 @@ If you do not have SQL Server Express 2014 or have named your instance otherwise
 a user-level environment variable called "dbServer" with the correct connection string
 information.
 
-## Getting Started
 
-- Clone the repo
-- Configure your db
-- Run the click to build script
-- Run the application from VS
