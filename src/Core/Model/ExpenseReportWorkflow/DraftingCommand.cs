@@ -1,11 +1,9 @@
-using ClearMeasure.Bootcamp.Core.Services;
-
 namespace ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow
 {
     public class DraftingCommand : StateCommandBase
     {
-        public DraftingCommand(ExpenseReport expenseReport, Employee currentUser)
-            : base(expenseReport, currentUser)
+        public DraftingCommand()
+            : base()
         {
         }
 
@@ -29,14 +27,10 @@ namespace ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow
             return ExpenseReportStatus.Draft;
         }
 
-        protected override bool userCanExecute(Employee currentUser)
+        protected override bool userCanExecute(Employee currentUser, ExpenseReport report)
         {
-            return currentUser == _expenseReport.Submitter;
-        }
-
-        protected override void postExecute(IStateCommandVisitor commandVisitor)
-        {
-            commandVisitor.GoToEdit(_expenseReport);
+            return currentUser == report.Submitter;
         }
     }
 }
+

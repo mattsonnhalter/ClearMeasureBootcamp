@@ -4,6 +4,7 @@ using System.Data;
 using ClearMeasure.Bootcamp.Core.Model;
 using ClearMeasure.Bootcamp.Core.Services;
 using ClearMeasure.Bootcamp.DataAccess;
+using ClearMeasure.Bootcamp.DataAccess.Mappings;
 using ClearMeasure.Bootcamp.UI.DependencyResolution;
 using NHibernate;
 using NHibernate.Criterion;
@@ -90,7 +91,6 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess
             ISession session = DataContext.GetTransactedSession();
             Role role = new Role("");
             Employee employee = new Employee("1", "1", "1", "1");
-            employee.AddRole(role);
 
             session.SaveOrUpdate(employee);
             session.Transaction.Commit();

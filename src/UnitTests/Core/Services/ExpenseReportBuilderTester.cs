@@ -30,6 +30,7 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Services
             Assert.That(expenseReport.Title, Is.Empty);
             Assert.That(expenseReport.Description, Is.Empty);
             Assert.That(expenseReport.Status, Is.EqualTo(ExpenseReportStatus.Draft));
+            Assert.That(expenseReport.Created, Is.EqualTo(new DateTime(2000, 1, 1)));
         }
     }
 }

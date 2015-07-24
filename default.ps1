@@ -92,7 +92,7 @@ task LoadData -depends ConnectionString, Compile, RebuildDatabase {
 
 task CreateCompareSchema -depends SchemaConnectionString {
     exec {
-        & $base_dir\aliasql\aliasql.exe Rebuild $databaseServer $schemaDatabaseName $databaseScripts
+        & $AliaSql Rebuild $databaseServer $schemaDatabaseName $databaseScripts
     }
 }
 
@@ -144,6 +144,11 @@ task Package {
 
 function global:zip_directory($directory,$file) {
     write-host "Zipping folder: " $test_assembly
+	write-host "Zipping directory: " $directory
+	write-host "Zipping file: " $file
+	write-host "Base: " $base_dir
+	
+	
     delete_file $file
     cd $directory
     & "$base_dir\tools\7zip\7z.exe" a -mx=9 -r $file

@@ -14,12 +14,12 @@ namespace ClearMeasure.Bootcamp.Core.Services.Impl
 		}
 
 		public ExpenseReport Build(Employee creator)
-		{
+		{         
 			ExpenseReport expenseReport = new ExpenseReport();
 			expenseReport.Number = _numberGenerator.GenerateNumber();
 			expenseReport.Submitter = creator;
-		    expenseReport.CreatedDate = _calendar.GetCurrentTime();
 			expenseReport.Status = ExpenseReportStatus.Draft;
+		    expenseReport.Created = _calendar.GetCurrentTime();
 			return expenseReport;
 		}
 	}

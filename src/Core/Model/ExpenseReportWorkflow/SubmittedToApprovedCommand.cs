@@ -1,10 +1,12 @@
-using ClearMeasure.Bootcamp.Core.Services;
+﻿using System.Configuration;
+using ClearMeasure.Bootcamp.Core.Features.Workflow;
 
 namespace ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow
 {
     public class SubmittedToApprovedCommand : StateCommandBase
     {
-        public SubmittedToApprovedCommand(ExpenseReport expenseReport, Employee currentUser) : base(expenseReport, currentUser)
+        public SubmittedToApprovedCommand()
+            : base()
         {
         }
 
@@ -28,14 +30,15 @@ namespace ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow
             return ExpenseReportStatus.Approved;
         }
 
-        protected override bool userCanExecute(Employee currentUser)
+        protected override bool userCanExecute(Employee currentUser, ExpenseReport report)
         {
-            return currentUser == _expenseReport.Approver;
+            if (report.Approver == null) return false;
+            return report.Approver.CanActOnBehalf(currentUser);
         }
 
-        protected override void postExecute(IStateCommandVisitor commandVisitor)
+        protected override void preExecute(ExecuteTransitionCommand transitionCommand)
         {
-            commandVisitor.GoToEdit(_expenseReport);
+            transitionCommand.Report.LastApproved = transitionCommand.CurrentDate;
         }
     }
 }

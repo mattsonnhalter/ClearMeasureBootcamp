@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using ClearMeasure.Bootcamp.Core.Model;
 using NUnit.Framework;
 
@@ -19,6 +20,7 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model
             Assert.That(report.Submitter, Is.EqualTo(null));
             Assert.That(report.Approver, Is.EqualTo(null));
             Assert.That(report.GetAuditEntries().Length, Is.EqualTo(0));
+            Assert.That(report.Total, Is.EqualTo(0.0));
         }
 
         [Test]
@@ -55,10 +57,8 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model
             Assert.That(report.Number, Is.EqualTo("Number"));
             Assert.That(report.Submitter, Is.EqualTo(creator));
             Assert.That(report.Approver, Is.EqualTo(assignee));
-            Assert.That(report.GetAuditEntries()[0].BeginStatus, Is.EqualTo(ExpenseReportStatus.Submitted));
             Assert.That(report.GetAuditEntries()[0].EndStatus, Is.EqualTo(ExpenseReportStatus.Approved));
             Assert.That(report.GetAuditEntries()[0].Date, Is.EqualTo(auditDate));
-            Assert.That(report.GetAuditEntries()[0].ArchivedEmployeeName, Is.EqualTo(" "));
         }
 
         [Test]
@@ -77,6 +77,20 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model
             report.Status = ExpenseReportStatus.Draft;
             report.ChangeStatus(ExpenseReportStatus.Submitted);
             Assert.That(report.Status, Is.EqualTo(ExpenseReportStatus.Submitted));
+        }
+
+        [Test]
+        public void ShouldAddNewExpense()
+        {
+            var report = new ExpenseReport();
+            report.Description = "TestReportDescription";
+            report.Total = new decimal(97.34);
+
+            report.AddExpense(report.Description, report.Total);
+
+            Assert.That(report._expenses.Count, Is.EqualTo(1));
+
+            Assert.That(report._expenses.First().Description, Is.EqualTo(report.Description));
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using ClearMeasure.Bootcamp.Core.Model;
-using ClearMeasure.Bootcamp.DataAccess;
+using ClearMeasure.Bootcamp.DataAccess.Mappings;
 using ClearMeasure.Bootcamp.IntegrationTests.DataAccess;
 using NHibernate;
 using NUnit.Framework;
@@ -16,28 +16,27 @@ namespace ClearMeasure.Bootcamp.IntegrationTests
             new DatabaseTester().Clean();
             ISession session = DataContext.GetTransactedSession();
 
-            var lead = new Role("Facility Lead");
-            var fulfillment = new Role("Fulfillment");
-            session.SaveOrUpdate(lead);
-            session.SaveOrUpdate(fulfillment);
 
             //Trainer1
             var jpalermo = new Employee("jpalermo", "Jeffrey", "Palermo", "jeffrey@clear-measure.com");
-            jpalermo.AddRole(lead);
-            jpalermo.AddRole(fulfillment);
             session.SaveOrUpdate(jpalermo);
 
             //Person 1
             
             //Person 2
-            
+            var jyeager = new Employee("jyeager", "jan", "yeager", "janscyeager@yahoo.com");
+            session.SaveOrUpdate(jyeager);
             //Person 3
+            var brheutan = new Employee("brheutan", "Burton", "Rheutan", "Rheutan7@Gmail.com");
+            session.SaveOrUpdate(brheutan);
             
             //Person 4
             
             //Person 5
-            
+
             //Person 6
+            var fyulnady = new Employee("fyulnady", "Fredy", "Yulnady", "fyulnady@boongroup.com");
+            session.SaveOrUpdate(fyulnady);
             
             //Person 7
             
@@ -54,7 +53,6 @@ namespace ClearMeasure.Bootcamp.IntegrationTests
             //Person 13
 
             var hsimpson = new Employee("hsimpson", "Homer", "Simpson", "homer@simpson.com");
-            hsimpson.AddRole(fulfillment);
             session.SaveOrUpdate(hsimpson);
 
             foreach (ExpenseReportStatus status in ExpenseReportStatus.GetAllItems())
@@ -66,7 +64,6 @@ namespace ClearMeasure.Bootcamp.IntegrationTests
                 order.Status = status;
                 order.Title = "Work Order starting in status " + status;
                 order.Description = "Foo, foo, foo, foo " + status;
-                order.CreatedDate = new DateTime(2000, 1, 1, 8, 0, 0);
                 new DateTime(2000, 1, 1, 8, 0, 0);
                 order.ChangeStatus(ExpenseReportStatus.Draft);
                 order.ChangeStatus(ExpenseReportStatus.Submitted);
@@ -82,7 +79,6 @@ namespace ClearMeasure.Bootcamp.IntegrationTests
             order2.Status = ExpenseReportStatus.Approved;
             order2.Title = "Work Order starting in status ";
             order2.Description = "Foo, foo, foo, foo ";
-            order2.CreatedDate = new DateTime(2000, 1, 1, 8, 0, 0);
             new DateTime(2000, 1, 1, 8, 0, 0);
             session.SaveOrUpdate(order2);
 

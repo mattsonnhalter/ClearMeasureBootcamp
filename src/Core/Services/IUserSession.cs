@@ -7,7 +7,5 @@ namespace ClearMeasure.Bootcamp.Core.Services
 		Employee GetCurrentUser();
 		void LogIn(Employee employee);
 		void LogOut();
-		void PushUserMessage(FlashMessage message);
-		FlashMessage PopUserMessage();
 	}
 }

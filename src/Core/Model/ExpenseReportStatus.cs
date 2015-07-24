@@ -8,6 +8,7 @@ namespace ClearMeasure.Bootcamp.Core.Model
 		public static readonly ExpenseReportStatus Draft = new ExpenseReportStatus("DFT", "Draft", "Drafting", 1);
 		public static readonly ExpenseReportStatus Submitted = new ExpenseReportStatus("SBM", "Submitted", "Submitted", 2);
 		public static readonly ExpenseReportStatus Approved = new ExpenseReportStatus("APV", "Approved", "Approved", 3);
+		public static readonly ExpenseReportStatus Cancelled = new ExpenseReportStatus("CAN", "Cancelled", "Cancelled", 4);
 		
 	    private string _code;
 		private string _key;
@@ -30,7 +31,8 @@ namespace ClearMeasure.Bootcamp.Core.Model
 				{
 					Draft,
 					Submitted,
-					Approved
+					Approved,
+                    Cancelled
 				};
 		}
 

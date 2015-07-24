@@ -89,7 +89,15 @@
     <Content Include="scripts\Update\0002-Create-Employee-Table.sql" />
     <Content Include="scripts\Update\0003-Create-EmployeeRoles-Table.sql" />
     <Content Include="scripts\Update\0004-Create-Opportunity-Table.sql" />
+    <Content Include="scripts\Update\0013-Create-Expense-Table.sql" />
     <Content Include="scripts\Update\0005-Create-AuditEntry-Table.sql" />
+    <Content Include="scripts\Update\0006-Trim-Schema-For-New-Exercise.sql" />
+    <Content Include="scripts\Update\0007-Alter-Expense-Report-Schema.sql" />
+    <Content Include="scripts\Update\0008-Alter-AuditEntry-Table.sql" />
+    <Content Include="scripts\Update\0010-Alter-ExpenseReport-Add-Total.sql" />
+    <Content Include="scripts\Update\0009-Alter-Employee-NHibernate-Discriminator-Schema-Change.sql" />
+    <Content Include="scripts\Update\0012-Create-MostRecentExpenseReportFact-View.sql" />
+    <Content Include="scripts\Update\0011-Create-ExpenseReportFact-Table.sql" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="scripts\TestData\" />

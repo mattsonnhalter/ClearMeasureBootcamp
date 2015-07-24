@@ -1,12 +1,12 @@
+using ClearMeasure.Bootcamp.Core.Features.Workflow;
 using ClearMeasure.Bootcamp.Core.Services;
 
 namespace ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow
 {
     public class DraftToSubmittedCommand : StateCommandBase
     {
-
-        public DraftToSubmittedCommand(ExpenseReport expenseReport, Employee currentUser)
-            : base(expenseReport, currentUser)
+        public DraftToSubmittedCommand()
+            : base()
         {
         }
 
@@ -30,19 +30,18 @@ namespace ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow
             return ExpenseReportStatus.Submitted;
         }
 
-        protected override bool userCanExecute(Employee currentUser)
+        protected override bool userCanExecute(Employee currentUser, ExpenseReport report)
         {
-            return currentUser == _expenseReport.Submitter;
+            return currentUser == report.Submitter;
         }
 
-        protected override void preExecute(IStateCommandVisitor commandVisitor)
+        protected override void preExecute(ExecuteTransitionCommand transitionCommand)
         {
-
-        }
-
-        protected override void postExecute(IStateCommandVisitor commandVisitor)
-        {
-            commandVisitor.GoToEdit(_expenseReport);
+            transitionCommand.Report.LastSubmitted = transitionCommand.CurrentDate;
+            if (transitionCommand.Report.FirstSubmitted == null)
+            {
+                transitionCommand.Report.FirstSubmitted = transitionCommand.CurrentDate;
+            }
         }
     }
 }

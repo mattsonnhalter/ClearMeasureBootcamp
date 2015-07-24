@@ -2,6 +2,7 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 using ClearMeasure.Bootcamp.DataAccess;
+using ClearMeasure.Bootcamp.DataAccess.Mappings;
 using StructureMap;
 using UI.DependencyResolution;
 

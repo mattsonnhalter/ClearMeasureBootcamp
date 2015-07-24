@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
+using ClearMeasure.Bootcamp.Core;
+using ClearMeasure.Bootcamp.Core.Features.SearchExpenseReports;
 using ClearMeasure.Bootcamp.Core.Model;
-using ClearMeasure.Bootcamp.Core.Services;
+using ClearMeasure.Bootcamp.Core.Plugins.DataAccess;
 using ClearMeasure.Bootcamp.UI.Helpers.ActionFilters;
 using ClearMeasure.Bootcamp.UI.Models;
 
@@ -10,13 +12,11 @@ namespace ClearMeasure.Bootcamp.UI.Controllers
     [Authorize]
     public class ExpenseReportSearchController : Controller
     {
-        private readonly IEmployeeRepository _employeeRepository;
-        private readonly IExpenseReportRepository _expenseReportRepository;
+        private readonly Bus _bus;
 
-        public ExpenseReportSearchController(IEmployeeRepository employeeRepository, IExpenseReportRepository expenseReportRepository)
+        public ExpenseReportSearchController(Bus bus)
         {
-            _employeeRepository = employeeRepository;
-            _expenseReportRepository = expenseReportRepository;
+            _bus = bus;
         }
 
         public ActionResult Index(ExpenseReportSearchModel.SearchFilters filters)
@@ -25,15 +25,19 @@ namespace ClearMeasure.Bootcamp.UI.Controllers
             if (filters != null)
                 model.Filters = filters;
 
-            var accountManager = _employeeRepository.GetByUserName(model.Filters.Submitter);
-            var practiceOwner = _employeeRepository.GetByUserName(model.Filters.Approver);
+
+            var submitter = _bus.Send(new EmployeeByUserNameQuery(model.Filters.Submitter)).Result;
+            var approver = _bus.Send(new EmployeeByUserNameQuery(model.Filters.Approver)).Result;
             var status = !string.IsNullOrWhiteSpace(model.Filters.Status) ? ExpenseReportStatus.FromKey(model.Filters.Status) : null;
 
-            var specification = new SearchSpecification();
-            specification.MatchSubmitter(accountManager);
-            specification.MatchApprover(practiceOwner);
-            specification.MatchStatus(status);
-            ExpenseReport[] orders = _expenseReportRepository.GetMany(specification);
+            var specification = new ExpenseReportSpecificationQuery
+            {
+                Approver = approver,
+                Submitter = submitter,
+                Status = status
+            };
+
+            ExpenseReport[] orders = _bus.Send(specification).Results;
 
             model.Results = orders;
 

@@ -1,19 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using ClearMeasure.Bootcamp.Core;
 using ClearMeasure.Bootcamp.Core.Model;
+using ClearMeasure.Bootcamp.Core.Plugins.DataAccess;
 using ClearMeasure.Bootcamp.Core.Services;
 
 namespace ClearMeasure.Bootcamp.UI.Models.SelectListProviders
 {
     public class UserSelectListProvider
     {
-        private static readonly IEmployeeRepository _repository;
-
-        static UserSelectListProvider()
-        {
-            _repository = DependencyResolver.Current.GetService<IEmployeeRepository>();
-        }
-
         public static IEnumerable<SelectListItem> GetOptions()
         {
             return GetOptions(null);
@@ -21,10 +16,14 @@ namespace ClearMeasure.Bootcamp.UI.Models.SelectListProviders
 
         public static IEnumerable<SelectListItem> GetOptions(string selected)
         {
+            var bus = DependencyResolver.Current.GetService<Bus>();
+
             var result = new List<SelectListItem>();
 
-            var empSpec = new EmployeeSpecification();
-            foreach (Employee employee in _repository.GetEmployees(empSpec))
+            var empSpec = new EmployeeSpecificationQuery();
+            Employee[] employees = bus.Send(empSpec).Results;
+
+            foreach (Employee employee in employees)
             {
                 result.Add(new SelectListItem
                 {
@@ -33,7 +32,6 @@ namespace ClearMeasure.Bootcamp.UI.Models.SelectListProviders
                     Selected = (employee.UserName == selected)
                 });
             }
-            _repository.GetEmployees(empSpec);
 
             return result;
         }

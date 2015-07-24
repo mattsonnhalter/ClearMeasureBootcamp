@@ -77,7 +77,6 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model
             Assert.That(employee2.CompareTo(employee1), Is.EqualTo(1));
         }
 
-
         [Test]
         public void ShouldCompareEmployeesByLastNameThenFirstName()
         {
@@ -105,15 +104,18 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model
         }
 
         [Test]
-        public void ShouldAddRoleToEmployee()
+        public void ShouldActOnBehalf()
         {
-            var employee = new Employee();
-            employee.AddRole(new Role("test role"));
-
-            Role[] roles = employee.GetRoles();
-            Assert.That(roles.Length, Is.EqualTo(1));
+            var thisEmployee = new Employee();
+            Assert.That(thisEmployee.CanActOnBehalf(thisEmployee), Is.EqualTo(true));
         }
-
+        [Test]
+        public void ShouldNotActOnBehalf()
+        {
+            var thisEmployee = new Employee();
+            var thatEmployee = new Employee();
+            Assert.That(thisEmployee.CanActOnBehalf(thatEmployee), Is.EqualTo(false));
+        }
         public class EmployeeProxy : Employee
         {
         }

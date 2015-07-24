@@ -78,13 +78,19 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="DataContext.cs" />
+    <Compile Include="AddExpenseCommandHandler.cs" />
+    <Compile Include="AddExpenseReportFactHandler.cs" />
+    <Compile Include="ExpenseReportByNumberQueryHandler.cs" />
+    <Compile Include="Mappings\DataContext.cs" />
+    <Compile Include="EmployeeByUserNameQueryHandler.cs" />
+    <Compile Include="EmployeeSpecificationQueryHandler.cs" />
+    <Compile Include="ExpenseReportSaveCommandHandler.cs" />
+    <Compile Include="ExpenseReportSpecificationQueryHandler.cs" />
+    <Compile Include="Mappings\ExpenseReportFactMap.cs" />
     <Compile Include="Mappings\ExpenseReportMap.cs" />
-    <Compile Include="Mappings\RoleMap.cs" />
     <Compile Include="Mappings\EmployeeMap.cs" />
-    <Compile Include="Repositories\EmployeeRepository.cs" />
-    <Compile Include="Repositories\ExpenseReportRepository.cs" />
-    <Compile Include="Repositories\ExpenseReportStatusType.cs" />
+    <Compile Include="Mappings\ManagerMap.cs" />
+    <Compile Include="Mappings\ExpenseReportStatusType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

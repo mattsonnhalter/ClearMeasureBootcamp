@@ -1,20 +1,21 @@
 ﻿using System.Web.Mvc;
+using ClearMeasure.Bootcamp.Core;
+using ClearMeasure.Bootcamp.Core.Features.SearchExpenseReports;
 using ClearMeasure.Bootcamp.Core.Model;
 using ClearMeasure.Bootcamp.Core.Services;
 using ClearMeasure.Bootcamp.UI.Models;
-using UI.Models;
 
 namespace ClearMeasure.Bootcamp.UI.Controllers
 {
     public class ToDoController : Controller
     {
-        private readonly IExpenseReportRepository _repository;
         private readonly IUserSession _session;
+        private readonly Bus _bus;
 
-        public ToDoController(IExpenseReportRepository repository, IUserSession session)
+        public ToDoController(IUserSession session, Bus bus)
         {
-            _repository = repository;
             _session = session;
+            _bus = bus;
         }
 
         [ChildActionOnly]
@@ -23,17 +24,21 @@ namespace ClearMeasure.Bootcamp.UI.Controllers
             var model = new ToDoModel();
 
             Employee currentUser = _session.GetCurrentUser();
-            var assignedSpecification = new SearchSpecification();
-            assignedSpecification.MatchApprover(currentUser);
-            assignedSpecification.MatchStatus(ExpenseReportStatus.Submitted);
-            ExpenseReport[] assigned = _repository.GetMany(assignedSpecification);
-            model.Submitted = assigned;
+            var submittedSpecification = new ExpenseReportSpecificationQuery
+            {
+                Approver = currentUser,
+                Status = ExpenseReportStatus.Submitted
+            };
+            ExpenseReport[] submitted = _bus.Send(submittedSpecification).Results;
+            model.Submitted = submitted;
 
-            var inProgressSpecification = new SearchSpecification();
-            inProgressSpecification.MatchApprover(currentUser);
-            inProgressSpecification.MatchStatus(ExpenseReportStatus.Approved);
-            ExpenseReport[] inProgress = _repository.GetMany(inProgressSpecification);
-            model.Approved = inProgress;
+            var approvedSpecification = new ExpenseReportSpecificationQuery
+            {
+                Approver = currentUser,
+                Status = ExpenseReportStatus.Approved
+            };
+            ExpenseReport[] approved = _bus.Send(approvedSpecification).Results;
+            model.Approved = approved;
 
             return PartialView(model);
         }

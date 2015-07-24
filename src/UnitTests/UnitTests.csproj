@@ -84,16 +84,21 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Core\Features\Workflow\ExecuteTransitionCommandHandlerTester.cs" />
     <Compile Include="Core\Model\AuditEntryTester.cs" />
     <Compile Include="Core\Model\EmployeeTester.cs" />
+    <Compile Include="Core\Model\ExpenseReportWorkflow\SubmittedToApprovedCommandTester.cs" />
+    <Compile Include="Core\Model\ExpenseReportWorkflow\SubmittedToDraftCommandTester.cs" />
+    <Compile Include="Core\Model\ExpenseReportWorkflow\DraftToCancelledCommandTester.cs" />
+    <Compile Include="Core\Model\ExpenseReportWorkflow\ApprovedToCancelledCommandTester.cs" />
+    <Compile Include="Core\Model\ManagerTester.cs" />
     <Compile Include="Core\Model\RoleTester.cs" />
     <Compile Include="Core\Model\ExpenseReportWorkflow\DraftToSubmittedCommandTester.cs" />
-    <Compile Include="Core\Model\ExpenseReportWorkflow\SubmittedToApprovedCommandTester.cs" />
+    <Compile Include="Core\Model\ExpenseReportWorkflow\ApprovedToSubmittedCommandTester.cs" />
     <Compile Include="Core\Model\ExpenseReportWorkflow\DraftingCommandTester.cs" />
     <Compile Include="Core\Model\ExpenseReportWorkflow\StateCommandBaseTester.cs" />
     <Compile Include="Core\Model\ExpenseReportStatusTester.cs" />
     <Compile Include="Core\Model\ExpenseReportTester.cs" />
-    <Compile Include="Core\Services\EmailServiceTester.cs" />
     <Compile Include="Core\Services\WorkflowFacilitatorTester.cs" />
     <Compile Include="Core\Services\ExpenseReportBuilderTester.cs" />
     <Compile Include="Core\Services\NumberGeneratorTester.cs" />

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using ClearMeasure.Bootcamp.Core.Model;
-using FluentNHibernate;
+﻿using ClearMeasure.Bootcamp.Core.Model;
 using FluentNHibernate.Conventions.Inspections;
 using FluentNHibernate.Mapping;
 
@@ -17,12 +15,7 @@ namespace ClearMeasure.Bootcamp.DataAccess.Mappings
             Map(x => x.FirstName).Not.Nullable().Length(25);
             Map(x => x.LastName).Not.Nullable().Length(25);
             Map(x => x.EmailAddress).Not.Nullable().Length(100);
-            HasManyToMany(Reveal.Member<Employee, IEnumerable<Role>>("Roles"))
-                .Not.LazyLoad()
-                .Cascade.SaveUpdate()
-                .Table("EmployeeRoles")
-                .ParentKeyColumn("EmployeeId")
-                .ChildKeyColumn("RoleId");
+            DiscriminateSubClassesOnColumn("Type");
         }
     }
 }
