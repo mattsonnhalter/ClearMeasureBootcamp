@@ -50,31 +50,31 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GivenAUserNavigatesToTheNewExpenseReportScreen_WhenThePageLoads_ThenThereShouldBeABlankExpenseReport.webtest">
+    <None Include="ValidateABlankExpenseReportScreenWithTheUserSelectsNewFromMainNav.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GivenTheUserIsOnTheHomePage_WhenThePageLoads_ThenThereShouldBeADropdownWithUserNamesToSelect.webtest">
+    <None Include="ValidateDropdownWithUserNamesAndLoginButtonOnHomeScreen.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GivenAUserHasFilledOutTheExpenseReport_WhenTheUserClicksSave_ThenTheReportWillSaveAndAuditHistoryTableWillBePresent.webtest">
+    <None Include="SaveAndValidateScreenWhenUserSavesANewExpenseReport.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GivenTheSubmittedReportScreen_WhenTheUserHasSubmittedAReport_ThenWithdrawAndApproveButtonsShouldAppear.webtest">
+    <None Include="ValidateWithdrawAndApproveButtonsAppearWhenUserClicksSubmit.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GivenASubmittedExpenseReport_WhenTheWithdrawButtonIsClicked_ThenTheDraftingScreenShouldBeDisplayed.webtest">
+    <None Include="WithdrawAndValidateDraftingScreenIsDisplayedWhenWithdrawIsClicked.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GivenASubmittedExpenseReport_WhenTheApproveButtonIsClicked_ThenTheApprovedScreenShouldBeDisplayed.webtest">
+    <None Include="ApproveAndValidateApprovedScreenWhenUserClicksApprove.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GivenAnApprovedExpenseReport_WhenTheDeclinedButtonIsClicked_ThenTheSubmittedScreenShouldBeDisplayed.webtest">
+    <None Include="ValidateApprovedScreenIsShownWhenApproveButtonIsClicked.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GivenAnApprovedExpenseReport_WhenTheWithdrawAndCancelButtonIsClicked_ThenTheCancelledScreenShouldBeDisplayed.webtest">
+    <None Include="WithdrawAndCancelExpenseReportAndValidateCancelledScreenIsDisplayed.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GivenAUserLogsIn_WhenTheUserNavigatesToTheSearchScreen_ThenTheSearchScreenWillPopulateAndBeValidated.webtest">
+    <None Include="ValidateSearchScreenWhenUserNavigatesToItFromMainNav.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="ValidateFilteringByDraftStatus.webtest">
