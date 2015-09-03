@@ -70,8 +70,8 @@
             <RuleParameter Name="TagName" Value="button" />
             <RuleParameter Name="AttributeName" Value="id" />
             <RuleParameter Name="MatchAttributeName" Value="id" />
-            <RuleParameter Name="MatchAttributeValue" Value="SubmitButtons" />
-            <RuleParameter Name="ExpectedValue" Value="SubmitButtons" />
+            <RuleParameter Name="MatchAttributeValue" Value="SubmitButton" />
+            <RuleParameter Name="ExpectedValue" Value="SubmitButton" />
             <RuleParameter Name="IgnoreCase" Value="False" />
             <RuleParameter Name="Index" Value="-1" />
           </RuleParameters>
