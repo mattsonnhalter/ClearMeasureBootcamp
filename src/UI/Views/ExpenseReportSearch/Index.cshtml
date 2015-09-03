@@ -5,7 +5,7 @@
 @{
     ViewBag.Title = "Search Results";
 }
-<div class="well form-horizontal">
+<div class="well form-horizontal" id="SearchFilters">
     <fieldset>
         <form method="GET">
             <div class="col-lg-3 form-group">
@@ -39,7 +39,7 @@
             <th>Title</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="SearchResults">
     @{ int i=0;
     foreach (var report in Model.Results)
     {
