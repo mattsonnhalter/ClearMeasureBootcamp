@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebTest Name="GivenAnApprovedExpenseReport_WhenTheWithdrawAndCancelButtonIsClicked_ThenTheCancelledScreenShouldBeDisplayed" Id="618480d3-6413-43a7-ac16-525233f99869" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest1.48289f20-abcd-4a73-92a9-a57faab9791a.rec.webtestresult" ResultsLocale="">
+  <Items>
+    <IncludedWebTest Name="GivenASubmittedExpenseReport_WhenTheApproveButtonIsClicked_ThenTheApprovedScreenShouldBeDisplayed" Path="givenasubmittedexpensereport_whentheapprovebuttonisclicked_thentheapprovedscreenshouldbedisplayed.webtest" Id="13f614b5-aad4-42d6-827f-0eb01761b2bc" IsCodedWebTest="False" InheritWebTestSettings="False" />
+    <Request Method="POST" Guid="6c715fc4-4923-4bbf-8f67-a102edf3e06a" Version="1.1" Url="http://localhost:43507/ExpenseReport/Manage/{{$HIDDEN1.ExpenseReportNumber}}" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <ValidationRules>
+        <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleFindText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Find Text" Description="Verifies the existence of the specified text in the response." Level="High" ExectuionOrder="BeforeDependents">
+          <RuleParameters>
+            <RuleParameter Name="FindText" Value="This work order is read-only for you at this time." />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="UseRegularExpression" Value="False" />
+            <RuleParameter Name="PassIfTextFound" Value="True" />
+          </RuleParameters>
+        </ValidationRule>
+        <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleFindText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Find Text" Description="Verifies the existence of the specified text in the response." Level="High" ExectuionOrder="BeforeDependents">
+          <RuleParameters>
+            <RuleParameter Name="FindText" Value="(Cancelled" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="UseRegularExpression" Value="False" />
+            <RuleParameter Name="PassIfTextFound" Value="True" />
+          </RuleParameters>
+        </ValidationRule>
+        <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleRequiredAttributeValue, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Required Attribute Value" Description="Verifies the existence of a specified HTML tag that contains an attribute with a specified value." Level="High" ExectuionOrder="BeforeDependents">
+          <RuleParameters>
+            <RuleParameter Name="TagName" Value="input" />
+            <RuleParameter Name="AttributeName" Value="disabled" />
+            <RuleParameter Name="MatchAttributeName" Value="disabled" />
+            <RuleParameter Name="MatchAttributeValue" Value="disabled" />
+            <RuleParameter Name="ExpectedValue" Value="disabled" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="Index" Value="-1" />
+          </RuleParameters>
+        </ValidationRule>
+        <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleFindText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Find Text" Description="Verifies the existence of the specified text in the response." Level="High" ExectuionOrder="BeforeDependents">
+          <RuleParameters>
+            <RuleParameter Name="FindText" Value="Cancelled" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="UseRegularExpression" Value="False" />
+            <RuleParameter Name="PassIfTextFound" Value="True" />
+          </RuleParameters>
+        </ValidationRule>
+      </ValidationRules>
+      <QueryStringParameters>
+        <QueryStringParameter Name="mode" Value="edit" RecordedValue="edit" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+      <FormPostHttpBody>
+        <FormPostParameter Name="ExpenseReportNumber" Value="{{$HIDDEN1.ExpenseReportNumber}}" RecordedValue="FA6DE" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Status" Value="Approved" RecordedValue="Approved" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="IsReadOnly" Value="False" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Status" Value="Approved" RecordedValue="Approved" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="CanReassign" Value="False" RecordedValue="False" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="SubmitterUserName" Value="jpalermo" RecordedValue="jpalermo" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="SubmitterFullName" Value="Jeffrey Palermo" RecordedValue="Jeffrey Palermo" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="ApproverUserName" Value="jpalermo" RecordedValue="jpalermo" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Title" Value="Expense Report Test" RecordedValue="Expense Report Test" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Description" Value="This expense report is just used for performance testing." RecordedValue="This expense report is just used for performance testing." CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="Total" Value="10.0000" RecordedValue="10.0000" CorrelationBinding="" UrlEncode="True" />
+        <FormPostParameter Name="command" Value="Withdraw and Cancel" RecordedValue="Withdraw and Cancel" CorrelationBinding="" UrlEncode="True" />
+      </FormPostHttpBody>
+    </Request>
+  </Items>
+  <ValidationRules>
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">
+      <RuleParameters>
+        <RuleParameter Name="Tolerance" Value="0" />
+      </RuleParameters>
+    </ValidationRule>
+  </ValidationRules>
+</WebTest>

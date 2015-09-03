@@ -62,13 +62,16 @@
     <None Include="GivenTheSubmittedReportScreen_WhenTheUserHasSubmittedAReport_ThenWithdrawAndApproveButtonsShouldAppear.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GivenASubmittedExpenseReport_WhenTheWidthdrawalButtonIsClicked_ThenTheDraftingScreenShouldBeDisplayed.webtest">
+    <None Include="GivenASubmittedExpenseReport_WhenTheWithdrawButtonIsClicked_ThenTheDraftingScreenShouldBeDisplayed.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="GivenASubmittedExpenseReport_WhenTheApproveButtonIsClicked_ThenTheApprovedScreenShouldBeDisplayed.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="GivenAnApprovedExpenseReport_WhenTheDeclinedButtonIsClicked_ThenTheSubmittedScreenShouldBeDisplayed.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GivenAnApprovedExpenseReport_WhenTheWithdrawAndCancelButtonIsClicked_ThenTheCancelledScreenShouldBeDisplayed.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
