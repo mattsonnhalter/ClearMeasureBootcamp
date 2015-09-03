@@ -8,7 +8,7 @@
                 <th colspan="2">Submitted</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="SubmittedExpenseReportsTable">
             @foreach (ExpenseReport report in Model.Submitted)
             {
                 <tr>
@@ -24,7 +24,7 @@
                 <th colspan="2">Approved</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="ApprovedExpenseReportsTable">
             @foreach (ExpenseReport report in Model.Approved)
             {
                 <tr>

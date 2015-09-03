@@ -76,6 +76,28 @@
             <RuleParameter Name="Index" Value="-1" />
           </RuleParameters>
         </ValidationRule>
+        <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleRequiredAttributeValue, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Required Attribute Value" Description="Verifies the existence of a specified HTML tag that contains an attribute with a specified value." Level="High" ExectuionOrder="BeforeDependents">
+          <RuleParameters>
+            <RuleParameter Name="TagName" Value="tbody" />
+            <RuleParameter Name="AttributeName" Value="id" />
+            <RuleParameter Name="MatchAttributeName" Value="id" />
+            <RuleParameter Name="MatchAttributeValue" Value="SubmittedExpenseReportsTable" />
+            <RuleParameter Name="ExpectedValue" Value="SubmittedExpenseReportsTable" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="Index" Value="-1" />
+          </RuleParameters>
+        </ValidationRule>
+        <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleRequiredAttributeValue, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Required Attribute Value" Description="Verifies the existence of a specified HTML tag that contains an attribute with a specified value." Level="High" ExectuionOrder="BeforeDependents">
+          <RuleParameters>
+            <RuleParameter Name="TagName" Value="tbody" />
+            <RuleParameter Name="AttributeName" Value="id" />
+            <RuleParameter Name="MatchAttributeName" Value="id" />
+            <RuleParameter Name="MatchAttributeValue" Value="ApprovedExpenseReportsTable" />
+            <RuleParameter Name="ExpectedValue" Value="ApprovedExpenseReportsTable" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="Index" Value="-1" />
+          </RuleParameters>
+        </ValidationRule>
       </ValidationRules>
     </Request>
   </Items>
