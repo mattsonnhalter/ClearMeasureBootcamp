@@ -62,6 +62,9 @@
     <None Include="GivenTheSubmittedReportScreen_WhenTheUserHasSubmittedAReport_ThenWithdrawAndApproveButtonsShouldAppear.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="GivenASubmittedExpenseReport_WhenTheWidthdrawalButtonIsClicked_ThenTheDraftingScreenShouldBeDisplayed.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
