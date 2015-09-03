@@ -50,21 +50,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ConfirmDropDownLoadsLoginWithBurtonRheutan.webtest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ValidateBlankNewExpenseScreen.webtest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="SaveExpenseReportAndValidateAuditHistoryTableExists.webtest">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="GivenAUserHasFilledOutTheExpenseReport_WhenTheUserClicksSave_ThenTheReportWillSaveAndAuditHistoryTableWillBePresent.webtest" />
+    <None Include="GivenAUserNavigatesToTheNewExpenseReportScreen_WhenThePageLoads_ThenThereShouldBeABlankExpenseReport.webtest" />
     <None Include="GivenTheSubmittedReportScreen_WhenTheUserHasSubmittedAReport_ThenWithdrawAndApproveButtonsShouldAppear.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="GivenASubmittedExpenseReport_WhenTheWidthdrawalButtonIsClicked_ThenTheDraftingScreenShouldBeDisplayed.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="GivenTheUserIsOnTheHomePage_WhenThePageLoads_ThenThereShouldBeADropdownWithUserNamesToSelect.webtest" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
