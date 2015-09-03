@@ -18,6 +18,7 @@ properties {
 	$base_dir = resolve-path .\
 	$source_dir = "$base_dir\src"
     $nunitPath = "$source_dir\packages\NUnit*\Tools"
+	$mstestPath = "$source_dir\packages\MSTest\MSTest.exe"
 	
 	$build_dir = "$base_dir\build"
 	$test_dir = "$build_dir\test"
@@ -41,7 +42,7 @@ properties {
 }
 
 task default -depends Init, Compile, RebuildDatabase, Test, LoadData
-task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test, Package
+task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test, Package, WebPerformanceTest
 
 task Init {
     delete_file $package_file
@@ -69,6 +70,10 @@ task Test {
     exec {
         & $nunitPath\nunit-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly /nologo /xml=$build_dir\TestResult.xml
     }
+}
+
+task WebPerformanceTest {
+	exec {cmd.exe /c "$base_dir\web_performance_tests.bat"}
 }
 
 task RebuildDatabase -depends ConnectionString {
