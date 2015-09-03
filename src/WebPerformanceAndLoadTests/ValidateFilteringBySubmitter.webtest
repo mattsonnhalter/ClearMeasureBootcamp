@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebTest Name="ValidateFilteringBySubmitter" Id="b5ea1d2d-cf60-4bd1-a6f6-fbd7f9f2eb87" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest1.c8220eb4-52b1-4a28-992b-6a466e6e4c46.rec.webtestresult" ResultsLocale="">
+  <Items>
+    <IncludedWebTest Name="GivenAUserLogsIn_WhenTheUserNavigatesToTheSearchScreen_ThenTheSearchScreenWillPopulateAndBeValidated" Path="givenauserlogsin_whentheusernavigatestothesearchscreen_thenthesearchscreenwillpopulateandbevalidated.webtest" Id="a848b09e-f2e4-4a01-944f-20e0404ab873" IsCodedWebTest="False" InheritWebTestSettings="False" />
+    <Request Method="GET" Guid="e07bd4de-c1ec-49ac-8a82-1f82cdee6084" Version="1.1" Url="http://localhost:43507/ExpenseReportSearch" ThinkTime="7" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+      <Headers>
+        <Header Name="Referer" Value="http://localhost:43507/ExpenseReportSearch" />
+      </Headers>
+      <ValidationRules>
+        <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleRequiredAttributeValue, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Required Attribute Value" Description="Verifies the existence of a specified HTML tag that contains an attribute with a specified value." Level="High" ExectuionOrder="BeforeDependents">
+          <RuleParameters>
+            <RuleParameter Name="TagName" Value="option" />
+            <RuleParameter Name="AttributeName" Value="value" />
+            <RuleParameter Name="MatchAttributeName" Value="value" />
+            <RuleParameter Name="MatchAttributeValue" Value="jpalermo" />
+            <RuleParameter Name="ExpectedValue" Value="jpalermo" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="Index" Value="-1" />
+          </RuleParameters>
+        </ValidationRule>
+        <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleRequiredAttributeValue, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Required Attribute Value" Description="Verifies the existence of a specified HTML tag that contains an attribute with a specified value." Level="High" ExectuionOrder="BeforeDependents">
+          <RuleParameters>
+            <RuleParameter Name="TagName" Value="button" />
+            <RuleParameter Name="AttributeName" Value="id" />
+            <RuleParameter Name="MatchAttributeName" Value="id" />
+            <RuleParameter Name="MatchAttributeValue" Value="SubmitButton" />
+            <RuleParameter Name="ExpectedValue" Value="SubmitButton" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="Index" Value="-1" />
+          </RuleParameters>
+        </ValidationRule>
+        <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleRequiredAttributeValue, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Required Attribute Value" Description="Verifies the existence of a specified HTML tag that contains an attribute with a specified value." Level="High" ExectuionOrder="BeforeDependents">
+          <RuleParameters>
+            <RuleParameter Name="TagName" Value="tbody" />
+            <RuleParameter Name="AttributeName" Value="id" />
+            <RuleParameter Name="MatchAttributeName" Value="id" />
+            <RuleParameter Name="MatchAttributeValue" Value="SubmittedExpenseReportsTable" />
+            <RuleParameter Name="ExpectedValue" Value="SubmittedExpenseReportsTable" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="Index" Value="-1" />
+          </RuleParameters>
+        </ValidationRule>
+        <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleRequiredAttributeValue, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Required Attribute Value" Description="Verifies the existence of a specified HTML tag that contains an attribute with a specified value." Level="High" ExectuionOrder="BeforeDependents">
+          <RuleParameters>
+            <RuleParameter Name="TagName" Value="tbody" />
+            <RuleParameter Name="AttributeName" Value="id" />
+            <RuleParameter Name="MatchAttributeName" Value="id" />
+            <RuleParameter Name="MatchAttributeValue" Value="ApprovedExpenseReportsTable" />
+            <RuleParameter Name="ExpectedValue" Value="ApprovedExpenseReportsTable" />
+            <RuleParameter Name="IgnoreCase" Value="False" />
+            <RuleParameter Name="Index" Value="-1" />
+          </RuleParameters>
+        </ValidationRule>
+      </ValidationRules>
+      <QueryStringParameters>
+        <QueryStringParameter Name="Filters.Submitter" Value="jpalermo" RecordedValue="jpalermo" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="Filters.Approver" Value="" RecordedValue="" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="Filters.Status" Value="" RecordedValue="" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+      </QueryStringParameters>
+    </Request>
+  </Items>
+  <ValidationRules>
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">
+      <RuleParameters>
+        <RuleParameter Name="Tolerance" Value="0" />
+      </RuleParameters>
+    </ValidationRule>
+    <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleRequiredAttributeValue, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Required Attribute Value" Description="Verifies the existence of a specified HTML tag that contains an attribute with a specified value." Level="High" ExectuionOrder="BeforeDependents">
+      <RuleParameters>
+        <RuleParameter Name="TagName" Value="tbody" />
+        <RuleParameter Name="AttributeName" Value="id" />
+        <RuleParameter Name="MatchAttributeName" Value="id" />
+        <RuleParameter Name="MatchAttributeValue" Value="SearchResults" />
+        <RuleParameter Name="ExpectedValue" Value="SearchResults" />
+        <RuleParameter Name="IgnoreCase" Value="False" />
+        <RuleParameter Name="Index" Value="-1" />
+      </RuleParameters>
+    </ValidationRule>
+  </ValidationRules>
+</WebTest>
