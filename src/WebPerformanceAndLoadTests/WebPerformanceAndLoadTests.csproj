@@ -50,15 +50,24 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GivenAUserHasFilledOutTheExpenseReport_WhenTheUserClicksSave_ThenTheReportWillSaveAndAuditHistoryTableWillBePresent.webtest" />
-    <None Include="GivenAUserNavigatesToTheNewExpenseReportScreen_WhenThePageLoads_ThenThereShouldBeABlankExpenseReport.webtest" />
+    <None Include="GivenAUserNavigatesToTheNewExpenseReportScreen_WhenThePageLoads_ThenThereShouldBeABlankExpenseReport.webtest">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GivenTheUserIsOnTheHomePage_WhenThePageLoads_ThenThereShouldBeADropdownWithUserNamesToSelect.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GivenAUserHasFilledOutTheExpenseReport_WhenTheUserClicksSave_ThenTheReportWillSaveAndAuditHistoryTableWillBePresent.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="GivenTheSubmittedReportScreen_WhenTheUserHasSubmittedAReport_ThenWithdrawAndApproveButtonsShouldAppear.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="GivenASubmittedExpenseReport_WhenTheWidthdrawalButtonIsClicked_ThenTheDraftingScreenShouldBeDisplayed.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="GivenTheUserIsOnTheHomePage_WhenThePageLoads_ThenThereShouldBeADropdownWithUserNamesToSelect.webtest" />
+    <None Include="GivenASubmittedExpenseReport_WhenTheApproveButtonIsClicked_ThenTheApprovedScreenShouldBeDisplayed.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
