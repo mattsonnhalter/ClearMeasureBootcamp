@@ -10,19 +10,19 @@
         <form method="GET">
             <div class="col-lg-3 form-group">
                 <label>Submitter</label>
-                @Html.DropDownListFor(x => x.Filters.Submitter, UserSelectListProvider.GetOptionsWithBlank(Model.Filters.Submitter), new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.Filters.Submitter, UserSelectListProvider.GetOptionsWithBlank(Model.Filters.Submitter), new { @class = "form-control", id = "SubmitterDropDown" })
             </div>
             <div class="col-lg-3 form-group">
                 <label>Approver</label>
-                @Html.DropDownListFor(x => x.Filters.Approver, UserSelectListProvider.GetOptionsWithBlank(Model.Filters.Approver), new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.Filters.Approver, UserSelectListProvider.GetOptionsWithBlank(Model.Filters.Approver), new { @class = "form-control", id = "ApproverDropDown" })
             </div>
             <div class="col-lg-4 form-group">
                 <label>Status</label>
-                @Html.DropDownListFor(x => x.Filters.Status, ExpenseReportStatusSelectListProvider.GetOptionsWithBlank(Model.Filters.Status), new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.Filters.Status, ExpenseReportStatusSelectListProvider.GetOptionsWithBlank(Model.Filters.Status), new { @class = "form-control", id = "StatusDropDown" })
             </div>
             <div class="col-lg-2 form-group">
                 <label>&nbsp;</label>
-                <button type="submit" class="btn btn-primary form-control">Search</button>
+                <button id ="SubmitButton" type="submit" class="btn btn-primary form-control">Search</button>
             </div>
         </form>
     </fieldset>
