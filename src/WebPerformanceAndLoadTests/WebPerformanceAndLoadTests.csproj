@@ -62,6 +62,12 @@
     <None Include="ValidateWithdrawAndApproveButtonsAppearWhenUserClicksSubmit.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="ValidateSubmitterIsCurrentUserWhenOnMyExpensesPage.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="LoginAsJPalermo.webtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="WithdrawAndValidateDraftingScreenIsDisplayedWhenWithdrawIsClicked.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
