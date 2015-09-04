@@ -12,7 +12,7 @@
             <RuleParameter Name="TagName" Value="option" />
             <RuleParameter Name="AttributeName" Value="selected" />
             <RuleParameter Name="AttributeValue" Value="selected" />
-            <RuleParameter Name="ExpectedInnerText" Value="Jeffrey Palermo" />
+            <RuleParameter Name="ExpectedInnerText" Value="{{UserNameAndFullName.UserNames#csv.FullName}}" />
             <RuleParameter Name="RemoveInnerTags" Value="True" />
             <RuleParameter Name="HasClosingTags" Value="True" />
             <RuleParameter Name="CollapseWhiteSpace" Value="True" />
@@ -23,11 +23,18 @@
       </ValidationRules>
       <QueryStringParameters>
         <QueryStringParameter Name="Filters.Submitter" Value="" RecordedValue="" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
-        <QueryStringParameter Name="Filters.Approver" Value="jpalermo" RecordedValue="jpalermo" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
+        <QueryStringParameter Name="Filters.Approver" Value="{{UserNameAndFullName.UserNames#csv.UserName}}" RecordedValue="jpalermo" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
         <QueryStringParameter Name="Filters.Status" Value="" RecordedValue="" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
       </QueryStringParameters>
     </Request>
   </Items>
+  <DataSources>
+    <DataSource Name="UserNameAndFullName" Provider="Microsoft.VisualStudio.TestTools.DataSource.CSV" Connection="|DataDirectory|\Datasources\UserNames.csv">
+      <Tables>
+        <DataSourceTable Name="UserNames#csv" SelectColumns="SelectOnlyBoundColumns" AccessMethod="Sequential" />
+      </Tables>
+    </DataSource>
+  </DataSources>
   <ContextParameters>
     <ContextParameter Name="WebServer1" Value="http://localhost:43507" />
   </ContextParameters>
