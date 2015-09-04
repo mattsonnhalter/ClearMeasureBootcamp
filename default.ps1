@@ -17,8 +17,10 @@ properties {
 	$projectConfig = "Release"
 	$base_dir = resolve-path .\
 	$source_dir = "$base_dir\src"
+	$web_performance_test_dir = "$source_dir\WebPerformanceAndLoadTests"
     $nunitPath = "$source_dir\packages\NUnit*\Tools"
-	$mstestPath = "$source_dir\packages\MSTest\MSTest.exe"
+	$mstestPath = "${env:ProgramFiles(x86)}\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe"
+	$env:Path = $env:Path + ";$mstestPath"
 	
 	$build_dir = "$base_dir\build"
 	$test_dir = "$build_dir\test"
@@ -41,8 +43,8 @@ properties {
     $webapp_dir = "$source_dir\UI"
 }
 
-task default -depends Init, Compile, RebuildDatabase, Test, LoadData
-task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test, Package, WebPerformanceTest
+task default -depends Init, Compile, RebuildDatabase, Test, WebPerformanceTest, LoadData
+task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test, WebPerformanceTestPackage, Package
 
 task Init {
     delete_file $package_file
@@ -73,7 +75,12 @@ task Test {
 }
 
 task WebPerformanceTest {
-	exec {cmd.exe /c "$base_dir\web_performance_tests.bat"}
+	$web_tests = ls $web_performance_test_dir\*.webtest
+
+	foreach ($_ in $web_tests) {
+		$testcontainer_web_test_name = "/testcontainer:" + $web_performance_test_dir + '\' + $_.name
+		& $mstestPath $testcontainer_web_test_name
+	}
 }
 
 task RebuildDatabase -depends ConnectionString {
