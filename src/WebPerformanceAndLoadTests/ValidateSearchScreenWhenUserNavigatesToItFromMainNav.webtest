@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WebTest Name="GivenAUserLogsIn_WhenTheUserNavigatesToTheSearchScreen_ThenTheSearchScreenWillPopulateAndBeValidated" Id="a848b09e-f2e4-4a01-944f-20e0404ab873" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest1.65e498d2-b018-4e93-b9e4-6e7f16fffd1d.rec.webtestresult" ResultsLocale="">
+<WebTest Name="ValidateSearchScreenWhenUserNavigatesToItFromMainNav" Id="a848b09e-f2e4-4a01-944f-20e0404ab873" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="WebTest1.65e498d2-b018-4e93-b9e4-6e7f16fffd1d.rec.webtestresult" ResultsLocale="">
   <Items>
-    <Request Method="GET" Guid="bd1cd943-108d-4d84-b69e-9804c50b6838" Version="1.1" Url="http://localhost:43507/Account/Login" ThinkTime="3" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="GET" Guid="bd1cd943-108d-4d84-b69e-9804c50b6838" Version="1.1" Url="{{WebServer1}}/Account/Login" ThinkTime="3" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
       <CorrelationExtractionRules>
         <ExtractionRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ExtractText, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" VariableName="FormPostParam1.UserName" DisplayName="" Description="">
           <RuleParameters>
@@ -19,9 +19,9 @@
         <QueryStringParameter Name="ReturnUrl" Value="%2F" RecordedValue="%2F" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
       </QueryStringParameters>
     </Request>
-    <Request Method="POST" Guid="46263f6e-c8a5-40d8-9ee9-1346b45c092e" Version="1.1" Url="http://localhost:43507/Account/Login" ThinkTime="4" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="http://localhost:43507/" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="POST" Guid="46263f6e-c8a5-40d8-9ee9-1346b45c092e" Version="1.1" Url="{{WebServer1}}/Account/Login" ThinkTime="4" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="{{WebServer1}}/" ReportingName="" IgnoreHttpStatusCode="False">
       <Headers>
-        <Header Name="Referer" Value="http://localhost:43507/Account/Login?ReturnUrl=%2F" />
+        <Header Name="Referer" Value="{{WebServer1}}/Account/Login?ReturnUrl=%2F" />
       </Headers>
       <QueryStringParameters>
         <QueryStringParameter Name="ReturnUrl" Value="%2F" RecordedValue="%2F" CorrelationBinding="" UrlEncode="False" UseToGroupResults="False" />
@@ -30,9 +30,9 @@
         <FormPostParameter Name="UserName" Value="jpalermo" RecordedValue="jpalermo" CorrelationBinding="{{FormPostParam1.UserName}}" UrlEncode="True" />
       </FormPostHttpBody>
     </Request>
-    <Request Method="GET" Guid="d3a377b7-b07f-4b52-b63f-b29fdcb960b5" Version="1.1" Url="http://localhost:43507/ExpenseReportSearch" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
+    <Request Method="GET" Guid="d3a377b7-b07f-4b52-b63f-b29fdcb960b5" Version="1.1" Url="{{WebServer1}}/ExpenseReportSearch" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="" IgnoreHttpStatusCode="False">
       <Headers>
-        <Header Name="Referer" Value="http://localhost:43507/" />
+        <Header Name="Referer" Value="{{WebServer1}}/" />
       </Headers>
       <ValidationRules>
         <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateHtmlSelectTag, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Selected Option" Description="Validates that the specified option in the HTML 'select' tag is selected." Level="High" ExectuionOrder="BeforeDependents">
@@ -123,6 +123,9 @@
       </ValidationRules>
     </Request>
   </Items>
+  <ContextParameters>
+    <ContextParameter Name="WebServer1" Value="http://localhost:43507" />
+  </ContextParameters>
   <ValidationRules>
     <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidateResponseUrl, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response URL" Description="Validates that the response URL after redirects are followed is the same as the recorded response URL.  QueryString parameters are ignored." Level="Low" ExectuionOrder="BeforeDependents" />
     <ValidationRule Classname="Microsoft.VisualStudio.TestTools.WebTesting.Rules.ValidationRuleResponseTimeGoal, Microsoft.VisualStudio.QualityTools.WebTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" DisplayName="Response Time Goal" Description="Validates that the response time for the request is less than or equal to the response time goal as specified on the request.  Response time goals of zero will be ignored." Level="Low" ExectuionOrder="AfterDependents">
