@@ -64,6 +64,7 @@
     <None Include="LoadTests\LoginLoadTests\LoadTestForLoginAsUser.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="nothinktimes.testsettings" />
     <None Include="ValidateABlankExpenseReportScreenWithTheUserSelectsNewFromMainNav.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

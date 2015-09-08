@@ -43,7 +43,7 @@ properties {
     $webapp_dir = "$source_dir\UI"
 }
 
-task default -depends Init, Compile, RebuildDatabase, Test, LoadData, WebPerformanceTest
+task default -depends Init, Compile, RebuildDatabase, Test, LoadData
 task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test, WebPerformanceTestPackage, Package
 
 task Init {
@@ -76,10 +76,12 @@ task Test {
 
 task WebPerformanceTest {
 	$web_tests = ls $web_performance_test_dir\*.webtest
-
+	$test_settings_file = ls $web_performance_test_dir\nothinktimes.testsettings
+	$test_settings_flag = "/testsettings:$test_settings_file "
+	
 	foreach ($_ in $web_tests) {
-		$testcontainer_web_test_name = "/testcontainer:" + $web_performance_test_dir + '\' + $_.name
-		& $mstestPath $testcontainer_web_test_name
+		$testcontainer_web_test_name = "/testcontainer: " + $web_performance_test_dir + '\' + $_.name
+		& $mstestPath $test_settings_flag $testcontainer_web_test_name
 	}
 }
 
