@@ -43,7 +43,7 @@ properties {
     $webapp_dir = "$source_dir\UI"
 }
 
-task default -depends Init, Compile, RebuildDatabase, Test, WebPerformanceTest, LoadData
+task default -depends Init, Compile, RebuildDatabase, Test, LoadData, WebPerformanceTest
 task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test, WebPerformanceTestPackage, Package
 
 task Init {
