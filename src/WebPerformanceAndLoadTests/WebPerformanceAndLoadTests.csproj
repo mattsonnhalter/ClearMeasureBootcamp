@@ -55,6 +55,12 @@
   <ItemGroup>
     <None Include="Datasources\AdminUsers.csv" />
     <None Include="Datasources\UserNames.csv" />
+    <None Include="LoadTests\NewExpenseReportLoadTests\AdminExpenseReportOptions.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="LoadTests\SearchLoadTests\SearchScreenOptions.loadtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="LoadTests\LoginLoadTests\LoadTestForLoginAsUser.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -112,8 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="LoadTests\MyExpenseLoadTests\" />
-    <Folder Include="LoadTests\NewExpenseReportLoadTests\" />
-    <Folder Include="LoadTests\SearchLoadTests\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
