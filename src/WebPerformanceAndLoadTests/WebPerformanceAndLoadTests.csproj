@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Datasources\UserNames.csv" />
-    <None Include="LoadTests\LoginLoadTests\LoadTest1.loadtest">
+    <None Include="LoadTests\LoginLoadTests\LoadTestForLoginAsUser.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ValidateABlankExpenseReportScreenWithTheUserSelectsNewFromMainNav.webtest">
