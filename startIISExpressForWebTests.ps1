@@ -1,5 +1,5 @@
 $iisExpressExe = '"c:\Program Files\IIS Express\iisexpress.exe"'
-$path = "C:\dev\CMLabs\ClearMeasureBootcamp\src\.vs\config\applicationhost.config"
+$path = ".\src\.vs\config\applicationhost.config"
 $site = "UI"
 $apppool = "Clr4IntegratedAppPool"
 $params = "/config:$path /site:$site"
