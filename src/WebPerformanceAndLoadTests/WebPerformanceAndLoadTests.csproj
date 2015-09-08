@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Datasources\AdminUsers.csv" />
     <None Include="Datasources\UserNames.csv" />
     <None Include="LoadTests\LoginLoadTests\LoadTestForLoginAsUser.loadtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
