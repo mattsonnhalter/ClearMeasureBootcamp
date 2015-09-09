@@ -19,7 +19,7 @@ properties {
 	$source_dir = "$base_dir\src"
 	$web_performance_test_dir = "$source_dir\WebPerformanceAndLoadTests"
     $nunitPath = "$source_dir\packages\NUnit*\Tools"
-	$mstestPath = "${env:ProgramFiles(x86)}\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe"
+	$mstestPath = "${env:ProgramFiles(x86)}\Microsoft Visual Studio 14.0\Common7\IDE\MSTest.exe"
 	$env:Path = $env:Path + ";$mstestPath"
 	
 	$build_dir = "$base_dir\build"
