@@ -11,4 +11,4 @@ echo %commitMessage%
 
 git add .
 git commit -m "%commitMessage%"
-git push vso master
+git push vso HEAD:master
