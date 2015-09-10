@@ -10,5 +10,5 @@ echo %commitMessage%
 @echo on
 
 git add .
-git commit -m %commitMessage%
+git commit -m "%commitMessage%"
 git push vso master
