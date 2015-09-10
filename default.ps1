@@ -44,7 +44,7 @@ properties {
 }
 
 task default -depends Init, Compile, RebuildDatabase, Test, LoadData
-task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test, WebPerformanceTestPackage, Package
+task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test, WebPerformanceTestPackage, Package, PushToVSO
 
 task Init {
     delete_file $package_file
@@ -130,6 +130,10 @@ task Package {
     copy_files "$databaseScripts" "$package_dir\database"
 	
 	zip_directory $package_dir $package_file 
+}
+
+task PushToVSO {
+	exec {cmd.exe /c "push_to_vso.bat"}
 }
  
 
