@@ -91,7 +91,7 @@ task LoadTest {
 	$test_settings_flag = "/testsettings:$test_settings_file "
 	
 	foreach ($_ in $load_tests) {
-		$testcontainer_load_test_name = "/testcontainer: " + $web_performance_test_dir + '\' + $_.name
+		$testcontainer_load_test_name = "/testcontainer: " + $web_performance_test_dir + '\' + $_.Fullname
 		& $mstestPath $test_settings_flag $testcontainer_load_test_name
 	}
 }
