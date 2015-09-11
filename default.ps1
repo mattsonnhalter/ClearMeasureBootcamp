@@ -86,13 +86,13 @@ task WebPerformanceTest {
 }
 
 task LoadTest {
-	$web_tests = ls $web_performance_test_dir\*.loadtest
+	$load_tests = Get-ChildItem -Path $web_performance_test_dir -Filter *.loadtest -Recurse
 	$test_settings_file = ls $web_performance_test_dir\nothinktimes.testsettings
 	$test_settings_flag = "/testsettings:$test_settings_file "
 	
-	foreach ($_ in $web_tests) {
-		$testcontainer_web_test_name = "/testcontainer: " + $web_performance_test_dir + '\' + $_.name
-		& $mstestPath $test_settings_flag $testcontainer_web_test_name
+	foreach ($_ in $load_tests) {
+		$testcontainer_load_test_name = "/testcontainer: " + $web_performance_test_dir + '\' + $_.name
+		& $mstestPath $test_settings_flag $testcontainer_load_test_name
 	}
 }
 
