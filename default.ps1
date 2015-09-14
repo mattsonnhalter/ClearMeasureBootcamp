@@ -86,13 +86,13 @@ task WebPerformanceTest {
 }
 
 task LoadTest {
-	$load_tests = Get-ChildItem -Path $web_performance_test_dir -Filter *.loadtest -Recurse
-	$test_settings_file = ls $web_performance_test_dir\nothinktimes.testsettings
+	$exclude_pattern = $web_performance_test_dir + "\bin\Debug\LoadTests\*\*.loadtest"
+	$load_tests = Get-ChildItem -Path $web_performance_test_dir -Filter *.loadtest -Recurse | Where { $_.FullName -notlike $exclude_pattern }
+	$test_settings_file = ls $web_performance_test_dir\nothinktimes.testsettings # this should be a VSO test setting file...
 	$test_settings_flag = "/testsettings:$test_settings_file "
 	
 	foreach ($_ in $load_tests) {
-		$testcontainer_load_test_name = "/testcontainer: " + $_.Fullname
-		Write-Host $testcontainer_load_test_name
+		$testcontainer_load_test_name = "/testcontainer: " + $web_performance_test_dir + '\' + $_.Fullname
 		& $mstestPath $test_settings_flag $testcontainer_load_test_name
 	}
 }
