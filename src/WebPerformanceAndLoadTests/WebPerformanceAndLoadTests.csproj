@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AdminUsers.csv" />
     <None Include="Datasources\AdminUsers.csv" />
     <None Include="Datasources\UserNames.csv" />
     <None Include="LoadTests\NewExpenseReportLoadTests\AdminExpenseReportOptions.loadtest">
@@ -65,9 +66,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="nothinktimes.testsettings" />
-    <None Include="SearchScreenOptions.loadtest">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="UserNames.csv" />
     <None Include="ValidateABlankExpenseReportScreenWithTheUserSelectsNewFromMainNav.webtest">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

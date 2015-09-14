@@ -26,8 +26,7 @@
   <Properties>
     <Property name="TestSettingsUIType" value="LoadTest" />
 	<Property name="AccountUrl" value="https://cmplayground.visualstudio.com/" />
-	<Property name="AlternateCredentialsUserName" value="Enter username" />
-	<Property name="AlternateCredentialsPassword" value="enter encrypted password" />
-	<Property name="AlternateCredentialsEncryptionThumprint" value="create thumbprint" />
+	<Property name="AlternateCredentialsUserName" value="USERNAME" />
+	<Property name="AlternateCredentialsPassword" value="znqpmrt3t3rnugnpvck6pqdcufq2n4mx52cyvqya3djrshk77izq" />
   </Properties>
 </TestSettings>
