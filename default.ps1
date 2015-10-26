@@ -11,7 +11,7 @@ else {
 Framework "4.6"
 
 properties {
-    $projectName = "ClearMeasureBootcamp"
+    $projectName = "ClearMeasure.Bootcamp"
     $unitTestAssembly = "ClearMeasure.Bootcamp.UnitTests.dll"
     $integrationTestAssembly = "ClearMeasure.Bootcamp.IntegrationTests.dll"
 	$projectConfig = "Release"
