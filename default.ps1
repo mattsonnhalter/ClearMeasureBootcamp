@@ -1,7 +1,7 @@
 Framework "4.6"
 
 properties {
-    $projectName = "ClearMeasure.Bootcamp"
+    $projectName = "ClearMeasureBootcamp"
     $unitTestAssembly = "ClearMeasure.Bootcamp.UnitTests.dll"
     $integrationTestAssembly = "ClearMeasure.Bootcamp.IntegrationTests.dll"
 	$projectConfig = $env:Configuration
