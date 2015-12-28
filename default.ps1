@@ -1,20 +1,11 @@
-# Generate build label
-if($env:BUILD_NUMBER -ne $null) {
-    $env:buildlabel = "$env:TEAMCITY_PROJECT_NAME $env:TEAMCITY_BUILDCONF_NAME $env:BUILD_NUMBER on $(Get-Date -Format g)"
-    $env:buildconfig = "Release"
-}
-else {
-    $env:buildlabel = "Manual Build on $(Get-Date -Format g)"
-    $env:buildconfig = "Debug"
-}
-
 Framework "4.6"
 
 properties {
     $projectName = "ClearMeasure.Bootcamp"
     $unitTestAssembly = "ClearMeasure.Bootcamp.UnitTests.dll"
     $integrationTestAssembly = "ClearMeasure.Bootcamp.IntegrationTests.dll"
-	$projectConfig = "Release"
+	$projectConfig = $env:Configuration
+    $version = $env:Version
 	$base_dir = resolve-path .\
 	$source_dir = "$base_dir\src"
     $nunitPath = "$source_dir\packages\NUnit*\Tools"
@@ -24,6 +15,7 @@ properties {
 	$testCopyIgnorePath = "_ReSharper"
 	$package_dir = "$build_dir\package"	
 	$package_file = "$build_dir\latestVersion\" + $projectName +"_Package.zip"
+    $runOctoPack = $env:RunOctoPack
 
     $databaseName = $projectName
     $databaseServer = if([Environment]::GetEnvironmentVariable("dbServer","User") -eq $null) { "localhost\SQLEXPRESS2014" } else { [Environment]::GetEnvironmentVariable("dbServer","User")}
@@ -60,7 +52,7 @@ task ConnectionString {
 
 task Compile -depends Init {
     exec {
-        & msbuild /t:Clean`;Rebuild /v:q /nologo /p:Configuration=$projectConfig $source_dir\$projectName.sln
+        & msbuild /t:Clean`;Rebuild /v:q /nologo /p:Configuration=$projectConfig /p:OctoPackPackageVersion=$version /p:RunOctoPack=$runOctoPack $source_dir\$projectName.sln
     }
 }
 
@@ -104,8 +96,7 @@ task SchemaConnectionString {
     #}
 }
 
-task CommonAssemblyInfo {
-    $version = "1.1.0.0"   
+task CommonAssemblyInfo {   
     create-commonAssemblyInfo "$version" $projectName "$source_dir\CommonAssemblyInfo.cs"
 }
 
@@ -221,7 +212,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyrightAttribute(""Copyright 2015"")]
 [assembly: AssemblyProductAttribute(""$applicationName"")]
 [assembly: AssemblyCompanyAttribute(""Clear Measure, Inc."")]
-[assembly: AssemblyConfigurationAttribute(""release"")]
+[assembly: AssemblyConfigurationAttribute(""$projectConfig"")]
 [assembly: AssemblyInformationalVersionAttribute(""$version"")]"  | out-file $filename -encoding "ASCII"    
 }
 
