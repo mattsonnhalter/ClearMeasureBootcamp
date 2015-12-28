@@ -30,6 +30,10 @@ properties {
     $connection_string = "server=$databaseserver;database=$databasename;$databaseUser;"
     $AliaSql = "$source_dir\Database\scripts\AliaSql.exe"
     $webapp_dir = "$source_dir\UI"
+
+    if([string]::IsNullOrEmpty($version)) { $version = "1.0.0"}
+    if([string]::IsNullOrEmpty($projectConfig)) {$projectConfig = "Release"}
+    if([string]::IsNullOrEmpty($runOctoPack)) {$runOctoPack = "false"}
 }
 
 task default -depends Init, Compile, RebuildDatabase, Test, LoadData
@@ -40,6 +44,11 @@ task Init {
     delete_directory $build_dir
     create_directory $test_dir
     create_directory $build_dir
+
+    Write-Host $projectConfig
+    Write-Host $version
+    Write-Host $runOctoPack
+
 }
 
 task ConnectionString {
