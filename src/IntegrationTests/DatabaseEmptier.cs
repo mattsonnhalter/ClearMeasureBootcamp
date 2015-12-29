@@ -10,7 +10,8 @@ namespace ClearMeasure.Bootcamp.IntegrationTests
     public class DatabaseEmptier
     {
         private readonly ISessionFactory _factory;
-        private static readonly string[] _ignoredTables = new[] { "[dbo].[sysdiagrams]" };
+        //should not clear out two tables from test run to test run.
+        private static readonly string[] _ignoredTables = new[] { "[dbo].[sysdiagrams]", "[dbo].[usd_AppliedDatabaseScript]" };
         private static string _deleteSql;
 
         public DatabaseEmptier(ISessionFactory factory)
