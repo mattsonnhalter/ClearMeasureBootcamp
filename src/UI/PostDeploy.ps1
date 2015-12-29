@@ -7,12 +7,15 @@ $integratedSecurity = "Integrated Security=true"
 $DatabaseServer = $OctopusParameters["DatabaseServer"]
 $DatabaseName = $OctopusParameters["DatabaseName"]
 $connection_string = "server=$DatabaseServer;database=$DatabaseName;$integratedSecurity;"
-poke-xml $hibernateConfig "//e:property[@name = 'connection.connection_string']" $connection_string @{"e" = "urn:nhibernate-configuration-2.2"}
+#poke-xml $hibernateConfig "//e:property[@name = 'connection.connection_string']" $connection_string @{"e" = "urn:nhibernate-configuration-2.2"}
+
+$filePath = $hibernateConfig
+$xpath = "//e:property[@name = 'connection.connection_string']"
+$value = $connection_string
+$namespaces = @{"e" = "urn:nhibernate-configuration-2.2"}
 
 
-
-
-function poke-xml($filePath, $xpath, $value, $namespaces = @{}) {
+#function poke-xml($filePath, $xpath, $value, $namespaces = @{}) {
     [xml] $fileXml = Get-Content $filePath
     
     if($namespaces -ne $null -and $namespaces.Count -gt 0) {
@@ -30,4 +33,4 @@ function poke-xml($filePath, $xpath, $value, $namespaces = @{}) {
     }
 
     $fileXml.Save($filePath) 
-} 
+#} 
