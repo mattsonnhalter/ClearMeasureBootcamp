@@ -33,7 +33,7 @@ properties {
 
     if([string]::IsNullOrEmpty($version)) { $version = "1.0.0"}
     if([string]::IsNullOrEmpty($projectConfig)) {$projectConfig = "Release"}
-    if([string]::IsNullOrEmpty($runOctoPack)) {$runOctoPack = "false"}
+    if([string]::IsNullOrEmpty($runOctoPack)) {$runOctoPack = "true"}
 }
 
 task default -depends Init, Compile, RebuildDatabase, Test, LoadData
@@ -61,7 +61,7 @@ task ConnectionString {
 
 task Compile -depends Init {
     exec {
-        & msbuild /t:Clean`;Rebuild /v:q /nologo /p:Configuration=$projectConfig /p:OctoPackPackageVersion=$version /p:RunOctoPack=$runOctoPack $source_dir\$projectName.sln
+        & msbuild /t:Clean`;Rebuild /v:q /nologo /p:Configuration=$projectConfig /p:OctoPackPackageVersion=$version /p:RunOctoPack=$runOctoPack /p:OctoPackEnforceAddingFiles=true $source_dir\$projectName.sln
     }
 }
 
