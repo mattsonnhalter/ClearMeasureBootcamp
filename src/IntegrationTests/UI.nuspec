@@ -11,5 +11,6 @@
   </metadata>
   <files>
     <file src="bin\**" target="bin" />
+    <file src="..\packages\NUnit*\Tools" target="nunit"/>
   </files>
 </package>

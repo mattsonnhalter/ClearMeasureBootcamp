@@ -32,3 +32,6 @@ if($node.NodeType -eq "Element") {
 }
 
 $fileXml.Save($filePath) 
+
+
+& $nunitPath\nunit-console.exe $test_dir\$integrationTestAssembly /include=DataLoader /nologo /nodots /xml=$build_dir\DataLoadResult.xml
