@@ -116,6 +116,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <Content Include="UI.nuspec" />
+    <Content Include="PostDeploy.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\hibernate.cfg.xml">
