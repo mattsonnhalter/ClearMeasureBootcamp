@@ -2,7 +2,7 @@
 # PostDeploy.ps1
 #
 $path = $PSScriptRoot
-$hibernateConfig = "$path\bin\hibernate.cfg.xml"
+$hibernateConfig = "$path\hibernate.cfg.xml"
 $integratedSecurity = "Integrated Security=true"
 $DatabaseServer = $OctopusParameters["DatabaseServer"]
 $DatabaseName = $OctopusParameters["DatabaseName"]
