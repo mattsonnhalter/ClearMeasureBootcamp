@@ -1,7 +1,8 @@
 #
 # PostDeploy.ps1
 #
-$hibernateConfig = "bin\hibernate.cfg.xml"
+$path = $PSScriptRoot
+$hibernateConfig = "$path\bin\hibernate.cfg.xml"
 $integratedSecurity = "Integrated Security=true"
 $DatabaseServer = $OctopusParameters["DatabaseServer"]
 $DatabaseName = $OctopusParameters["DatabaseName"]
@@ -11,7 +12,7 @@ poke-xml $hibernateConfig "//e:property[@name = 'connection.connection_string']"
 
 
 
-function script:poke-xml($filePath, $xpath, $value, $namespaces = @{}) {
+function poke-xml($filePath, $xpath, $value, $namespaces = @{}) {
     [xml] $fileXml = Get-Content $filePath
     
     if($namespaces -ne $null -and $namespaces.Count -gt 0) {
@@ -22,8 +23,6 @@ function script:poke-xml($filePath, $xpath, $value, $namespaces = @{}) {
         $node = $fileXml.SelectSingleNode($xpath)
     }
     
-    Assert ($node -ne $null) "could not find node @ $xpath"
-        
     if($node.NodeType -eq "Element") {
         $node.InnerText = $value
     } else {
