@@ -78,9 +78,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <Content Include="Deploy.ps1" />
+    <Content Include="Deploy.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
-    <Content Include="PostDeploy.ps1" />
+    <Content Include="PostDeploy.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Database.nuspec" />
   </ItemGroup>
   <ItemGroup>
