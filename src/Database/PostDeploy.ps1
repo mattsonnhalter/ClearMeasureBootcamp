@@ -3,4 +3,5 @@
 #
 $DatabaseServer = $OctopusParameters["DatabaseServer"]
 $DatabaseName = $OctopusParameters["DatabaseName"]
-& .\scripts\AliaSQL.exe Update $DatabaseServer $DatabaseName .\scripts
+$DatabaseAction = $OctopusParameters["DatabaseAction"]
+& .\scripts\AliaSQL.exe $DatabaseAction $DatabaseServer $DatabaseName .\scripts
