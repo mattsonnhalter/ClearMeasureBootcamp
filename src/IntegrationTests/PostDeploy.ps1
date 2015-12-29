@@ -7,7 +7,6 @@ $integratedSecurity = "Integrated Security=true"
 $DatabaseServer = $OctopusParameters["DatabaseServer"]
 $DatabaseName = $OctopusParameters["DatabaseName"]
 $connection_string = "server=$DatabaseServer;database=$DatabaseName;$integratedSecurity;"
-#poke-xml $hibernateConfig "//e:property[@name = 'connection.connection_string']" $connection_string @{"e" = "urn:nhibernate-configuration-2.2"}
 
 $filePath = $hibernateConfig
 $xpath = "//e:property[@name = 'connection.connection_string']"
