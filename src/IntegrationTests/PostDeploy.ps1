@@ -33,5 +33,9 @@ if($node.NodeType -eq "Element") {
 
 $fileXml.Save($filePath) 
 
+Write-Host "DatabaseServer: $DatabaseServer"
+Write-Host "DatabaseName: $DatabaseName"
+Write-Host "-----------------------"
 
-& .\NUnit*\Tools\nunit-console.exe .\ClearMeasure.Bootcamp.IntegrationTests.dll /include=DataLoader
+$nunitPath = ".\NUnit.Runners.2.6.3\tools"
+& $nunitPath\nunit-console.exe .\ClearMeasure.Bootcamp.IntegrationTests.dll /nologo /include=DataLoader
