@@ -110,6 +110,7 @@
     <Compile Include="DataAccess\Mappings\EmployeeMappingTester.cs" />
     <Compile Include="DataAccess\Mappings\ExpenseReportMappingTester.cs" />
     <Compile Include="DataAccess\ScratchTester.cs" />
+    <Compile Include="AcceptanceTests\ManagerCanApproveWorkOrderAcceptanceTester.cs" />
     <Compile Include="ZDataLoader.cs" />
   </ItemGroup>
   <ItemGroup>
