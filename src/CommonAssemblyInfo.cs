@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -11,11 +12,11 @@ using System.Runtime.InteropServices;
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: ComVisible(false)]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyCopyright("Copyright 2015")]
-[assembly: AssemblyProduct("ClearMeasure.Bootcamp")]
-[assembly: AssemblyCompany("Clear Measure, Inc.")]
-[assembly: AssemblyConfiguration("release")]
-[assembly: AssemblyInformationalVersion("1.0.0.0")]
+[assembly: ComVisibleAttribute(false)]
+[assembly: AssemblyVersionAttribute("1.0.0")]
+[assembly: AssemblyFileVersionAttribute("1.0.0")]
+[assembly: AssemblyCopyrightAttribute("Copyright 2015")]
+[assembly: AssemblyProductAttribute("ClearMeasure.Bootcamp")]
+[assembly: AssemblyCompanyAttribute("Clear Measure, Inc.")]
+[assembly: AssemblyConfigurationAttribute("Release")]
+[assembly: AssemblyInformationalVersionAttribute("1.0.0")]
