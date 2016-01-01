@@ -295,6 +295,10 @@
       <Project>{0649ad4e-44c9-45db-a4a9-322e36520f74}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UI.DependencyResolution\UI.DependencyResolution.csproj">
+      <Project>{6a0f1b94-dd2b-4d71-ad89-1da01e392cf3}</Project>
+      <Name>UI.DependencyResolution</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

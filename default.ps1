@@ -63,7 +63,7 @@ task Compile -depends Init {
 	Write-Host "Beginning msbuild command:" -foregroundcolor yellow
 	Write-Host("& msbuild /t:Clean`;Rebuild /v:q /nologo /p:Configuration=$projectConfig /p:OctoPackPackageVersion=$version /p:RunOctoPack=$runOctoPack /p:OctoPackEnforceAddingFiles=true $source_dir\$projectName.sln")
     exec {
-        & msbuild /t:Clean`;Rebuild /v:q /nologo /p:Configuration=$projectConfig /p:OctoPackPackageVersion=$version /p:RunOctoPack=$runOctoPack /p:OctoPackEnforceAddingFiles=true $source_dir\$projectName.sln
+        & msbuild /t:Clean`;Rebuild /v:n /nologo /p:Configuration=$projectConfig /p:OctoPackPackageVersion=$version /p:RunOctoPack=$runOctoPack /p:OctoPackEnforceAddingFiles=true $source_dir\$projectName.sln
     }
 	Write-Host "End msbuild command" -foregroundcolor yellow 
 }

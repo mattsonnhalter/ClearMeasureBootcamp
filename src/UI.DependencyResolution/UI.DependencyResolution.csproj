@@ -93,10 +93,6 @@
       <Project>{a66aa486-b7d7-47d7-af26-15b992d92fb4}</Project>
       <Name>DataAccess</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UI\UI.csproj">
-      <Project>{85cc0e34-1995-45a4-824f-2daf1f4d25ea}</Project>
-      <Name>UI</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
