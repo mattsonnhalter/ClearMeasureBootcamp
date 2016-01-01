@@ -297,7 +297,8 @@
     </ProjectReference>
     <ProjectReference Include="..\UI.DependencyResolution\UI.DependencyResolution.csproj">
       <Project>{6a0f1b94-dd2b-4d71-ad89-1da01e392cf3}</Project>
-      <Name>UI.DependencyResolution</Name>
+      <Name>UI.DependencyResolution (build order dependency)</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
