@@ -8,7 +8,7 @@ properties {
     $version = $env:Version
 	$base_dir = resolve-path .\
 	$source_dir = "$base_dir\src"
-    $nunitPath = "$source_dir\packages\NUnit*\Tools"
+    $nunitPath = "$source_dir\packages\NUnit.Runners*\Tools"
 	
 	$build_dir = "$base_dir\build"
 	$test_dir = "$build_dir\test"
@@ -196,7 +196,13 @@ function global:delete_files_in_dir($dir)
 
 function global:create_directory($directory_name)
 {
-  mkdir $directory_name  -ErrorAction SilentlyContinue  | out-null
+    if( Test-Path $directory_name ){
+        Get-ChildItem -Path $directory_name -Include *.* -File -Recurse | foreach { $_.Delete()}
+    }
+    else{
+        mkdir $directory_name  -ErrorAction SilentlyContinue  | out-null
+    }
+
 }
 
 function global:create-commonAssemblyInfo($version,$applicationName,$filename)
