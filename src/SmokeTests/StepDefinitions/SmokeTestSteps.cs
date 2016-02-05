@@ -4,6 +4,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.PhantomJS;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using TechTalk.SpecFlow;
 
@@ -13,22 +14,43 @@ namespace SmokeTests.StepDefinitions
     public class SmokeTestSteps
     {
         private IWebDriver _driver;
+        private static ChromeDriverService _chromeDriverService;
+        private static readonly string DriverPath = AppDomain.CurrentDomain.BaseDirectory.Replace("bin\\Debug", "Drivers");
+
+        //Hooks
+        [BeforeFeature]
+        public static void StartChromeDriverService()
+        {
+            _chromeDriverService = ChromeDriverService.CreateDefaultService(DriverPath, "chromedriver.exe");
+            _chromeDriverService.Start();
+        }
+
+        [AfterFeature]
+        public static void StopChromeDriverService()
+        {
+            _chromeDriverService.Dispose();
+        }
+
+        [BeforeStep]
+        public void WaitForLoad()
+        {
+            _driver?.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
+        }
 
         //Given
         [Given(@"I am using (.*)")]
         public void GivenIAmUsing(string browser)
         {
-            var path = AppDomain.CurrentDomain.BaseDirectory.Replace("bin\\Debug", "Drivers");
             switch (browser)
             {
                 case "Firefox":
                     _driver = new FirefoxDriver();
                     break;
                 case "Chrome":
-                    _driver = new ChromeDriver(path);
+                    _driver = new RemoteWebDriver(_chromeDriverService.ServiceUrl, DesiredCapabilities.Chrome());
                     break;
                 case "IE":
-                    _driver = new InternetExplorerDriver(path);
+                    _driver = new InternetExplorerDriver(DriverPath);
                     break;
                 case "PhantomJS":
                     _driver = new PhantomJSDriver();
@@ -40,12 +62,6 @@ namespace SmokeTests.StepDefinitions
 
 
         //When
-        [BeforeStep]
-        public void WaitForLoad()
-        {
-            _driver?.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(60));
-        }
-
         [When(@"I browse to '(.*)'")]
         public void WhenIBrowseTo(string url)
         {
@@ -93,14 +109,14 @@ namespace SmokeTests.StepDefinitions
         [Then(@"the page title should start with '(.*)'")]
         public void ThenThePageTitleShouldStartWith(string title)
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             wait.Until(d => d.Title.StartsWith(title, StringComparison.CurrentCultureIgnoreCase));
         }
 
         [Then(@"the page url should be exactly '(.*)'")]
         public void ThenThePageUrlShouldBeExactly(string url)
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             wait.Until(d => d.Url.Equals(url, StringComparison.Ordinal));
         }
 
