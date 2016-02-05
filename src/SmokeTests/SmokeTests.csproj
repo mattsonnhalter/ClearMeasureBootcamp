@@ -61,25 +61,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\SmokeTests.feature.cs">
+      <DependentUpon>SmokeTests.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\Login.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Login.feature</DependentUpon>
+    </Compile>
     <Compile Include="StepDefinitions\SmokeTestsBootstrapper.cs" />
     <Compile Include="StepDefinitions\SmokeTestSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SmokeTests.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SmokeTests.feature</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="SmokeTests.feature">
+    <None Include="Features\SmokeTests.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SmokeTests.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\Login.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Login.feature.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Drivers\chromedriver.exe" />
+    <Content Include="Drivers\IEDriverServer.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using ClearMeasure.Bootcamp.Core;
 using ClearMeasure.Bootcamp.Core.Features.Workflow;
 using ClearMeasure.Bootcamp.Core.Model;
@@ -87,6 +89,15 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.Core.Features.Workflow
             reHydratedExpenseReportFact.TimeStamp.ShouldEqual(expenseReportFact.TimeStamp);
             reHydratedExpenseReportFact.Total.ShouldEqual(expenseReportFact.Total);
         }
- 
-    }
+
+        [Test]
+        public void sample()
+        {
+            var matchingProcess = Process.GetProcessesByName("iisexpress").FirstOrDefault();
+            if (matchingProcess != null && matchingProcess.StartInfo.Arguments.Contains("43507"))
+            {
+                matchingProcess.Kill();
+            }
+        }
+}
 }
