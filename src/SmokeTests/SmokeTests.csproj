@@ -61,6 +61,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Features\Navigation.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Navigation.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\SmokeTests.feature.cs">
       <DependentUpon>SmokeTests.feature</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -77,6 +82,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Features\Navigation.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Navigation.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\SmokeTests.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SmokeTests.feature.cs</LastGenOutput>

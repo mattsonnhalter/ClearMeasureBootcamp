@@ -16,6 +16,7 @@ namespace SmokeTests.StepDefinitions
         private IWebDriver _driver;
         private static ChromeDriverService _chromeDriverService;
         private static readonly string DriverPath = AppDomain.CurrentDomain.BaseDirectory.Replace("bin\\Debug", "Drivers");
+        private static string _homePage = "http://localhost:43507/";
 
         //Hooks
         [BeforeFeature]
@@ -34,7 +35,7 @@ namespace SmokeTests.StepDefinitions
         [BeforeStep]
         public void WaitForLoad()
         {
-            _driver?.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
+            _driver?.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(30));
         }
 
         //Given
@@ -60,32 +61,24 @@ namespace SmokeTests.StepDefinitions
             }
         }
 
-
-        //When
-        [When(@"I browse to '(.*)'")]
-        public void WhenIBrowseTo(string url)
+        [Given(@"I am not logged in on '(.*)'")]
+        public void GivenIAmNotLoggedIn(string url)
         {
             _driver.Navigate().GoToUrl(url);
-        }
-
-        [When(@"I search for '(.*)'")]
-        public void WhenISearchFor(string term)
-        {
-            var query = _driver.FindElement(By.Name("q"));
-            query.SendKeys(term);
-            query.Submit();
-        }
-
-        [When(@"I am not logged in")]
-        public void WhenIAmNotLoggedIn()
-        {
             SatisfyLoginCondition(false);
         }
 
-        [When(@"I am logged in")]
-        public void WhenIAmLoggedIn()
+        [Given(@"I am logged in on '(.*)'")]
+        public void GivenIAmLoggedIn(string url)
         {
+            _driver.Navigate().GoToUrl(url);
             SatisfyLoginCondition(true);
+        }
+
+        [Given(@"I am on the home page")]
+        public void GivenIAmOnHomePage()
+        {
+            _driver.Navigate().GoToUrl(_homePage);
         }
 
         private void SatisfyLoginCondition(bool loggedIn)
@@ -105,15 +98,37 @@ namespace SmokeTests.StepDefinitions
             }
         }
 
+        //When
+        [When(@"I browse to '(.*)'")]
+        public void WhenIBrowseTo(string url)
+        {
+            _driver.Navigate().GoToUrl(url);
+        }
+
+        [When(@"I search for '(.*)'")]
+        public void WhenISearchFor(string term)
+        {
+            var query = _driver.FindElement(By.Name("q"));
+            query.SendKeys(term);
+            query.Submit();
+        }
+
+        [When(@"I click on the (.*) link")]
+        public void WhenIClickOn(string linkText)
+        {
+            var link = _driver.FindElement(By.LinkText(linkText));
+            link.Click();
+        }
+
         //Then
-        [Then(@"the page title should start with '(.*)'")]
+        [Then(@"the page title should start with (.*)")]
         public void ThenThePageTitleShouldStartWith(string title)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             wait.Until(d => d.Title.StartsWith(title, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        [Then(@"the page url should be exactly '(.*)'")]
+        [Then(@"the page url should be exactly (.*)")]
         public void ThenThePageUrlShouldBeExactly(string url)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));

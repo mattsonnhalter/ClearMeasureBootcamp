@@ -5,26 +5,26 @@
 
 Scenario Outline: Arrive at login page
 	Given I am using <browser>
+	And I am not logged in on 'http://localhost:43507'
 	When I browse to 'http://localhost:43507'
-	And I am not logged in
-	Then the page title should start with 'Login'
-	And the page url should be exactly 'http://localhost:43507/Account/Login?ReturnUrl=%2F'
+	Then the page title should start with Login
+	And the page url should be exactly http://localhost:43507/Account/Login?ReturnUrl=%2F
 
 	Examples: 
-			| browser			|
-			| Firefox           |
-			| Chrome            |
-			| IE|
+			| browser |
+			| Firefox |
+			| Chrome  |
+			| IE      |
 
 Scenario Outline: Arrive at home page
 	Given I am using <browser>
+	And I am logged in on 'http://localhost:43507'
 	When I browse to 'http://localhost:43507'
-	And I am logged in
-	Then the page title should start with 'Home Page'
-	And the page url should be exactly 'http://localhost:43507/'
+	Then the page title should start with Home Page
+	And the page url should be exactly http://localhost:43507/
 
 	Examples: 
-			| browser			|
-			| Firefox           |
-			| Chrome            |
-			| IE |
+			| browser |
+			| Firefox |
+			| Chrome  |
+			| IE      |
