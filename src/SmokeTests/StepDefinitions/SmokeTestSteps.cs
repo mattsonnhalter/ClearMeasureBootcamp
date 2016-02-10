@@ -16,17 +16,17 @@ namespace SmokeTests.StepDefinitions
         private IWebDriver _driver;
         private static ChromeDriverService _chromeDriverService;
         private static readonly string DriverPath = AppDomain.CurrentDomain.BaseDirectory.Replace("bin\\Debug", "Drivers");
-        private static string _homePage = "http://localhost:43507/";
+        private const string HomePage = "http://localhost:43507/";
 
         //Hooks
-        [BeforeFeature]
+        [BeforeTestRun]
         public static void StartChromeDriverService()
         {
             _chromeDriverService = ChromeDriverService.CreateDefaultService(DriverPath, "chromedriver.exe");
             _chromeDriverService.Start();
         }
 
-        [AfterFeature]
+        [AfterTestRun]
         public static void StopChromeDriverService()
         {
             _chromeDriverService.Dispose();
@@ -53,9 +53,6 @@ namespace SmokeTests.StepDefinitions
                 case "IE":
                     _driver = new InternetExplorerDriver(DriverPath);
                     break;
-                case "PhantomJS":
-                    _driver = new PhantomJSDriver();
-                    break;
                 default:
                     throw new ArgumentException("Unknown browser");
             }
@@ -78,7 +75,7 @@ namespace SmokeTests.StepDefinitions
         [Given(@"I am on the home page")]
         public void GivenIAmOnHomePage()
         {
-            _driver.Navigate().GoToUrl(_homePage);
+            _driver.Navigate().GoToUrl(HomePage);
         }
 
         private void SatisfyLoginCondition(bool loggedIn)
