@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -52,6 +53,12 @@ namespace SmokeTests.StepDefinitions
                     break;
                 case "IE":
                     _driver = new InternetExplorerDriver(DriverPath);
+                    break;
+                case "PhantomJS":
+                    var path = AppDomain.CurrentDomain.BaseDirectory.Replace(@"SmokeTests\bin\Debug", "");
+                    var phantomJsPath = Path.Combine(path, @"packages\PhantomJS.2.1.1\tools\phantomjs\");
+                    var driverService = PhantomJSDriverService.CreateDefaultService(phantomJsPath);
+                    _driver = new PhantomJSDriver(driverService);
                     break;
                 default:
                     throw new ArgumentException("Unknown browser");

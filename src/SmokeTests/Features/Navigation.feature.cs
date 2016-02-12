@@ -65,15 +65,9 @@ namespace SmokeTests.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Link to correct page")]
-        [NUnit.Framework.TestCaseAttribute("Firefox", "New", "New ExpenseReport", "http://localhost:43507/ExpenseReport/Manage?mode=New", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Firefox", "Search", "Search Results", "http://localhost:43507/ExpenseReportSearch", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Firefox", "My Expenses", "Search Results", "http://localhost:43507/ExpenseReportSearch?Submitter=Assistant", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Chrome", "New", "New ExpenseReport", "http://localhost:43507/ExpenseReport/Manage?mode=New", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Chrome", "Search", "Search Results", "http://localhost:43507/ExpenseReportSearch", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Chrome", "My Expenses", "Search Results", "http://localhost:43507/ExpenseReportSearch?Submitter=Assistant", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("IE", "New", "New ExpenseReport", "http://localhost:43507/ExpenseReport/Manage?mode=New", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("IE", "Search", "Search Results", "http://localhost:43507/ExpenseReportSearch", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("IE", "My Expenses", "Search Results", "http://localhost:43507/ExpenseReportSearch?Submitter=Assistant", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("PhantomJS", "New", "New ExpenseReport", "http://localhost:43507/ExpenseReport/Manage?mode=New", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("PhantomJS", "Search", "Search Results", "http://localhost:43507/ExpenseReportSearch", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("PhantomJS", "My Expenses", "Search Results", "http://localhost:43507/ExpenseReportSearch?Submitter=Assistant", new string[0])]
         public virtual void LinkToCorrectPage(string browser, string link, string pageTitle, string pageUrl, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Link to correct page", exampleTags);

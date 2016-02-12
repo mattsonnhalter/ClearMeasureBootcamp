@@ -66,11 +66,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Navigation.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\SmokeTests.feature.cs">
-      <DependentUpon>SmokeTests.feature</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Features\Login.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -86,10 +81,6 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Navigation.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\SmokeTests.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SmokeTests.feature.cs</LastGenOutput>
-    </None>
     <None Include="Features\Login.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Login.feature.cs</LastGenOutput>
@@ -100,8 +91,15 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\packages\PhantomJS.2.1.1\tools\phantomjs\phantomjs.exe">
+      <Link>phantomjs.exe</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Drivers\chromedriver.exe" />
     <Content Include="Drivers\IEDriverServer.exe" />
+    <Content Include="phantomjs-license.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

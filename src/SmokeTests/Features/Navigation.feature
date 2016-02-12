@@ -10,13 +10,7 @@ Scenario Outline: Link to correct page
 	And the page url should be exactly <page url>
 
 	Examples: 
-		| browser | link        | page title        | page url                                                       |
-		| Firefox | New         | New ExpenseReport | http://localhost:43507/ExpenseReport/Manage?mode=New           |
-		| Firefox | Search      | Search Results    | http://localhost:43507/ExpenseReportSearch                     |
-		| Firefox | My Expenses | Search Results    | http://localhost:43507/ExpenseReportSearch?Submitter=Assistant |
-		| Chrome  | New         | New ExpenseReport | http://localhost:43507/ExpenseReport/Manage?mode=New           |
-		| Chrome  | Search      | Search Results    | http://localhost:43507/ExpenseReportSearch                     |
-		| Chrome  | My Expenses | Search Results    | http://localhost:43507/ExpenseReportSearch?Submitter=Assistant |
-		| IE      | New         | New ExpenseReport | http://localhost:43507/ExpenseReport/Manage?mode=New           |
-		| IE      | Search      | Search Results    | http://localhost:43507/ExpenseReportSearch                     |
-		| IE      | My Expenses | Search Results    | http://localhost:43507/ExpenseReportSearch?Submitter=Assistant |
+		| browser   | link        | page title        | page url                                                       |
+		| PhantomJS | New         | New ExpenseReport | http://localhost:43507/ExpenseReport/Manage?mode=New           |
+		| PhantomJS | Search      | Search Results    | http://localhost:43507/ExpenseReportSearch                     |
+		| PhantomJS | My Expenses | Search Results    | http://localhost:43507/ExpenseReportSearch?Submitter=Assistant |

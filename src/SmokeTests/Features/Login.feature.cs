@@ -66,9 +66,7 @@ namespace SmokeTests.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Arrive at login page")]
-        [NUnit.Framework.TestCaseAttribute("Firefox", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Chrome", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("IE", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("PhantomJS", new string[0])]
         public virtual void ArriveAtLoginPage(string browser, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Arrive at login page", exampleTags);
@@ -91,23 +89,21 @@ this.ScenarioSetup(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Arrive at home page")]
-        [NUnit.Framework.TestCaseAttribute("Firefox", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("Chrome", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("IE", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("PhantomJS", new string[0])]
         public virtual void ArriveAtHomePage(string browser, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Arrive at home page", exampleTags);
-#line 19
-this.ScenarioSetup(scenarioInfo);
 #line 20
- testRunner.Given(string.Format("I am using {0}", browser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 21
- testRunner.And("I am logged in on \'http://localhost:43507\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given(string.Format("I am using {0}", browser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 22
- testRunner.When("I browse to \'http://localhost:43507\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I am logged in on \'http://localhost:43507\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
- testRunner.Then("the page title should start with Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I browse to \'http://localhost:43507\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 24
+ testRunner.Then("the page title should start with Home Page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 25
  testRunner.And("the page url should be exactly http://localhost:43507/", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

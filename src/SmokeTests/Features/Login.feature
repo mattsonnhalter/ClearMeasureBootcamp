@@ -11,10 +11,11 @@ Scenario Outline: Arrive at login page
 	And the page url should be exactly http://localhost:43507/Account/Login?ReturnUrl=%2F
 
 	Examples: 
-			| browser |
-			| Firefox |
-			| Chrome  |
-			| IE      |
+			| browser   |
+			| PhantomJS |
+#			| Firefox   |
+#			| Chrome    |
+#			| IE        |
 
 Scenario Outline: Arrive at home page
 	Given I am using <browser>
@@ -24,7 +25,8 @@ Scenario Outline: Arrive at home page
 	And the page url should be exactly http://localhost:43507/
 
 	Examples: 
-			| browser |
-			| Firefox |
-			| Chrome  |
-			| IE      |
+			| browser   |
+			| PhantomJS |
+#			| Firefox   |
+#			| Chrome    |
+#			| IE        |
