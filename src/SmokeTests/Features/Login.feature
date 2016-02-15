@@ -3,30 +3,12 @@
 	Home page should be the first page the user sees if logged in
 
 
-Scenario Outline: Arrive at login page
-	Given I am using <browser>
-	And I am not logged in on 'http://localhost:43507'
-	When I browse to 'http://localhost:43507'
-	Then the page title should start with Login
-	And the page url should be exactly http://localhost:43507/Account/Login?ReturnUrl=%2F
+Scenario: Arrive at login page
+	Given I am on the site
+	When I log out
+	Then I should be on the Login page
 
-	Examples: 
-			| browser   |
-			| PhantomJS |
-#			| Firefox   |
-#			| Chrome    |
-#			| IE        |
-
-Scenario Outline: Arrive at home page
-	Given I am using <browser>
-	And I am logged in on 'http://localhost:43507'
-	When I browse to 'http://localhost:43507'
-	Then the page title should start with Home Page
-	And the page url should be exactly http://localhost:43507/
-
-	Examples: 
-			| browser   |
-			| PhantomJS |
-#			| Firefox   |
-#			| Chrome    |
-#			| IE        |
+Scenario: Arrive at home page
+	Given I am on the site
+	When I log in
+	Then I should be on the Home page

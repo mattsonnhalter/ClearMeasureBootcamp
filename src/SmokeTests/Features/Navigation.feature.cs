@@ -65,26 +65,22 @@ namespace SmokeTests.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Link to correct page")]
-        [NUnit.Framework.TestCaseAttribute("PhantomJS", "New", "New ExpenseReport", "http://localhost:43507/ExpenseReport/Manage?mode=New", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("PhantomJS", "Search", "Search Results", "http://localhost:43507/ExpenseReportSearch", new string[0])]
-        [NUnit.Framework.TestCaseAttribute("PhantomJS", "My Expenses", "Search Results", "http://localhost:43507/ExpenseReportSearch?Submitter=Assistant", new string[0])]
-        public virtual void LinkToCorrectPage(string browser, string link, string pageTitle, string pageUrl, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("New", "New", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("Search", "Search", new string[0])]
+        [NUnit.Framework.TestCaseAttribute("My Expenses", "My Expenses", new string[0])]
+        public virtual void LinkToCorrectPage(string link, string page, string[] exampleTags)
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Link to correct page", exampleTags);
 #line 4
 this.ScenarioSetup(scenarioInfo);
 #line 5
- testRunner.Given(string.Format("I am using {0}", browser), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I am on the site", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 6
- testRunner.And("I am logged in on \'http://localhost:43507\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I log in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 7
- testRunner.And("I am on the home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("I click on the {0} link", link), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 8
- testRunner.When(string.Format("I click on the {0} link", link), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 9
- testRunner.Then(string.Format("the page title should start with {0}", pageTitle), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 10
- testRunner.And(string.Format("the page url should be exactly {0}", pageUrl), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then(string.Format("I should be on the {0} page", page), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

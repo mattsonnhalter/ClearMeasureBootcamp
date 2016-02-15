@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Linq;
 using TechTalk.SpecFlow;
 
@@ -14,15 +13,14 @@ namespace SmokeTests.StepDefinitions
         public static void Startup()
         {
             // kill off existing IIS Express instance if present
-            var path = AppDomain.CurrentDomain.BaseDirectory.Replace("SmokeTests\\bin\\Debug", "UI");
             var matchingProcess = Process.GetProcessesByName("iisexpress").FirstOrDefault();
             matchingProcess?.Kill();
             _iisProcess = new Process
                 {
                     StartInfo =
                     {
-                        FileName = @"C:\Program Files (x86)\IIS Express\iisexpress.exe",
-                        Arguments = $"/path:{path} /port:43507"
+                        FileName = SmokeTestPaths.GetIisExpressExecPath(),
+                        Arguments = SmokeTestPaths.GetIisExpressExecArguments()
                     }
                 };
             _iisProcess.Start();

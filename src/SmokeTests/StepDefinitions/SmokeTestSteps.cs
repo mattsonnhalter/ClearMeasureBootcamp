@@ -1,5 +1,5 @@
 ﻿using System;
-using System.IO;
+using System.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -16,14 +16,16 @@ namespace SmokeTests.StepDefinitions
     {
         private IWebDriver _driver;
         private static ChromeDriverService _chromeDriverService;
-        private static readonly string DriverPath = AppDomain.CurrentDomain.BaseDirectory.Replace("bin\\Debug", "Drivers");
-        private const string HomePage = "http://localhost:43507/";
+
+        private static readonly string DriversPath = SmokeTestPaths.GetDriversPath();
+
+        private static readonly string HomePage = ConfigurationManager.AppSettings["siteUrl"];
 
         //Hooks
         [BeforeTestRun]
         public static void StartChromeDriverService()
         {
-            _chromeDriverService = ChromeDriverService.CreateDefaultService(DriverPath, "chromedriver.exe");
+            _chromeDriverService = ChromeDriverService.CreateDefaultService(DriversPath, "chromedriver.exe");
             _chromeDriverService.Start();
         }
 
@@ -33,15 +35,14 @@ namespace SmokeTests.StepDefinitions
             _chromeDriverService.Dispose();
         }
 
-        [BeforeStep]
-        public void WaitForLoad()
+        [BeforeScenario]
+        public void SelectBrowserFromAppConfig()
         {
-            _driver?.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(30));
+            var browser = ConfigurationManager.AppSettings["browser"];
+            SelectBrowser(browser);
         }
 
-        //Given
-        [Given(@"I am using (.*)")]
-        public void GivenIAmUsing(string browser)
+        private void SelectBrowser(string browser)
         {
             switch (browser)
             {
@@ -52,11 +53,10 @@ namespace SmokeTests.StepDefinitions
                     _driver = new RemoteWebDriver(_chromeDriverService.ServiceUrl, DesiredCapabilities.Chrome());
                     break;
                 case "IE":
-                    _driver = new InternetExplorerDriver(DriverPath);
+                    _driver = new InternetExplorerDriver(DriversPath);
                     break;
                 case "PhantomJS":
-                    var path = AppDomain.CurrentDomain.BaseDirectory.Replace(@"SmokeTests\bin\Debug", "");
-                    var phantomJsPath = Path.Combine(path, @"packages\PhantomJS.2.1.1\tools\phantomjs\");
+                    var phantomJsPath = SmokeTestPaths.GetPhantomJsPath();
                     var driverService = PhantomJSDriverService.CreateDefaultService(phantomJsPath);
                     _driver = new PhantomJSDriver(driverService);
                     break;
@@ -65,30 +65,35 @@ namespace SmokeTests.StepDefinitions
             }
         }
 
-        [Given(@"I am not logged in on '(.*)'")]
-        public void GivenIAmNotLoggedIn(string url)
+        [BeforeStep]
+        public void WaitForLoad()
         {
-            _driver.Navigate().GoToUrl(url);
-            SatisfyLoginCondition(false);
+            _driver?.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
         }
 
-        [Given(@"I am logged in on '(.*)'")]
-        public void GivenIAmLoggedIn(string url)
-        {
-            _driver.Navigate().GoToUrl(url);
-            SatisfyLoginCondition(true);
-        }
-
-        [Given(@"I am on the home page")]
-        public void GivenIAmOnHomePage()
+        //Given
+        [Given(@"I am on the site")]
+        public void GivenIAmOnTheSite()
         {
             _driver.Navigate().GoToUrl(HomePage);
         }
 
+        //When
+        [When(@"I log in")]
+        public void WhenILogIn()
+        {
+            SatisfyLoginCondition(true);
+        }
+
+        [When(@"I log out")]
+        public void WhenILogout()
+        {
+            SatisfyLoginCondition(false);
+        }
+
         private void SatisfyLoginCondition(bool loggedIn)
         {
-            var pageTitle = _driver.Title;
-            if (!pageTitle.StartsWith("Login", StringComparison.CurrentCulture))
+            if (!_driver.Title.StartsWith("Login", StringComparison.CurrentCulture))
             {
                 if (loggedIn) return;
                 var logout = _driver.FindElement(By.LinkText("Logout"));
@@ -97,16 +102,23 @@ namespace SmokeTests.StepDefinitions
             else
             {
                 if (!loggedIn) return;
+                var userSelect = new SelectElement(_driver.FindElement(By.Id("UserName")));
+                userSelect.SelectByIndex(0);
                 var login = _driver.FindElement(By.XPath("//button[contains(text(), 'Log In')]"));
                 login.Click();
             }
         }
 
-        //When
         [When(@"I browse to '(.*)'")]
         public void WhenIBrowseTo(string url)
         {
             _driver.Navigate().GoToUrl(url);
+        }
+
+        [When(@"I browse to the site")]
+        public void WhenIBrowseToTheSite()
+        {
+            _driver.Navigate().GoToUrl(HomePage);
         }
 
         [When(@"I search for '(.*)'")]
@@ -125,18 +137,12 @@ namespace SmokeTests.StepDefinitions
         }
 
         //Then
-        [Then(@"the page title should start with (.*)")]
-        public void ThenThePageTitleShouldStartWith(string title)
+        [Then(@"I should be on the (.*) page")]
+        public void ThenIShouldBeOnPage(string page)
         {
+            var completeUrl = HomePage + SmokeTestPageUrls.PageUrls[page];
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
-            wait.Until(d => d.Title.StartsWith(title, StringComparison.CurrentCultureIgnoreCase));
-        }
-
-        [Then(@"the page url should be exactly (.*)")]
-        public void ThenThePageUrlShouldBeExactly(string url)
-        {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
-            wait.Until(d => d.Url.Equals(url, StringComparison.Ordinal));
+            wait.Until(d => d.Url.Equals(completeUrl, StringComparison.Ordinal));
         }
 
         [AfterScenario]
