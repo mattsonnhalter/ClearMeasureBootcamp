@@ -2,7 +2,7 @@
 using System.Linq;
 using TechTalk.SpecFlow;
 
-namespace SmokeTests.StepDefinitions
+namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
 {
     [Binding]
     public static class SmokeTestsBootstrapper

@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace SmokeTests.Features
+namespace ClearMeasure.Bootcamp.SmokeTests.Features
 {
     using TechTalk.SpecFlow;
     

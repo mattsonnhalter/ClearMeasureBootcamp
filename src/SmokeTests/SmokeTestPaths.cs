@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.IO;
 
-namespace SmokeTests
+namespace ClearMeasure.Bootcamp.SmokeTests
 {
     public static class SmokeTestPaths
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Specialized;
 
-namespace SmokeTests
+namespace ClearMeasure.Bootcamp.SmokeTests
 {
     public static class SmokeTestPageUrls
     {

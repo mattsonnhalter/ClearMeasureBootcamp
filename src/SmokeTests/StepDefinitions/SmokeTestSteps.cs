@@ -9,7 +9,7 @@ using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using TechTalk.SpecFlow;
 
-namespace SmokeTests.StepDefinitions
+namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
 {
     [Binding]
     public class SmokeTestSteps
