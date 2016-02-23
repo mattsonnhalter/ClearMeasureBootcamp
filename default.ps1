@@ -4,6 +4,7 @@ properties {
     $projectName = "ClearMeasure.Bootcamp"
     $unitTestAssembly = "ClearMeasure.Bootcamp.UnitTests.dll"
     $integrationTestAssembly = "ClearMeasure.Bootcamp.IntegrationTests.dll"
+    $acceptanceTestAssembly = "ClearMeasure.Bootcamp.SmokeTests.dll"
 	$projectConfig = $env:Configuration
     $version = $env:Version
 	$base_dir = resolve-path .\
@@ -67,8 +68,16 @@ task Compile -depends Init {
 
 task Test {
     copy_all_assemblies_for_test $test_dir
+	$outputOption = "-output=$build_dir\TestResult.xml"
     exec {
-        & $nunitPath\nunit-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly /nologo /xml=$build_dir\TestResult.xml
+        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly -noheader $outputOption
+    }
+
+}
+
+task AcceptanceTest {
+	exec {
+        & $nunitPath\nunit3-console.exe $test_dir\$acceptanceTestAssembly -noheader $outputOption
     }
 }
 
@@ -86,8 +95,9 @@ task RebuildRemoteDatabase {
 }
 
 task LoadData -depends ConnectionString, Compile, RebuildDatabase {
-    exec { 
-		& $nunitPath\nunit-console.exe $test_dir\$integrationTestAssembly /include=DataLoader /nologo /nodots /xml=$build_dir\DataLoadResult.xml
+	$outputOption = "-output=$build_dir\DataLoadResult.xml"    
+	exec { 
+		& $nunitPath\nunit3-console.exe $test_dir\$integrationTestAssembly --where "cat == DataLoader" -noheader $outputOption
     } "Build failed - data load failure"  
 }
 

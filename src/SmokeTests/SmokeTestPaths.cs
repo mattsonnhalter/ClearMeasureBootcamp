@@ -29,9 +29,7 @@ namespace ClearMeasure.Bootcamp.SmokeTests
 
         public static string GetPhantomJsPath()
         {
-            var path = AppDomain.CurrentDomain.BaseDirectory.Replace(@"SmokeTests\bin\Debug", "");
-            var phantomJsPath = Path.Combine(path, @"packages\PhantomJS.2.1.1\tools\phantomjs\");
-            return phantomJsPath;
+            return AppDomain.CurrentDomain.BaseDirectory;
         }
     }
 }

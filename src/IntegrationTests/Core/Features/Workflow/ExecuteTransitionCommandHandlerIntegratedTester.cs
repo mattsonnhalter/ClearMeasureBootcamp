@@ -10,6 +10,7 @@ using ClearMeasure.Bootcamp.IntegrationTests.DataAccess;
 using ClearMeasure.Bootcamp.UI.DependencyResolution;
 using NHibernate;
 using NUnit.Framework;
+using Should;
 using StructureMap;
 
 namespace ClearMeasure.Bootcamp.IntegrationTests.Core.Features.Workflow

@@ -25,8 +25,8 @@ namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
         [BeforeTestRun]
         public static void StartChromeDriverService()
         {
-            _chromeDriverService = ChromeDriverService.CreateDefaultService(DriversPath, "chromedriver.exe");
-            _chromeDriverService.Start();
+//            _chromeDriverService = ChromeDriverService.CreateDefaultService(DriversPath, "chromedriver.exe");
+//            _chromeDriverService.Start();
         }
 
         [AfterTestRun]
