@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.IO;
 
 namespace ClearMeasure.Bootcamp.SmokeTests
 {
@@ -8,7 +7,12 @@ namespace ClearMeasure.Bootcamp.SmokeTests
     {
         public static string GetIisExpressExecArguments()
         {
-            var path = AppDomain.CurrentDomain.BaseDirectory.Replace("SmokeTests\\bin\\Debug", "UI");
+            // TODO: Think of a better, more robust way of finding the website root
+            var path = AppDomain.CurrentDomain.BaseDirectory;
+            // for running within VS
+            path = path.Replace(@"SmokeTests\bin\Debug", "UI");
+            // for running from the command line
+            path = path.Replace(@"build\test", @"src\UI");
             var port = ConfigurationManager.AppSettings["port"];
             var arguments = $"/path:{path} /port:{port}";
             return arguments;
@@ -16,14 +20,13 @@ namespace ClearMeasure.Bootcamp.SmokeTests
 
         public static string GetIisExpressExecPath()
         {
-            var path = @ConfigurationManager.AppSettings["iisExpressPath"];
+            var path = ConfigurationManager.AppSettings["iisExpressPath"];
             return path;
         }
 
         public static string GetDriversPath()
         {
-            var path = AppDomain.CurrentDomain.BaseDirectory.Replace("bin\\Debug",
-                "Drivers");
+            var path = AppDomain.CurrentDomain.BaseDirectory.Replace(@"bin\Debug", "Drivers");
             return path;
         }
 

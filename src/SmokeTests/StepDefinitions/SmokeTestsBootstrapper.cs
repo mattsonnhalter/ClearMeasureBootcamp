@@ -29,9 +29,6 @@ namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
                     }
                 };
             _iisProcess.Start();
-
-
-
         }
         
         [AfterTestRun]

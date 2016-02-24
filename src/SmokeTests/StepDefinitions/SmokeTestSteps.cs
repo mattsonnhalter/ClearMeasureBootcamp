@@ -14,35 +14,28 @@ namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
     [Binding]
     public class SmokeTestSteps
     {
-        private IWebDriver _driver;
-        private static ChromeDriverService _chromeDriverService;
-
+        private static IWebDriver _driver;
+        private static ICommandServer _driverService;
         private static readonly string DriversPath = SmokeTestPaths.GetDriversPath();
-
         private static readonly string HomePage = ConfigurationManager.AppSettings["siteUrl"];
 
         //Hooks
-        [BeforeTestRun]
-        public static void StartChromeDriverService()
-        {
-//            _chromeDriverService = ChromeDriverService.CreateDefaultService(DriversPath, "chromedriver.exe");
-//            _chromeDriverService.Start();
-        }
-
-        [AfterTestRun]
-        public static void StopChromeDriverService()
-        {
-            _chromeDriverService.Dispose();
-        }
-
-        [BeforeScenario]
-        public void SelectBrowserFromAppConfig()
+        [BeforeFeature]
+        public static void Startup()
         {
             var browser = ConfigurationManager.AppSettings["browser"];
             SelectBrowser(browser);
         }
 
-        private void SelectBrowser(string browser)
+        [AfterFeature]
+        public static void Cleanup()
+        {
+            _driverService?.Dispose();
+            _driver?.Quit();
+            _driver?.Dispose();
+        }
+
+        private static void SelectBrowser(string browser)
         {
             switch (browser)
             {
@@ -50,15 +43,19 @@ namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
                     _driver = new FirefoxDriver();
                     break;
                 case "Chrome":
-                    _driver = new RemoteWebDriver(_chromeDriverService.ServiceUrl, DesiredCapabilities.Chrome());
+                    var chromeDriverService = ChromeDriverService.CreateDefaultService(DriversPath, "chromedriver.exe");
+                    chromeDriverService.Start();
+                    _driver = new RemoteWebDriver(chromeDriverService.ServiceUrl, DesiredCapabilities.Chrome());
+                    _driverService = chromeDriverService;
                     break;
                 case "IE":
                     _driver = new InternetExplorerDriver(DriversPath);
                     break;
                 case "PhantomJS":
                     var phantomJsPath = SmokeTestPaths.GetPhantomJsPath();
-                    var driverService = PhantomJSDriverService.CreateDefaultService(phantomJsPath);
-                    _driver = new PhantomJSDriver(driverService);
+                    var phantomJsDriverService = PhantomJSDriverService.CreateDefaultService(phantomJsPath);
+                    _driver = new PhantomJSDriver(phantomJsDriverService);
+                    _driverService = phantomJsDriverService;
                     break;
                 default:
                     throw new ArgumentException("Unknown browser");
@@ -143,12 +140,6 @@ namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
             var completeUrl = HomePage + SmokeTestPageUrls.PageUrls[page];
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
             wait.Until(d => d.Url.Equals(completeUrl, StringComparison.Ordinal));
-        }
-
-        [AfterScenario]
-        public void Cleanup()
-        {
-            _driver?.Quit();
         }
     }
 }

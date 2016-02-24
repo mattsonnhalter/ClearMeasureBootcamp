@@ -2,15 +2,17 @@ Framework "4.6"
 
 properties {
     $projectName = "ClearMeasure.Bootcamp"
+	$base_dir = resolve-path .\
+	$source_dir = "$base_dir\src"
     $unitTestAssembly = "ClearMeasure.Bootcamp.UnitTests.dll"
     $integrationTestAssembly = "ClearMeasure.Bootcamp.IntegrationTests.dll"
     $acceptanceTestAssembly = "ClearMeasure.Bootcamp.SmokeTests.dll"
+    $acceptanceTestProject = "$source_dir\SmokeTests\SmokeTests.csproj"
 	$projectConfig = $env:Configuration
     $version = $env:Version
-	$base_dir = resolve-path .\
-	$source_dir = "$base_dir\src"
-    $nunitPath = "$source_dir\packages\NUnit*\Tools"
-	
+    $nunitPath = Resolve-Path("$source_dir\packages\NUnit.Console*\Tools")
+    $specflowPath = Resolve-Path("$source_dir\packages\SpecFlow*\tools")
+
 	$build_dir = "$base_dir\build"
 	$test_dir = "$build_dir\test"
 	$testCopyIgnorePath = "_ReSharper"
@@ -49,7 +51,6 @@ task Init {
     Write-Host $projectConfig
     Write-Host $version
     Write-Host $runOctoPack
-
 }
 
 task ConnectionString {
@@ -66,18 +67,18 @@ task Compile -depends Init {
     }
 }
 
-task Test {
+task Test -depends Compile {
     copy_all_assemblies_for_test $test_dir
-	$outputOption = "-output=$build_dir\TestResult.xml"
     exec {
-        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly -noheader $outputOption
+        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly --noheader --result="$build_dir\TestResult.xml"`;format=nunit3
     }
-
 }
 
-task AcceptanceTest {
+task AcceptanceTest -depends Compile {
+    copy_all_assemblies_for_test $test_dir
 	exec {
-        & $nunitPath\nunit3-console.exe $test_dir\$acceptanceTestAssembly -noheader $outputOption
+        & $nunitPath\nunit3-console.exe $test_dir\$acceptanceTestAssembly --noheader --result="$build_dir\AcceptanceTestResult.xml"`;format=nunit3 --out="$build_dir\AcceptanceTestResult.txt"
+        & $specflowPath\specflow.exe nunitexecutionreport $acceptanceTestProject /xmlTestResult:"$build_dir\AcceptanceTestResult.xml" /testOutput:"$build_dir\AcceptanceTestResult.txt" /out:"$build_dir\AcceptanceTestResult.html"
     }
 }
 
