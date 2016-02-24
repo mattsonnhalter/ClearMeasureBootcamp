@@ -70,14 +70,14 @@ task Compile -depends Init {
 task Test -depends Compile {
     copy_all_assemblies_for_test $test_dir
     exec {
-        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly --noheader --result="$build_dir\TestResult.xml"`;format=nunit3
+        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly --noheader --result="$build_dir\TestResult.xml"`;format=nunit2
     }
 }
 
 task AcceptanceTest -depends Compile {
     copy_all_assemblies_for_test $test_dir
 	exec {
-        & $nunitPath\nunit3-console.exe $test_dir\$acceptanceTestAssembly --noheader --result="$build_dir\AcceptanceTestResult.xml"`;format=nunit3 --out="$build_dir\AcceptanceTestResult.txt"
+        & $nunitPath\nunit3-console.exe $test_dir\$acceptanceTestAssembly --noheader --result="$build_dir\AcceptanceTestResult.xml"`;format=nunit2 --out="$build_dir\AcceptanceTestResult.txt"
         & $specflowPath\specflow.exe nunitexecutionreport $acceptanceTestProject /xmlTestResult:"$build_dir\AcceptanceTestResult.xml" /testOutput:"$build_dir\AcceptanceTestResult.txt" /out:"$build_dir\AcceptanceTestResult.html"
     }
 }
