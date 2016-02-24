@@ -2,14 +2,17 @@ Framework "4.6"
 
 properties {
     $projectName = "ClearMeasure.Bootcamp"
-    $unitTestAssembly = "ClearMeasure.Bootcamp.UnitTests.dll"
-    $integrationTestAssembly = "ClearMeasure.Bootcamp.IntegrationTests.dll"
-	$projectConfig = $env:Configuration
-    $version = $env:Version
 	$base_dir = resolve-path .\
 	$source_dir = "$base_dir\src"
-    $nunitPath = "$source_dir\packages\NUnit.Runners*\Tools"
-	
+    $unitTestAssembly = "ClearMeasure.Bootcamp.UnitTests.dll"
+    $integrationTestAssembly = "ClearMeasure.Bootcamp.IntegrationTests.dll"
+    $acceptanceTestAssembly = "ClearMeasure.Bootcamp.SmokeTests.dll"
+    $acceptanceTestProject = "$source_dir\SmokeTests\SmokeTests.csproj"
+	$projectConfig = $env:Configuration
+    $version = $env:Version
+    $nunitPath = Resolve-Path("$source_dir\packages\NUnit.Console*\Tools")
+    $specflowPath = Resolve-Path("$source_dir\packages\SpecFlow*\tools")
+
 	$build_dir = "$base_dir\build"
 	$test_dir = "$build_dir\test"
 	$testCopyIgnorePath = "_ReSharper"
@@ -37,8 +40,7 @@ properties {
 }
 
 task default -depends Init, Compile, RebuildDatabase, Test, LoadData
-task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test #, Package
-
+task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test
 task Init {
     delete_file $package_file
     delete_directory $build_dir
@@ -48,7 +50,6 @@ task Init {
     Write-Host $projectConfig
     Write-Host $version
     Write-Host $runOctoPack
-
 }
 
 task ConnectionString {
@@ -60,18 +61,25 @@ task ConnectionString {
 }
 
 task Compile -depends Init {
-	Write-Host "Beginning msbuild command:" -foregroundcolor yellow
-	Write-Host("& msbuild /t:Clean`;Rebuild /v:q /nologo /p:Configuration=$projectConfig /p:OctoPackPackageVersion=$version /p:RunOctoPack=$runOctoPack /p:OctoPackEnforceAddingFiles=true $source_dir\$projectName.sln")
     exec {
-        & msbuild /t:Clean`;Rebuild /v:n /nologo /p:Configuration=$projectConfig /p:OctoPackPackageVersion=$version /p:RunOctoPack=$runOctoPack /p:OctoPackEnforceAddingFiles=true $source_dir\$projectName.sln
+        & msbuild /t:Clean`;Rebuild /v:q /nologo /p:Configuration=$projectConfig /p:OctoPackPackageVersion=$version /p:RunOctoPack=$runOctoPack /p:OctoPackEnforceAddingFiles=true $source_dir\$projectName.sln
     }
-	Write-Host "End msbuild command" -foregroundcolor yellow 
+
+	Copy_and_flatten $source_dir *.nupkg $build_dir
 }
 
-task Test {
+task Test -depends Compile {
     copy_all_assemblies_for_test $test_dir
     exec {
-        & $nunitPath\nunit-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly /nologo /xml=$build_dir\TestResult.xml
+        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly $test_dir\$acceptanceTestAssembly --noheader --result="$build_dir\TestResult.xml"`;format=nunit3
+    }
+}
+
+task AcceptanceTest -depends Compile {
+    copy_all_assemblies_for_test $test_dir
+	exec {
+        & $nunitPath\nunit3-console.exe $test_dir\$acceptanceTestAssembly --noheader --result="$build_dir\AcceptanceTestResult.xml"`;format=nunit3 --out="$build_dir\AcceptanceTestResult.txt"
+        & $specflowPath\specflow.exe nunitexecutionreport $acceptanceTestProject /xmlTestResult:"$build_dir\AcceptanceTestResult.xml" /testOutput:"$build_dir\AcceptanceTestResult.txt" /out:"$build_dir\AcceptanceTestResult.html"
     }
 }
 
@@ -89,8 +97,8 @@ task RebuildRemoteDatabase {
 }
 
 task LoadData -depends ConnectionString, Compile, RebuildDatabase {
-    exec { 
-		& $nunitPath\nunit-console.exe $test_dir\$integrationTestAssembly /include=DataLoader /nologo /nodots /xml=$build_dir\DataLoadResult.xml
+	exec { 
+		& $nunitPath\nunit3-console.exe $test_dir\$integrationTestAssembly --where "cat == DataLoader" --noheader --result="$build_dir\DataLoadResult.xml"`;format=nunit3
     } "Build failed - data load failure"  
 }
 
@@ -110,15 +118,6 @@ task SchemaConnectionString {
 
 task CommonAssemblyInfo {   
     create-commonAssemblyInfo "$version" $projectName "$source_dir\CommonAssemblyInfo.cs"
-}
-
-task Package {
-    delete_directory $package_dir
-	#web app
-    copy_website_files "$webapp_dir" "$package_dir\web" 
-    copy_files "$databaseScripts" "$package_dir\database"
-	
-	zip_directory $package_dir $package_file 
 }
  
 
@@ -199,13 +198,7 @@ function global:delete_files_in_dir($dir)
 
 function global:create_directory($directory_name)
 {
-    if( Test-Path $directory_name ){
-        Get-ChildItem -Path $directory_name -Include *.* -File -Recurse | foreach { $_.Delete()}
-    }
-    else{
-        mkdir $directory_name  -ErrorAction SilentlyContinue  | out-null
-    }
-
+  mkdir $directory_name  -ErrorAction SilentlyContinue  | out-null
 }
 
 function global:create-commonAssemblyInfo($version,$applicationName,$filename)
