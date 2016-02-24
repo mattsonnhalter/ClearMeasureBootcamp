@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using ClearMeasure.Bootcamp.IntegrationTests;
+using NUnit.Framework;
 using TechTalk.SpecFlow;
 
+[assembly: Parallelizable(ParallelScope.None)]
 namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
 {
     [Binding]
@@ -13,10 +15,6 @@ namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
         [BeforeTestRun]
         public static void Startup()
         {
-            Trace.WriteLine("Loading database");
-            new ZDataLoader().PopulateDatabase();
-            Trace.WriteLine("Loaded database");
-
             // kill off existing IIS Express instance if present
             var matchingProcess = Process.GetProcessesByName("iisexpress").FirstOrDefault();
             matchingProcess?.Kill();

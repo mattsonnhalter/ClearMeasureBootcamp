@@ -39,9 +39,8 @@ properties {
     if([string]::IsNullOrEmpty($runOctoPack)) {$runOctoPack = "true"}
 }
 
-task default -depends Init, Compile, RebuildDatabase, Test, LoadData, AcceptanceTest
-task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test, AcceptanceTest
-
+task default -depends Init, Compile, RebuildDatabase, Test, LoadData
+task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test
 task Init {
     delete_file $package_file
     delete_directory $build_dir
@@ -70,7 +69,7 @@ task Compile -depends Init {
 task Test -depends Compile {
     copy_all_assemblies_for_test $test_dir
     exec {
-        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly --noheader --result="$build_dir\TestResult.xml"`;format=nunit3
+        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly $test_dir\$acceptanceTestAssembly --noheader --result="$build_dir\TestResult.xml"`;format=nunit3
     }
 }
 

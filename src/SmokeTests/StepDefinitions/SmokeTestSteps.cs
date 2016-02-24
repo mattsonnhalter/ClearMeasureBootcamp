@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
+using ClearMeasure.Bootcamp.IntegrationTests;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -23,6 +25,10 @@ namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
         [BeforeFeature]
         public static void Startup()
         {
+            Trace.WriteLine("Loading database");
+            new ZDataLoader().PopulateDatabase();
+            Trace.WriteLine("Loaded database");
+
             var browser = ConfigurationManager.AppSettings["browser"];
             SelectBrowser(browser);
         }
