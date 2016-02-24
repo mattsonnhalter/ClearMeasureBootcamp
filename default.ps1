@@ -39,8 +39,8 @@ properties {
     if([string]::IsNullOrEmpty($runOctoPack)) {$runOctoPack = "true"}
 }
 
-task default -depends Init, Compile, RebuildDatabase, Test, LoadData
-task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test #, Package
+task default -depends Init, Compile, RebuildDatabase, Test, LoadData, AcceptanceTest
+task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test, AcceptanceTest
 
 task Init {
     delete_file $package_file
@@ -96,9 +96,8 @@ task RebuildRemoteDatabase {
 }
 
 task LoadData -depends ConnectionString, Compile, RebuildDatabase {
-	$outputOption = "-output=$build_dir\DataLoadResult.xml"    
 	exec { 
-		& $nunitPath\nunit3-console.exe $test_dir\$integrationTestAssembly --where "cat == DataLoader" -noheader $outputOption
+		& $nunitPath\nunit3-console.exe $test_dir\$integrationTestAssembly --where "cat == DataLoader" --noheader --result="$build_dir\DataLoadResult.xml"`;format=nunit3
     } "Build failed - data load failure"  
 }
 
@@ -118,15 +117,6 @@ task SchemaConnectionString {
 
 task CommonAssemblyInfo {   
     create-commonAssemblyInfo "$version" $projectName "$source_dir\CommonAssemblyInfo.cs"
-}
-
-task Package {
-    delete_directory $package_dir
-	#web app
-    copy_website_files "$webapp_dir" "$package_dir\web" 
-    copy_files "$databaseScripts" "$package_dir\database"
-	
-	zip_directory $package_dir $package_file 
 }
  
 
