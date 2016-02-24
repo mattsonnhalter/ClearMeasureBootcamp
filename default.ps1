@@ -64,6 +64,8 @@ task Compile -depends Init {
     exec {
         & msbuild /t:Clean`;Rebuild /v:q /nologo /p:Configuration=$projectConfig /p:OctoPackPackageVersion=$version /p:RunOctoPack=$runOctoPack /p:OctoPackEnforceAddingFiles=true $source_dir\$projectName.sln
     }
+
+	Copy_and_flatten $source_dir *.nupkg $build_dir
 }
 
 task Test -depends Compile {
@@ -178,7 +180,6 @@ function global:copy_all_assemblies_for_test($destination){
   Copy_and_flatten $source_dir *.pdb $destination
   Copy_and_flatten $source_dir *.sql $destination
   Copy_and_flatten $source_dir *.xlsx $destination
-  Copy_and_flatten $source_dir *.nupkg $destination
 }
 
 function global:delete_file($file) {
