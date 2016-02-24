@@ -1,6 +1,7 @@
 using System;
 using ClearMeasure.Bootcamp.Core.Model;
 using NUnit.Framework;
+using Should;
 
 namespace ClearMeasure.Bootcamp.UnitTests.Core.Model
 {

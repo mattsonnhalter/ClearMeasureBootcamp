@@ -5,6 +5,7 @@ using ClearMeasure.Bootcamp.IntegrationTests.DataAccess;
 using NHibernate;
 using NUnit.Framework;
 
+[assembly: Parallelizable(ParallelScope.None)]
 namespace ClearMeasure.Bootcamp.IntegrationTests
 {
     [TestFixture, Explicit]

@@ -1,5 +1,4 @@
 # Clear Measure Bootcamp 
-Current Build Status [![](http://build.clear-measure.com/app/rest/builds/buildType:(id:BootCamp_CompileAndTest)/statusIcon)](http://teamcity/viewType.html?buildTypeId=btN&guest=1)
 
 **This project is the starting point for folks taking part in the Clear Measure 
 Bootcamp.** 
