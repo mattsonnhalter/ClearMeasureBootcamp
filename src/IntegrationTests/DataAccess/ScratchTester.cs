@@ -14,7 +14,7 @@ using StructureMap;
 
 namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess
 {
-    [TestFixture, Explicit]
+    [TestFixture, Explicit, Ignore("scratch")]
     public class ScratchTester
     {
         [Test]

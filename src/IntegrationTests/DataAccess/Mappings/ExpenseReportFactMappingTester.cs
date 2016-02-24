@@ -4,6 +4,7 @@ using ClearMeasure.Bootcamp.Core.Model.ExpenseReportAnalytics;
 using ClearMeasure.Bootcamp.DataAccess.Mappings;
 using NHibernate;
 using NUnit.Framework;
+using Should;
 
 namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess.Mappings
 {

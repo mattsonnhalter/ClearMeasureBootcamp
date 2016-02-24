@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using ClearMeasure.Bootcamp.Core;
 using ClearMeasure.Bootcamp.Core.Features.Workflow;
 using ClearMeasure.Bootcamp.Core.Model;
@@ -8,6 +10,7 @@ using ClearMeasure.Bootcamp.IntegrationTests.DataAccess;
 using ClearMeasure.Bootcamp.UI.DependencyResolution;
 using NHibernate;
 using NUnit.Framework;
+using Should;
 using StructureMap;
 
 namespace ClearMeasure.Bootcamp.IntegrationTests.Core.Features.Workflow
@@ -87,6 +90,15 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.Core.Features.Workflow
             reHydratedExpenseReportFact.TimeStamp.ShouldEqual(expenseReportFact.TimeStamp);
             reHydratedExpenseReportFact.Total.ShouldEqual(expenseReportFact.Total);
         }
- 
-    }
+
+        [Test]
+        public void sample()
+        {
+            var matchingProcess = Process.GetProcessesByName("iisexpress").FirstOrDefault();
+            if (matchingProcess != null && matchingProcess.StartInfo.Arguments.Contains("43507"))
+            {
+                matchingProcess.Kill();
+            }
+        }
+}
 }
