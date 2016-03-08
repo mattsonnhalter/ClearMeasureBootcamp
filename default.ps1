@@ -68,21 +68,19 @@ task Compile -depends Init {
 	Copy_and_flatten $source_dir *.nupkg $build_dir
 }
 
-task Test -depends Compile {
+task Test -depends Compile, RebuildDatabase {
     copy_all_assemblies_for_test $test_dir
     exec {
-        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly --teamcity --workers=1 --noheader --result="$build_dir\TestResult.xml"`;format=nunit3
-        & $nunitPath\nunit3-console.exe $test_dir\$acceptanceTestAssembly --teamcity --workers=1 --noheader --result="$build_dir\AcceptanceTestResult.xml"`;format=nunit3 --out="$build_dir\AcceptanceTestResult.txt"
-        & $specflowPath\specflow.exe nunitexecutionreport $acceptanceTestProject /xmlTestResult:"$build_dir\AcceptanceTestResult.xml" /testOutput:"$build_dir\AcceptanceTestResult.txt" /out:"$build_dir\AcceptanceTestResult.html"
+        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly --teamcity --workers=1 --noheader --result="$build_dir\TestResult.xml"`;format=nunit2
     }
 }
 
-task AcceptanceTest -depends Compile {
+task AcceptanceTest -depends Test {
     copy_all_assemblies_for_test $test_dir
 	exec {
-        & $nunitPath\nunit3-console.exe $test_dir\$acceptanceTestAssembly --noheader --result="$build_dir\AcceptanceTestResult.xml"`;format=nunit3 --out="$build_dir\AcceptanceTestResult.txt"
+        & $nunitPath\nunit3-console.exe $test_dir\$acceptanceTestAssembly --teamcity --workers=1 --noheader --result="$build_dir\AcceptanceTestResult.xml"`;format=nunit2 --out="$build_dir\AcceptanceTestResult.txt"
         & $specflowPath\specflow.exe nunitexecutionreport $acceptanceTestProject /xmlTestResult:"$build_dir\AcceptanceTestResult.xml" /testOutput:"$build_dir\AcceptanceTestResult.txt" /out:"$build_dir\AcceptanceTestResult.html"
-    }
+	}
 }
 
 task RebuildDatabase -depends ConnectionString {
