@@ -150,7 +150,7 @@ namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
             {
                 if (!loggedIn) return;
                 var userSelect = new SelectElement(_driver.FindElement(By.Id("UserName")));
-                userSelect.SelectByIndex(0);
+                userSelect.SelectByValue("jpalermo");
                 var login = _driver.FindElement(By.XPath("//button[contains(text(), 'Log In')]"));
                 login.Click();
             }

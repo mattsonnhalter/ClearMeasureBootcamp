@@ -11,4 +11,4 @@ Scenario Outline: Link to correct page
 	| link        | page        |
 	| New         | New         |
 	| Search      | Search      |
-	| My Expenses | My Expenses |
+	| My Expenses | My Expenses	|
