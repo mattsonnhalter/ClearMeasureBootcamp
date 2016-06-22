@@ -204,8 +204,8 @@ namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
         [When]
         public void WhenISubmitTheExpenseReport()
         {
-            _driver.FindElement(By.Name("Title")).SendKeys("title");
-            _driver.FindElement(By.Name("Description")).SendKeys("description");
+            _driver.FindElement(By.Name("Title")).SendKeys("titleasdf");
+            _driver.FindElement(By.Name("Description")).SendKeys("descriptionasd");
             _driver.FindElement(By.Name("Total")).SendKeys("123");
             
             var button = _driver.FindElement(By.XPath("//button[contains(text(), 'Submit')]"));
