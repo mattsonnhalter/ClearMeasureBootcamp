@@ -85,6 +85,7 @@ namespace ClearMeasure.Bootcamp.UI.Controllers
             expenseReport.Title = model.Title;
             expenseReport.Description = model.Description;
             expenseReport.Total = model.Total;
+            expenseReport.ExpenseDate = model.ExpenseDate;
 
             var transitionCommand = new ExecuteTransitionCommand(expenseReport, command, currentUser, 
                 _calendar.GetCurrentTime());
@@ -112,6 +113,7 @@ namespace ClearMeasure.Bootcamp.UI.Controllers
                 Description = expenseReport.Description,
                 CanReassign = UserCanChangeAssignee(expenseReport),
                 Total = expenseReport.Total,
+                ExpenseDate = expenseReport.ExpenseDate
             };
             return model;
         }

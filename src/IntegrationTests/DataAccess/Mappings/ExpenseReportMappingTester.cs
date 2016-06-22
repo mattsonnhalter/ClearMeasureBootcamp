@@ -24,6 +24,7 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess.Mappings
             report.Description = "bar";
             report.ChangeStatus(ExpenseReportStatus.Approved);
             report.Number = "123";
+            report.ExpenseDate = new DateTime(2016, 5, 1);
             report.AddAuditEntry(new AuditEntry(creator, DateTime.Now, ExpenseReportStatus.Submitted,
                                                   ExpenseReportStatus.Approved));
 
@@ -60,6 +61,7 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess.Mappings
             report.Description = "bar";
             report.ChangeStatus(ExpenseReportStatus.Approved);
             report.Number = "123";
+            report.ExpenseDate = new DateTime(2016, 5, 1);
             report.AddExpense("howdy", 123.45m);
 
             using (ISession session = DataContext.GetTransactedSession())
@@ -107,7 +109,8 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess.Mappings
                 LastCancelled = testTime,
                 LastApproved = testTime,
                 LastDeclined = testTime,
-                Total = 100.25m
+                Total = 100.25m,
+                ExpenseDate = testTime
             };
 
             report.ChangeStatus(ExpenseReportStatus.Approved);

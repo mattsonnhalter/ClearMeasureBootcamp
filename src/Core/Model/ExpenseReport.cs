@@ -25,7 +25,7 @@ namespace ClearMeasure.Bootcamp.Core.Model
         public DateTime? LastApproved { get; set; }
         public DateTime? LastDeclined { get; set; }
         public decimal Total { get; set; }
-
+        public DateTime? ExpenseDate { get; set; }
         public ExpenseReport()
         {
             Status = ExpenseReportStatus.Draft;

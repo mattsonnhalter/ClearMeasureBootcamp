@@ -77,6 +77,7 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="scripts\Update\0014-Alter-ExpenseReport-Add-ExpenseDate.sql" />
     <None Include="App.config" />
     <Content Include="Deploy.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

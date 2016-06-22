@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using ClearMeasure.Bootcamp.Core.Model;
 using UI.Models;
+using System;
 
 namespace ClearMeasure.Bootcamp.UI.Models
 {
@@ -37,6 +38,11 @@ namespace ClearMeasure.Bootcamp.UI.Models
         [Required]
         [DataType(DataType.Currency)]
         public decimal Total { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? ExpenseDate { get; set; }
 
         public bool IsReadOnly { get; set; }
         public bool CanReassign { get; set; }

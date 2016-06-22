@@ -10,7 +10,6 @@
 @{
     ViewBag.Title = "New ExpenseReport";
 }
-
 <div class="well">
     <form method="POST" class="form-horizontal">
     <fieldset>
@@ -63,6 +62,19 @@
                 else
                 {
                     @Html.TextAreaFor(x => x.Description, new {rows = "3", @class = "form-control", disabled = "disabled"})
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(x => x.ExpenseDate, new { @class = "col-lg-2 control-label" })
+            <div class="col-lg-10">
+                @if (!Model.IsReadOnly)
+                {
+                    @Html.EditorFor(x => x.ExpenseDate, new { @class = "form-control", placeholder = "ExpenseDate" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(x => x.ExpenseDate, new { @class = "form-control", disabled = "disabled" })
                 }
             </div>
         </div>
