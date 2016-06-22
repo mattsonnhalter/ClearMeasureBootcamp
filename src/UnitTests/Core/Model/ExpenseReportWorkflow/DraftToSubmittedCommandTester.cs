@@ -19,107 +19,107 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model.ExpenseReportWorkflow
         [Test]
         public void ShouldBeValid()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Submitter = employee;
+            report.Submitter = employee;
 
             var command = new DraftToSubmittedCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.True);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, employee, new DateTime())), Is.True);
         }
 
         [Test]
         public void ShouldNotBeValidInWrongStatus()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var command = new DraftToSubmittedCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.False);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, employee, new DateTime())), Is.False);
         }
 
         [Test]
         public void ShouldNotBeValidWithWrongEmployee()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Submitted;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Submitted;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var command = new DraftToSubmittedCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.False);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, employee, new DateTime())), Is.False);
         }
 
         [Test]
         public void ShouldTransitionStateProperly()
         {
-            var order = new ExpenseReport();
-            order.Number = "123";
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Number = "123";
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var command = new DraftToSubmittedCommand();
-            command.Execute(new ExecuteTransitionCommand(order, null, employee, new DateTime()));
+            command.Execute(new ExecuteTransitionCommand(report, null, employee, new DateTime()));
 
-            Assert.That(order.Status, Is.EqualTo(ExpenseReportStatus.Submitted));
+            Assert.That(report.Status, Is.EqualTo(ExpenseReportStatus.Submitted));
         }
 
         [Test]
         public void ShouldSetFirstSubmittedOnFirstSubmission()
         {
-            var order = new ExpenseReport();
-            order.Number = "123";
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Number = "123";
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var firstSubmitDate = new DateTime();
 
             var command = new DraftToSubmittedCommand();
-            command.Execute(new ExecuteTransitionCommand(order, null, employee, firstSubmitDate));
+            command.Execute(new ExecuteTransitionCommand(report, null, employee, firstSubmitDate));
 
-            Assert.That(order.FirstSubmitted, Is.EqualTo(firstSubmitDate));
-            Assert.That(order.LastSubmitted, Is.EqualTo(firstSubmitDate));
+            Assert.That(report.FirstSubmitted, Is.EqualTo(firstSubmitDate));
+            Assert.That(report.LastSubmitted, Is.EqualTo(firstSubmitDate));
         }
 
         [Test]
         public void ShouldSetLastSubmittedOnEachSubmission()
         {
-            var order = new ExpenseReport();
-            order.Number = "123";
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Number = "123";
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var firstSubmitDate = new DateTime(2015,01,01);
 
             var command = new DraftToSubmittedCommand();
-            command.Execute(new ExecuteTransitionCommand(order, null, employee, firstSubmitDate));
+            command.Execute(new ExecuteTransitionCommand(report, null, employee, firstSubmitDate));
 
-            Assert.That(order.FirstSubmitted, Is.EqualTo(firstSubmitDate));
-            Assert.That(order.LastSubmitted, Is.EqualTo(firstSubmitDate));
+            Assert.That(report.FirstSubmitted, Is.EqualTo(firstSubmitDate));
+            Assert.That(report.LastSubmitted, Is.EqualTo(firstSubmitDate));
 
             var secondSubmitDate = new DateTime(2015,02,02);
 
             var command2 = new DraftToSubmittedCommand();
-            command2.Execute(new ExecuteTransitionCommand(order, null, employee, secondSubmitDate));
+            command2.Execute(new ExecuteTransitionCommand(report, null, employee, secondSubmitDate));
 
-            Assert.That(order.FirstSubmitted, Is.EqualTo(firstSubmitDate));
-            Assert.That(order.LastSubmitted, Is.Not.EqualTo(firstSubmitDate));
-            Assert.That(order.LastSubmitted, Is.EqualTo(secondSubmitDate));
+            Assert.That(report.FirstSubmitted, Is.EqualTo(firstSubmitDate));
+            Assert.That(report.LastSubmitted, Is.Not.EqualTo(firstSubmitDate));
+            Assert.That(report.LastSubmitted, Is.EqualTo(secondSubmitDate));
 
             var thirdSubmitDate = new DateTime(2015,03,03);
 
             var command3 = new DraftToSubmittedCommand();
-            command3.Execute(new ExecuteTransitionCommand(order, null, employee, thirdSubmitDate));
+            command3.Execute(new ExecuteTransitionCommand(report, null, employee, thirdSubmitDate));
 
-            Assert.That(order.FirstSubmitted, Is.EqualTo(firstSubmitDate));
-            Assert.That(order.LastSubmitted, Is.Not.EqualTo(firstSubmitDate));
-            Assert.That(order.LastSubmitted, Is.Not.EqualTo(secondSubmitDate));
-            Assert.That(order.LastSubmitted, Is.EqualTo(thirdSubmitDate));
+            Assert.That(report.FirstSubmitted, Is.EqualTo(firstSubmitDate));
+            Assert.That(report.LastSubmitted, Is.Not.EqualTo(firstSubmitDate));
+            Assert.That(report.LastSubmitted, Is.Not.EqualTo(secondSubmitDate));
+            Assert.That(report.LastSubmitted, Is.EqualTo(thirdSubmitDate));
         }
     }
 }

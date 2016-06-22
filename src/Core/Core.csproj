@@ -91,12 +91,9 @@
     <Compile Include="Model\AuditEntry.cs" />
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\ExpenseReportWorkflow\SubmittedToApprovedCommand.cs" />
-    <Compile Include="Model\ExpenseReportWorkflow\SubmittedToDraftCommand.cs" />
     <Compile Include="Model\ExpenseReportWorkflow\DraftToCancelledCommand.cs" />
-    <Compile Include="Model\ExpenseReportWorkflow\ApprovedToCancelledCommand.cs" />
     <Compile Include="Model\ListItem.cs" />
     <Compile Include="Model\Role.cs" />
-    <Compile Include="Model\ExpenseReportWorkflow\ApprovedToSubmittedCommand.cs" />
     <Compile Include="Model\ExpenseReportWorkflow\DraftToSubmittedCommand.cs" />
     <Compile Include="Model\ExpenseReportWorkflow\DraftingCommand.cs" />
     <Compile Include="Model\ExpenseReportWorkflow\StateCommandBase.cs" />
