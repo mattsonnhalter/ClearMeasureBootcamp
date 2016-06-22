@@ -14,10 +14,8 @@ using StructureMap;
 
 namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess
 {
-    [TestFixture, Explicit, Ignore("scratch")]
     public class ScratchTester
     {
-        [Test]
         public void Foo1()
         {
             ISession session = DataContext.GetTransactedSession();
@@ -34,7 +32,6 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess
             }
         }
 
-        [Test]
         public void Foo3()
         {
             ISession session = DataContext.GetTransactedSession();
@@ -54,7 +51,6 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess
             }
         }
 
-        [Test]
         public void Foo4()
         {
             ISession session = DataContext.GetTransactedSession();
@@ -71,7 +67,6 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess
             }
         }
 
-        [Test]
         public void Foo5()
         {
             ISession session = DataContext.GetTransactedSession();
@@ -85,7 +80,6 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess
             Console.WriteLine(somefin);
         }
 
-        [Test]
         public void Foo6()
         {
             ISession session = DataContext.GetTransactedSession();
@@ -96,7 +90,6 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess
             session.Transaction.Commit();
         }
 
-        [Test]
         public void Foo8()
         {
             ISession session = DataContext.GetTransactedSession();
@@ -108,7 +101,6 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess
             }
         }
 
-        [Test]
         public void Foo11()
         {
             ISession session = DataContext.GetTransactedSession();
@@ -124,7 +116,6 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess
             }
         }
 
-        [Test]
         public void TestStructureMap()
         {
             var container = new Container(new StructureMapRegistry());
