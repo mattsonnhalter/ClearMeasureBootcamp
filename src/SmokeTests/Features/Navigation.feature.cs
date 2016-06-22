@@ -63,7 +63,7 @@ namespace ClearMeasure.Bootcamp.SmokeTests.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.TestAttribute() ]
         [NUnit.Framework.DescriptionAttribute("Link to correct page")]
         [NUnit.Framework.TestCaseAttribute("New", "New", new string[0])]
         [NUnit.Framework.TestCaseAttribute("Search", "Search", new string[0])]
