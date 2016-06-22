@@ -12,6 +12,7 @@ properties {
     $version = $env:Version
     $nunitPath = Resolve-Path("$source_dir\packages\NUnit.Console*\Tools")
     $specflowPath = Resolve-Path("$source_dir\packages\SpecFlow*\tools")
+	$teamcityoutput = ""
 
 	$build_dir = "$base_dir\build"
 	$test_dir = "$build_dir\test"
@@ -21,14 +22,11 @@ properties {
     $runOctoPack = $env:RunOctoPack
 
     $databaseName = $projectName
-    $databaseServer = if([Environment]::GetEnvironmentVariable("dbServer","User") -eq $null) { "localhost\SQLEXPRESS2014" } else { [Environment]::GetEnvironmentVariable("dbServer","User")}
+    $databaseServer = "localhost\SQLEXPRESS2014"
     $databaseScripts = "$source_dir\Database\scripts"
     $hibernateConfig = "$source_dir\hibernate.cfg.xml"
     $schemaDatabaseName = $databaseName + "_schema"
     $integratedSecurity = "Integrated Security=true"
-
-	$databaseUsername = "bootcamp"
-	$databasePassword = "9Db12345678"
     
     $connection_string = "server=$databaseserver;database=$databasename;$databaseUser;"
     $AliaSql = "$source_dir\Database\scripts\AliaSql.exe"
@@ -40,16 +38,21 @@ properties {
 }
 
 task default -depends Init, Compile, RebuildDatabase, Test, LoadData
-task ci -depends Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test
+task ci -depends CiInit, Init, CommonAssemblyInfo, ConnectionString, Compile, RebuildDatabase, Test
+
+task CiInit {
+	$script:teamcityoutput = "--teamcity"
+}
+
 task Init {
     delete_file $package_file
     delete_directory $build_dir
     create_directory $test_dir
     create_directory $build_dir
 
-    Write-Host $projectConfig
-    Write-Host $version
-    Write-Host $runOctoPack
+    #Write-Host $projectConfig
+    #Write-Host $version
+    #Write-Host $runOctoPack
 }
 
 task ConnectionString {
@@ -71,14 +74,14 @@ task Compile -depends Init {
 task Test -depends Compile, RebuildDatabase {
     copy_all_assemblies_for_test $test_dir
     exec {
-        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly --teamcity --workers=1 --noheader --result="$build_dir\TestResult.xml"`;format=nunit2
+        & $nunitPath\nunit3-console.exe $test_dir\$unitTestAssembly $test_dir\$integrationTestAssembly $script:teamcityoutput --workers=1 --noheader --result="$build_dir\TestResult.xml"`;format=nunit2
     }
 }
 
 task AcceptanceTest -depends Test {
     copy_all_assemblies_for_test $test_dir
 	exec {
-        & $nunitPath\nunit3-console.exe $test_dir\$acceptanceTestAssembly --teamcity --workers=1 --noheader --result="$build_dir\AcceptanceTestResult.xml"`;format=nunit2 --out="$build_dir\AcceptanceTestResult.txt"
+        & $nunitPath\nunit3-console.exe $test_dir\$acceptanceTestAssembly $script:teamcityoutput --workers=1 --noheader --result="$build_dir\AcceptanceTestResult.xml"`;format=nunit2 --out="$build_dir\AcceptanceTestResult.txt"
         & $specflowPath\specflow.exe nunitexecutionreport $acceptanceTestProject /xmlTestResult:"$build_dir\AcceptanceTestResult.xml" /testOutput:"$build_dir\AcceptanceTestResult.txt" /out:"$build_dir\AcceptanceTestResult.html"
 	}
 }
@@ -86,13 +89,6 @@ task AcceptanceTest -depends Test {
 task RebuildDatabase -depends ConnectionString {
     exec {
         & $AliaSql Rebuild $databaseServer $databaseName $databaseScripts
-    }
-}
-
-task RebuildRemoteDatabase {
-    write-host "Using database username: $databaseUsername"
-    exec {
-        & $AliaSql Rebuild $databaseServer $databaseName $databaseScripts $databaseUsername $databasePassword
     }
 }
 

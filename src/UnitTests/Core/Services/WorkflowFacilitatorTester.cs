@@ -30,15 +30,12 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Services
             var facilitator = new WorkflowFacilitator();
             IStateCommand[] commands = facilitator.GetAllStateCommands();
 
-            Assert.That(commands.Length, Is.EqualTo(7));
+            Assert.That(commands.Length, Is.EqualTo(4));
 
             Assert.That(commands[0], Is.InstanceOf(typeof (DraftingCommand)));
             Assert.That(commands[1], Is.InstanceOf(typeof (DraftToSubmittedCommand)));
-            Assert.That(commands[2], Is.InstanceOf(typeof (ApprovedToSubmittedCommand)));
-            Assert.That(commands[3], Is.InstanceOf(typeof(DraftToCancelledCommand)));
-            Assert.That(commands[4], Is.InstanceOf(typeof (ApprovedToCancelledCommand)));
-            Assert.That(commands[5], Is.InstanceOf(typeof(SubmittedToDraftCommand)));
-            Assert.That(commands[6], Is.InstanceOf(typeof(SubmittedToApprovedCommand)));
+            Assert.That(commands[2], Is.InstanceOf(typeof(DraftToCancelledCommand)));
+            Assert.That(commands[3], Is.InstanceOf(typeof(SubmittedToApprovedCommand)));
         }
 
         [Test]

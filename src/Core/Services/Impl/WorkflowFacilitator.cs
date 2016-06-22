@@ -20,10 +20,7 @@ namespace ClearMeasure.Bootcamp.Core.Services.Impl
             var commands = new List<IStateCommand>();
             commands.Add(new DraftingCommand());
             commands.Add(new DraftToSubmittedCommand());
-            commands.Add(new ApprovedToSubmittedCommand());
             commands.Add(new DraftToCancelledCommand());
-            commands.Add(new ApprovedToCancelledCommand());
-            commands.Add(new SubmittedToDraftCommand());
             commands.Add(new SubmittedToApprovedCommand());
             return commands.ToArray();
         }

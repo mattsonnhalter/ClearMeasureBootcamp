@@ -17,31 +17,31 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess.Mappings
 
             var creator = new Employee("1", "1", "1", "1");
             var assignee = new Employee("2", "2", "2", "2");
-            var order = new ExpenseReport();
-            order.Submitter = creator;
-            order.Approver = assignee;
-            order.Title = "foo";
-            order.Description = "bar";
-            order.ChangeStatus(ExpenseReportStatus.Approved);
-            order.Number = "123";
-            order.AddAuditEntry(new AuditEntry(creator, DateTime.Now, ExpenseReportStatus.Submitted,
+            var report = new ExpenseReport();
+            report.Submitter = creator;
+            report.Approver = assignee;
+            report.Title = "foo";
+            report.Description = "bar";
+            report.ChangeStatus(ExpenseReportStatus.Approved);
+            report.Number = "123";
+            report.AddAuditEntry(new AuditEntry(creator, DateTime.Now, ExpenseReportStatus.Submitted,
                                                   ExpenseReportStatus.Approved));
 
             using (ISession session = DataContext.GetTransactedSession())
             {
                 session.SaveOrUpdate(creator);
                 session.SaveOrUpdate(assignee);
-                session.SaveOrUpdate(order);
+                session.SaveOrUpdate(report);
                 session.Transaction.Commit();
             }
 
             ExpenseReport rehydratedExpenseReport;
             using (ISession session2 = DataContext.GetTransactedSession())
             {
-                rehydratedExpenseReport = session2.Load<ExpenseReport>(order.Id);
+                rehydratedExpenseReport = session2.Load<ExpenseReport>(report.Id);
             }
 
-            var x = order.GetAuditEntries()[0];
+            var x = report.GetAuditEntries()[0];
             var y = rehydratedExpenseReport.GetAuditEntries()[0];
             Assert.That(x.EndStatus, Is.EqualTo(y.EndStatus));
         }
@@ -53,30 +53,30 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess.Mappings
 
             var creator = new Employee("1", "1", "1", "1");
             var assignee = new Employee("2", "2", "2", "2");
-            var order = new ExpenseReport();
-            order.Submitter = creator;
-            order.Approver = assignee;
-            order.Title = "foo";
-            order.Description = "bar";
-            order.ChangeStatus(ExpenseReportStatus.Approved);
-            order.Number = "123";
-            order.AddExpense("howdy", 123.45m);
+            var report = new ExpenseReport();
+            report.Submitter = creator;
+            report.Approver = assignee;
+            report.Title = "foo";
+            report.Description = "bar";
+            report.ChangeStatus(ExpenseReportStatus.Approved);
+            report.Number = "123";
+            report.AddExpense("howdy", 123.45m);
 
             using (ISession session = DataContext.GetTransactedSession())
             {
                 session.SaveOrUpdate(creator);
                 session.SaveOrUpdate(assignee);
-                session.SaveOrUpdate(order);
+                session.SaveOrUpdate(report);
                 session.Transaction.Commit();
             }
 
             ExpenseReport rehydratedExpenseReport;
             using (ISession session2 = DataContext.GetTransactedSession())
             {
-                rehydratedExpenseReport = session2.Load<ExpenseReport>(order.Id);
+                rehydratedExpenseReport = session2.Load<ExpenseReport>(report.Id);
             }
 
-            Expense x = order.GetExpenses()[0];
+            Expense x = report.GetExpenses()[0];
             Expense y = rehydratedExpenseReport.GetExpenses()[0];
             Assert.That(x.Description, Is.EqualTo(y.Description));
             Assert.That(x.Amount, Is.EqualTo(y.Amount));

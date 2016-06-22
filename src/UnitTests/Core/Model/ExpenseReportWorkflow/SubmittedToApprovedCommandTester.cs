@@ -12,105 +12,105 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model.ExpenseReportWorkflow
         [Test]
         public void ShouldNotBeValidInWrongStatus()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var command = new SubmittedToApprovedCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.False);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, employee, new DateTime())), Is.False);
         }
 
         [Test]
         public void ShouldNotBeValidWithWrongEmployee()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Submitted;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Submitted;
             var employee = new Employee();
             var approver = new Employee();
-            order.Approver = approver;
+            report.Approver = approver;
 
             var command = new SubmittedToApprovedCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.False);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, employee, new DateTime())), Is.False);
         }
 
         [Test]
         public void ShouldNotBeValidWithWrongApprover()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Submitted;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Submitted;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
             var differentEmployee = new Employee();
            
             var command = new SubmittedToApprovedCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, differentEmployee, new DateTime())), Is.False);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, differentEmployee, new DateTime())), Is.False);
         }
 
         [Test]
         public void ShouldBeValid()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Submitted;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Submitted;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var command = new SubmittedToApprovedCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.True);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, employee, new DateTime())), Is.True);
         }
 
         [Test]
         public void ShouldBeValidWithOnBehalfApprover()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Submitted;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Submitted;
             var manager = new Manager();
             var assistant = new Employee();
             manager.AdminAssistant = assistant;
-            order.Approver = manager;
+            report.Approver = manager;
 
             var command = new SubmittedToApprovedCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, assistant, new DateTime())), Is.True);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, assistant, new DateTime())), Is.True);
         }
 
         [Test]
         public void ShouldTransitionStateProperly()
         {
-            var order = new ExpenseReport();
-            order.Number = "123";
-            order.Status = ExpenseReportStatus.Submitted;
+            var report = new ExpenseReport();
+            report.Number = "123";
+            report.Status = ExpenseReportStatus.Submitted;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var command = new SubmittedToApprovedCommand();
-            command.Execute(new ExecuteTransitionCommand(order, null, employee, new DateTime()));
+            command.Execute(new ExecuteTransitionCommand(report, null, employee, new DateTime()));
 
-            Assert.That(order.Status, Is.EqualTo(ExpenseReportStatus.Approved));
+            Assert.That(report.Status, Is.EqualTo(ExpenseReportStatus.Approved));
         }
 
         [Test]
         public void ShouldSetLastApprovedEachTime()
         {
-            var order = new ExpenseReport();
-            order.Number = "123";
-            order.Status = ExpenseReportStatus.Submitted;
+            var report = new ExpenseReport();
+            report.Number = "123";
+            report.Status = ExpenseReportStatus.Submitted;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var approvedDate = new DateTime(2015,01,01);
 
             var command = new SubmittedToApprovedCommand();
-            command.Execute(new ExecuteTransitionCommand(order, null, employee, approvedDate));
+            command.Execute(new ExecuteTransitionCommand(report, null, employee, approvedDate));
 
-            Assert.That(order.LastApproved, Is.EqualTo(approvedDate));
+            Assert.That(report.LastApproved, Is.EqualTo(approvedDate));
 
             var approvedDate2 = new DateTime(2015, 02, 02);
 
             var command2 = new SubmittedToApprovedCommand();
-            command2.Execute(new ExecuteTransitionCommand(order, null, employee, approvedDate2));
+            command2.Execute(new ExecuteTransitionCommand(report, null, employee, approvedDate2));
 
-            Assert.That(order.LastApproved, Is.Not.EqualTo(approvedDate));
-            Assert.That(order.LastApproved, Is.EqualTo(approvedDate2));
+            Assert.That(report.LastApproved, Is.Not.EqualTo(approvedDate));
+            Assert.That(report.LastApproved, Is.EqualTo(approvedDate2));
         }
         
         protected override StateCommandBase GetStateCommand(ExpenseReport order, Employee employee)
