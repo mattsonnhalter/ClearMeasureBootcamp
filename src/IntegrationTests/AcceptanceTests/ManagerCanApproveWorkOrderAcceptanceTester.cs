@@ -12,6 +12,12 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.AcceptanceTests
         }
 
         [Test]
+        public void ManagerCanWithdrawAWorkOrder()
+        {
+            Assert.IsTrue(true);
+        }
+
+        [Test]
         public void ManagerCanRejectAWorkOrder()
         {
             Assert.IsTrue(true);
