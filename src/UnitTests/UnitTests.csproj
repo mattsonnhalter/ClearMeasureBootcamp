@@ -90,6 +90,7 @@
     <Compile Include="Core\Model\EmployeeTester.cs" />
     <Compile Include="Core\Model\ExpenseReportWorkflow\SubmittedToApprovedCommandTester.cs" />
     <Compile Include="Core\Model\ExpenseReportWorkflow\DraftToCancelledCommandTester.cs" />
+    <Compile Include="Core\Model\ExpenseReportWorkflow\SubmittedToDraftCommandTester.cs" />
     <Compile Include="Core\Model\ManagerTester.cs" />
     <Compile Include="Core\Model\RoleTester.cs" />
     <Compile Include="Core\Model\ExpenseReportWorkflow\DraftToSubmittedCommandTester.cs" />
