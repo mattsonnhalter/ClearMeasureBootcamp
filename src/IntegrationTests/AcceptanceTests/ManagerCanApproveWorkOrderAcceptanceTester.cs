@@ -2,7 +2,7 @@
 
 namespace ClearMeasure.Bootcamp.IntegrationTests.AcceptanceTests
 {
-    [TestFixture, Explicit, Category("AcceptanceTests")]
+    [TestFixture, Category("AcceptanceTests")]
     public class ManagerCanManageWorkOrderAcceptanceTester
     {
         [Test]
