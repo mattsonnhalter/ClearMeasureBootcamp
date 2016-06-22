@@ -25,6 +25,7 @@ namespace ClearMeasure.Bootcamp.DataAccess.Mappings
             Map(x => x.LastApproved).Column("LastApproved");
             Map(x => x.LastDeclined).Column("LastDeclined");
             Map(x => x.Total).Column("Total");
+            Map(x => x.ExpenseDate).Column("ExpenseDate");
 
             References(x => x.Submitter).Column("SubmitterId");
             References(x => x.Approver).Column("ApproverId");

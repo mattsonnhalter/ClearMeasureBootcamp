@@ -23,19 +23,19 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Services
             Assert.That(commands.Length, Is.EqualTo(0));
         }
 
-
         [Test]
         public void ShouldReturnAllStateCommandsInCorrectOrder()
         {
             var facilitator = new WorkflowFacilitator();
             IStateCommand[] commands = facilitator.GetAllStateCommands();
 
-            Assert.That(commands.Length, Is.EqualTo(4));
+            Assert.That(commands.Length, Is.EqualTo(5));
 
             Assert.That(commands[0], Is.InstanceOf(typeof (DraftingCommand)));
             Assert.That(commands[1], Is.InstanceOf(typeof (DraftToSubmittedCommand)));
             Assert.That(commands[2], Is.InstanceOf(typeof(DraftToCancelledCommand)));
             Assert.That(commands[3], Is.InstanceOf(typeof(SubmittedToApprovedCommand)));
+            Assert.That(commands[4], Is.InstanceOf(typeof(WithdrawToDraft)));
         }
 
         [Test]

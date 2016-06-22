@@ -61,6 +61,7 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.DataAccess.Mappings
             report.ChangeStatus(ExpenseReportStatus.Approved);
             report.Number = "123";
             report.AddExpense("howdy", 123.45m);
+            report.ExpenseDate = DateTime.Now.ToString();
 
             using (ISession session = DataContext.GetTransactedSession())
             {
