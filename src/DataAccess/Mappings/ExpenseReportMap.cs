@@ -16,6 +16,7 @@ namespace ClearMeasure.Bootcamp.DataAccess.Mappings
             Map(x => x.Description).Not.Nullable().Length(4000);
             Map(x => x.Status).Not.Nullable().CustomType<ExpenseReportStatusType>();
             // New property mappings
+            Map(x => x.ExpenseDate).Column("ExpenseDate");
             Map(x => x.MilesDriven).Column("MilesDriven");
             Map(x => x.Created).Column("Created");
             Map(x => x.FirstSubmitted).Column("FirstSubmitted");

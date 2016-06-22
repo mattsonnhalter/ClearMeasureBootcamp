@@ -96,6 +96,7 @@
     <Content Include="scripts\Update\0002-Create-Employee-Table.sql" />
     <Content Include="scripts\Update\0003-Create-EmployeeRoles-Table.sql" />
     <Content Include="scripts\Update\0004-Create-Opportunity-Table.sql" />
+    <Content Include="scripts\Update\0014-Alter-ExpenseReport-Add-Expensdate.sql" />
     <Content Include="scripts\Update\0013-Create-Expense-Table.sql" />
     <Content Include="scripts\Update\0005-Create-AuditEntry-Table.sql" />
     <Content Include="scripts\Update\0006-Trim-Schema-For-New-Exercise.sql" />

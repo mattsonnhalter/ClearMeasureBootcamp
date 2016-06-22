@@ -18,6 +18,7 @@ namespace ClearMeasure.Bootcamp.Core.Model
         // New Properties
         public int MilesDriven { get; set; }
         public DateTime? Created { get; set; }
+        public DateTime? ExpenseDate { get; set; }
         public DateTime? FirstSubmitted { get; set; }
         public DateTime? LastSubmitted { get; set; }
         public DateTime? LastWithdrawn { get; set; }

@@ -54,6 +54,20 @@
         </div>
     </div>
         <div class="form-group">
+            @Html.LabelFor(x => x.ExpenseDate, new { @class = "col-lg-2 control-label" })
+            <div class="col-lg-10">
+
+                @if (!Model.IsReadOnly)
+            {
+                    @Html.TextBoxFor(x => x.ExpenseDate, "{0:yyyy-MM-dd}", new { @class = "form-control", placeholder = "Date", type="date" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(x => x.ExpenseDate, "{0:yyyy-MM-dd}", new { @class = "form-control", disabled = "disabled" })
+                }
+            </div>
+        </div>
+        <div class="form-group">
             @Html.LabelFor(x => x.Description, new {@class = "col-lg-2 control-label"})
             <div class="col-lg-10">
                 @if (!Model.IsReadOnly)

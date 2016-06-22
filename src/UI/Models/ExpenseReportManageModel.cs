@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using ClearMeasure.Bootcamp.Core.Model;
 using UI.Models;
+using System;
 
 namespace ClearMeasure.Bootcamp.UI.Models
 {
@@ -29,6 +30,10 @@ namespace ClearMeasure.Bootcamp.UI.Models
 
         [Required]
         public string Title { get; set; }
+
+        [Required]
+        [DisplayName("Expense Date")]
+        public DateTime? ExpenseDate { get; set; }
 
         [Required]
         [DataType(DataType.MultilineText)]
