@@ -138,6 +138,8 @@ namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
             SatisfyLoginCondition(false);
         }
 
+
+
         private void SatisfyLoginCondition(bool loggedIn)
         {
             if (!_driver.Title.StartsWith("Login", StringComparison.CurrentCulture))
@@ -189,7 +191,25 @@ namespace ClearMeasure.Bootcamp.SmokeTests.StepDefinitions
         {
             var completeUrl = HomePage + SmokeTestPageUrls.PageUrls[page];
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(30));
-            wait.Until(d => d.Url.Equals(completeUrl, StringComparison.Ordinal));
+            wait.Until(d => d.Url.ToLower().Contains(SmokeTestPageUrls.PageUrls[page].ToLower()));
+        }
+
+        [When]
+        public void WhenICreateANewExpenseReport()
+        {
+            var link = _driver.FindElement(By.LinkText("New"));
+            link.Click();
+        }
+
+        [When]
+        public void WhenISubmitTheExpenseReport()
+        {
+            _driver.FindElement(By.Name("Title")).SendKeys("title");
+            _driver.FindElement(By.Name("Description")).SendKeys("description");
+            _driver.FindElement(By.Name("Total")).SendKeys("123");
+            
+            var button = _driver.FindElement(By.XPath("//button[contains(text(), 'Submit')]"));
+            button.Click();
         }
     }
 }
