@@ -88,6 +88,7 @@
     </Compile>
     <Compile Include="Core\Model\AuditEntryTester.cs" />
     <Compile Include="Core\Model\EmployeeTester.cs" />
+    <Compile Include="Core\Model\ExpenseReportWorkflow\ApprovedToWithdrawTester.cs" />
     <Compile Include="Core\Model\ExpenseReportWorkflow\SubmittedToApprovedCommandTester.cs" />
     <Compile Include="Core\Model\ExpenseReportWorkflow\DraftToCancelledCommandTester.cs" />
     <Compile Include="Core\Model\ManagerTester.cs" />
