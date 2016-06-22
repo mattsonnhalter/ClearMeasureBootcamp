@@ -22,6 +22,7 @@ namespace ClearMeasure.Bootcamp.Core.Services.Impl
             commands.Add(new DraftToSubmittedCommand());
             commands.Add(new DraftToCancelledCommand());
             commands.Add(new SubmittedToApprovedCommand());
+            commands.Add(new ApprovedToWithdrawCommand());
             return commands.ToArray();
         }
     }

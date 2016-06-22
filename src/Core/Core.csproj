@@ -74,6 +74,7 @@
     <Compile Include="Features\MutlipleExpenses\AddExpenseCommand.cs" />
     <Compile Include="Features\MutlipleExpenses\AddExpenseResult.cs" />
     <Compile Include="Features\SearchExpenseReports\ExpenseReportSpecificationQuery.cs" />
+    <Compile Include="Model\ExpenseReportWorkflow\ApprovedToWithdraw.cs" />
     <Compile Include="Model\Expense.cs" />
     <Compile Include="Plugins\DataAccess\ExpenseReportByNumberQuery.cs" />
     <Compile Include="Plugins\DataAccess\ExpenseReportSaveCommand.cs" />
