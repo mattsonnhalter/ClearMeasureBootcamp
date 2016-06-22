@@ -106,6 +106,7 @@
     <Compile Include="Services\ICalendar.cs" />
     <Compile Include="Services\Impl\ApplicationInformation.cs" />
     <Compile Include="Services\Impl\Calendar.cs" />
+    <Compile Include="Model\ExpenseReportWorkflow\ApprovedToDraftCommand.cs" />
     <Compile Include="Services\Impl\WorkflowFacilitator.cs" />
     <Compile Include="Services\Impl\ExpenseReportBuilder.cs" />
     <Compile Include="Services\Impl\NumberGenerator.cs" />
