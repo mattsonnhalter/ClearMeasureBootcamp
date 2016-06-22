@@ -30,8 +30,8 @@ namespace ClearMeasure.Bootcamp.Core.Model.ExpenseReportWorkflow
 
             string loweredTransitionVerb = TransitionVerbPastTense.ToLower();
             string reportNumber = transitionCommand.Report.Number;
-            string message = string.Format("You have {0} work order {1}", loweredTransitionVerb, reportNumber);
-            string debugMessage = string.Format("{0} has {1} work order {2}", currentUserFullName, loweredTransitionVerb,
+            string message = string.Format("You have {0} expense report {1}", loweredTransitionVerb, reportNumber);
+            string debugMessage = string.Format("{0} has {1} expense report {2}", currentUserFullName, loweredTransitionVerb,
                 reportNumber);
 
             return new ExecuteTransitionResult {NewStatus = GetEndStatus().FriendlyName

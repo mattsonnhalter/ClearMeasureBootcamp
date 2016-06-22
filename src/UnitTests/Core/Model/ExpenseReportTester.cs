@@ -26,9 +26,9 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model
         [Test]
         public void ToStringShouldReturnNumber()
         {
-            var order = new ExpenseReport();
-            order.Number = "456";
-            Assert.That(order.ToString(), Is.EqualTo("ExpenseReport 456"));
+            var report = new ExpenseReport();
+            report.Number = "456";
+            Assert.That(report.ToString(), Is.EqualTo("ExpenseReport 456"));
         }
 
         [Test]

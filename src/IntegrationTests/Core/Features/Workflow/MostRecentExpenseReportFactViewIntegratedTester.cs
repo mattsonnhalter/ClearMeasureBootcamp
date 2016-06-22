@@ -71,7 +71,7 @@ namespace ClearMeasure.Bootcamp.IntegrationTests.Core.Features.Workflow
             for (int i = 0; i < 25; i++)
             {
                 RunToDraft(new NumberGenerator().GenerateNumber(), employee, 13*i, startingDate.AddMinutes(i), "Save", "Submit",
-                    "Withdraw", "Submit", "Approve");
+                    "Approve");
             }
         }
 

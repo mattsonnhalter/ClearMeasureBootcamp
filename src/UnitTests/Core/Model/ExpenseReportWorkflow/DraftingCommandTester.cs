@@ -19,52 +19,52 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model.ExpenseReportWorkflow
         [Test]
         public void ShouldBeValid()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Submitter = employee;
+            report.Submitter = employee;
 
             var command = new DraftingCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.True);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, employee, new DateTime())), Is.True);
         }
 
         [Test]
         public void ShouldNotBeValidInWrongStatus()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Submitted;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Submitted;
             var employee = new Employee();
-            order.Submitter = employee;
+            report.Submitter = employee;
 
             var command = new DraftingCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.False);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, employee, new DateTime())), Is.False);
         }
 
         [Test]
         public void ShouldNotBeValidWithWrongEmployee()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Submitter = employee;
+            report.Submitter = employee;
 
             var command = new DraftingCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, new Employee(), new DateTime())), Is.False);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, new Employee(), new DateTime())), Is.False);
         }
 
         [Test]
         public void ShouldTransitionStateProperly()
         {
-            var order = new ExpenseReport();
-            order.Number = "123";
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Number = "123";
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Submitter = employee;
+            report.Submitter = employee;
 
             var command = new DraftingCommand();
-            command.Execute(new ExecuteTransitionCommand(order, null, employee, new DateTime()));
+            command.Execute(new ExecuteTransitionCommand(report, null, employee, new DateTime()));
 
-            Assert.That(order.Status, Is.EqualTo(ExpenseReportStatus.Draft));
+            Assert.That(report.Status, Is.EqualTo(ExpenseReportStatus.Draft));
         }
 
     }

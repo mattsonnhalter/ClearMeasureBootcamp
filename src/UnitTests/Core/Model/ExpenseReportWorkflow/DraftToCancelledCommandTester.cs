@@ -23,66 +23,66 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model.ExpenseReportWorkflow
         [Test]
         public void ShouldBeValid()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Submitter = employee;
+            report.Submitter = employee;
 
             var command = new DraftToCancelledCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.True);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, employee, new DateTime())), Is.True);
         }
 
         [Test]
         public void ShouldNotBeValidInWrongStatus()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var command = new DraftToCancelledCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.False);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, employee, new DateTime())), Is.False);
         }
 
         [Test]
         public void ShouldSetLastCancelledOnExecute()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Cancelled;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Cancelled;
             DateTime cancelledDate = new DateTime(2015,6,30);
             var employee = new Employee();
-            order.Submitter = employee;
+            report.Submitter = employee;
 
             var command = new DraftToCancelledCommand();
-            command.Execute(new ExecuteTransitionCommand(order, null, employee, cancelledDate));
-            Assert.That(order.LastCancelled, Is.EqualTo(cancelledDate));
+            command.Execute(new ExecuteTransitionCommand(report, null, employee, cancelledDate));
+            Assert.That(report.LastCancelled, Is.EqualTo(cancelledDate));
         }
 
         [Test]
         public void ShouldNotBeValidWithWrongEmployee()
         {
-            var order = new ExpenseReport();
-            order.Status = ExpenseReportStatus.Cancelled;
+            var report = new ExpenseReport();
+            report.Status = ExpenseReportStatus.Cancelled;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var command = new DraftToCancelledCommand();
-            Assert.That(command.IsValid(new ExecuteTransitionCommand(order, null, employee, new DateTime())), Is.False);
+            Assert.That(command.IsValid(new ExecuteTransitionCommand(report, null, employee, new DateTime())), Is.False);
         }
 
         [Test]
         public void ShouldTransitionStateProperly()
         {
-            var order = new ExpenseReport();
-            order.Number = "123";
-            order.Status = ExpenseReportStatus.Draft;
+            var report = new ExpenseReport();
+            report.Number = "123";
+            report.Status = ExpenseReportStatus.Draft;
             var employee = new Employee();
-            order.Approver = employee;
+            report.Approver = employee;
 
             var command = new DraftToCancelledCommand();
-            command.Execute(new ExecuteTransitionCommand(order, null, employee, new DateTime()));
+            command.Execute(new ExecuteTransitionCommand(report, null, employee, new DateTime()));
 
-            Assert.That(order.Status, Is.EqualTo(ExpenseReportStatus.Cancelled));
+            Assert.That(report.Status, Is.EqualTo(ExpenseReportStatus.Cancelled));
         }
     }
 }

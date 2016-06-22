@@ -25,19 +25,18 @@ namespace ClearMeasure.Bootcamp.IntegrationTests
             //Person 1
             
             //Person 2
-            var jyeager = new Employee("jyeager", "jan", "yeager", "janscyeager@yahoo.com");
-            session.SaveOrUpdate(jyeager);
+            
             //Person 3
-            var brheutan = new Employee("brheutan", "Burton", "Rheutan", "Rheutan7@Gmail.com");
-            session.SaveOrUpdate(brheutan);
+            var damian = new Employee("damian", "Damian", "Brady", "damian@Gmail.com");
+            session.SaveOrUpdate(damian);
             
             //Person 4
             
             //Person 5
 
             //Person 6
-            var fyulnady = new Employee("fyulnady", "Fredy", "Yulnady", "fyulnady@boongroup.com");
-            session.SaveOrUpdate(fyulnady);
+            var paul = new Employee("paul", "Paul", "Stovell", "Paul@myemail.com");
+            session.SaveOrUpdate(paul);
             
             //Person 7
             
@@ -58,19 +57,19 @@ namespace ClearMeasure.Bootcamp.IntegrationTests
 
             foreach (ExpenseReportStatus status in ExpenseReportStatus.GetAllItems())
             {
-                var order = new ExpenseReport();
-                order.Number = Guid.NewGuid().ToString().Substring(0, 5).ToUpper();
-                order.Submitter = jpalermo;
-                order.Approver = jpalermo;
-                order.Status = status;
-                order.Title = "Work Order starting in status " + status;
-                order.Description = "Foo, foo, foo, foo " + status;
+                var report = new ExpenseReport();
+                report.Number = Guid.NewGuid().ToString().Substring(0, 5).ToUpper();
+                report.Submitter = jpalermo;
+                report.Approver = jpalermo;
+                report.Status = status;
+                report.Title = "Expense report starting in status " + status;
+                report.Description = "Foo, foo, foo, foo " + status;
                 new DateTime(2000, 1, 1, 8, 0, 0);
-                order.ChangeStatus(ExpenseReportStatus.Draft);
-                order.ChangeStatus(ExpenseReportStatus.Submitted);
-                order.ChangeStatus(ExpenseReportStatus.Approved);
+                report.ChangeStatus(ExpenseReportStatus.Draft);
+                report.ChangeStatus(ExpenseReportStatus.Submitted);
+                report.ChangeStatus(ExpenseReportStatus.Approved);
 
-                session.SaveOrUpdate(order);
+                session.SaveOrUpdate(report);
             }
 
             var order2 = new ExpenseReport();
@@ -78,7 +77,7 @@ namespace ClearMeasure.Bootcamp.IntegrationTests
             order2.Submitter = jpalermo;
             order2.Approver = jpalermo;
             order2.Status = ExpenseReportStatus.Approved;
-            order2.Title = "Work Order starting in status ";
+            order2.Title = "Expense report starting in status ";
             order2.Description = "Foo, foo, foo, foo ";
             new DateTime(2000, 1, 1, 8, 0, 0);
             session.SaveOrUpdate(order2);
