@@ -16,6 +16,7 @@ namespace ClearMeasure.Bootcamp.UnitTests.Core.Model
             Assert.That(report.Title, Is.EqualTo(string.Empty));
             Assert.That(report.Description, Is.EqualTo(string.Empty));
             Assert.That(report.Status, Is.EqualTo(ExpenseReportStatus.Draft));
+            Assert.That(report.ExpenseDate, Is.EqualTo(null));
             Assert.That(report.Number, Is.EqualTo(null));
             Assert.That(report.Submitter, Is.EqualTo(null));
             Assert.That(report.Approver, Is.EqualTo(null));
