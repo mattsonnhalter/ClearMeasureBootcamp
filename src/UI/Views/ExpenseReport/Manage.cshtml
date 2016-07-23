@@ -99,7 +99,7 @@
                             {
                                 foreach (IStateCommand command in Html.GetValidCommands((ExpenseReport)ViewBag.ExpenseReport, (Employee)ViewBag.CurrentUser))
                                 {
-                                    <button class="btn btn-default" type="submit" name="command" value="@command.TransitionVerbPresentTense">@command.TransitionVerbPresentTense</button>
+                                    <button class="btn btn-default" type="submit" name="command" value="@command.TransitionVerbPresentTense">@command.TransitionVerbPresentTense Button</button>
                                 }
                             }
                         </div>
