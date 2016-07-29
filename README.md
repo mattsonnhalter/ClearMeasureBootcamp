@@ -1,6 +1,6 @@
 # Clear Measure Bootcamp 
 
-**This project is the starting point for folks taking part in the Clear Measure 
+**This project is the starting point for folks taking part in the Clear Measure  
 Bootcamp.** 
 
 This course is a feature-driven walkthrough that guides participants through
