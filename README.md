@@ -1,4 +1,4 @@
-# Clear Measure Bootcamp 
+# Clear Measure Bootcamp  
 
 **This project is the starting point for folks taking part in the Clear Measure  
 Bootcamp.** 
