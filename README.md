@@ -13,7 +13,7 @@ and working through scenarios targetting 300- and 400-level developers.
 - Configure your db (see pre-requisites below)
 - Run the click to build script
 - **Build** the application in Visual Studio 2015
-- **Run** the application from VS 
+- **Run** the application from VS  
 
 ## Application Overview
 
